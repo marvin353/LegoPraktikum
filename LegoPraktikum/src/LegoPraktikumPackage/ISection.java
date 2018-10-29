@@ -11,4 +11,5 @@ public interface ISection {
   void onEnd();
   
   void setRunningState(boolean state);
+  
 }
