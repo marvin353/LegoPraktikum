@@ -15,26 +15,30 @@ public class MenuHandler implements Runnable{
 
 	@Override
 	public void run() {
+		menu.drawMenu();
 		while(true) {
-			menu.drawMenu();
-			int event = Button.waitForAnyEvent();
+			
+			int event = Button.getButtons();
 			switch(event) {
 			case Button.ID_UP:
 				menu.up();
+				menu.drawMenu();
 				break;
 			case Button.ID_DOWN:
 				menu.down();
+				menu.drawMenu();
 				break;
 			case Button.ID_ENTER:
-				robot.run(menu.getMarked());
+			  new Thread(new Runnable() {
+			    public void run() {
+			      robot.run(menu.getMarked());
+			    }
+			    }).start();
+			  
 				break;
 			default:
 				break;
 			}
-			
-			
 		}
-		
 	}
-
 }

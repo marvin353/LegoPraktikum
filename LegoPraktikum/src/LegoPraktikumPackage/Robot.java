@@ -16,7 +16,7 @@ import Sensors.SensorThread;
 import Sensors.SingleValueSensorWrapper;
 
 import Helpers.EV3Menu;
-
+import States.ISection;
 import States.LinieFahren;
 
 
@@ -30,6 +30,7 @@ public class Robot {
 		private final Port MEDIUM_MOTOR = MotorPort.C;
 		private final Port RIGHT_MOTOR = MotorPort.A;
 
+		//TODO Ueberall Touch Sensor 1 und 2 in Right und Left umbennenen!!!
 		private static final Port COLOR_SENSOR = SensorPort.S4;
 		private static final Port TOUCH_SENSOR_1 = SensorPort.S3;
 		private static final Port TOUCH_SENSOR_2 = SensorPort.S2;
@@ -96,6 +97,9 @@ public class Robot {
 			return 0;
 		}
 		
+		
+		
+		
 		//Set/Run State
 		public void run(Runnable section)
 		{
@@ -105,8 +109,6 @@ public class Robot {
 			sectionThread = new Thread(section);
 			sectionThread.run();
 		}
-		
-		
 		
 		//Drive
 		public void setLeftMotorSpeed(int motorSpeed) {
@@ -149,6 +151,13 @@ public class Robot {
 		
 		public int getTachoCountRightMotor() {
 			return rightMotor.getTachoCount();
+	
+		public void stopRightMotor() {
+			rightMotor.stop();
+		}
+		
+		public void stopLeftMotor() {
+			leftMotor.stop();
 		}
 		
 		

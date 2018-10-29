@@ -1,4 +1,4 @@
-package LegoPraktikumPackage;
+package States;
 
 public interface ISection {
   
