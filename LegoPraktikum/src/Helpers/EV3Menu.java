@@ -3,9 +3,7 @@ package Helpers;
 import java.util.HashMap;
 import java.util.Map;
 import lejos.hardware.lcd.LCD;
-
-import LegoPraktikumPackage.ISection;
-import LegoPraktikumPackage.LinieFahren;
+import States.ISection;
 import LegoPraktikumPackage.SECTION_ENUM;
 
 public class EV3Menu {
@@ -17,7 +15,7 @@ public class EV3Menu {
 		
    }
 	
-  private void addSection(SECTION_ENUM sectionID, ISection section) {
+  public void addSection(SECTION_ENUM sectionID, ISection section) {
 	  sectionMap.put(sectionID, section);
 	}
 	
@@ -25,9 +23,9 @@ public class EV3Menu {
 	  int index = 0;
 	  for(ISection sec: sectionMap.values()){
 	    if(index == markedIndex) {
-	      LCD.drawString(sec.getName(), 5, index * 10, true);
+	      LCD.drawString(sec.getName(), 0, index * 2, true);
 	    } else {
-	      LCD.drawString(sec.getName(), 5, index * 10, false);
+	      LCD.drawString(sec.getName(), 0, index * 2, false);
 	    }
 	    index++;
 	  }
