@@ -77,6 +77,32 @@ public class LinieFahren implements Runnable, ISection {
     while(running) {
     	
     	double brightness = robot.getSensors().getColor();
+    	
+    	int t_count_left_init = 0;
+    	int t_count_right_init = 0;
+    	
+    	if(brightness < 0.1) {
+    		count++;
+    	} else {
+    		t_count_left_init = 0;
+    		t_count_right_init = 0;
+    		count = 0;
+    	}
+    	
+        if (count >= 100) {  //Keine Ahnung welcher Wert hier gut ist
+    		//hier zählen anfangen
+        	t_count_left_init = robot.getTachoCountLeftMotor();
+        	t_count_right_init = robot.getTachoCountRightMotor();
+        	
+    	}
+    	
+    	if (count >= 1000) {  //Keine Ahnung welcher Wert hier gut ist
+    		
+    		int t_count_left = robot.getTachoCountLeftMotor();
+        	int t_count_right = robot.getTachoCountRightMotor();
+    		continueOnLineEnd(t_count_left - t_count_left_init, t_count_right - t_count_right_init);
+    	}
+    	
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         
         int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 130;
@@ -96,6 +122,44 @@ public class LinieFahren implements Runnable, ISection {
     }
     
     //onEnd();
+  }
+  int count;
+  Boolean lineFound = false;
+  int move_count = 0;
+  int degree = 10;
+  Boolean turnLeft = false;
+  
+  private void continueOnLineEnd(int t_count_left, int t_count_right) {
+	  
+	  //Move backward
+	  robot.setLeftMotorRotateTo(t_count_left * (-1));
+	  robot.setRightMotorRotateTo(t_count_right * (-1));
+	  
+	  //Find new line
+	  while (lineFound == false) {
+		  
+		  double brightness = robot.getSensors().getColor();
+		  
+		  if (brightness < 0.6 && brightness > 0.4) {
+			  lineFound = true;
+		  }
+		  
+		  if (move_count == 100) {
+			  if (turnLeft == true) {
+				  robot.setLeftMotorRotateTo(degree * move_count * (-1));
+			  } else {
+				  robot.setRightMotorRotateTo(degree * move_count * (-1));
+			  }
+		  } else {
+			  if (turnLeft == true) {
+				  move_count++;
+				  robot.setLeftMotorRotateTo(degree);
+			  } else {
+				  move_count++;
+				  robot.setRightMotorRotateTo(degree);
+			  }
+		  }
+	  }
   }
 
  

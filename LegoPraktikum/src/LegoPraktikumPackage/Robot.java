@@ -133,6 +133,23 @@ public class Robot {
 			rightMotor.backward();
 		}
 		
+		public void setLeftMotorRotateTo(int angle) {
+			leftMotor.stop();
+			leftMotor.rotate(angle);
+		}
+		
+		public void setRightMotorRotateTo(int angle) {
+			rightMotor.stop();
+			rightMotor.rotate(angle);
+		}
+		
+		public int getTachoCountLeftMotor() {
+			return leftMotor.getTachoCount();
+		}
+		
+		public int getTachoCountRightMotor() {
+			return rightMotor.getTachoCount();
+		}
 		
 		
 		// Getter und Setter
