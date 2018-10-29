@@ -30,6 +30,7 @@ public class Robot {
 		private final Port MEDIUM_MOTOR = MotorPort.C;
 		private final Port RIGHT_MOTOR = MotorPort.A;
 
+		//TODO Ueberall Touch Sensor 1 und 2 in Right und Left umbennenen!!!
 		private static final Port COLOR_SENSOR = SensorPort.S4;
 		private static final Port TOUCH_SENSOR_1 = SensorPort.S3;
 		private static final Port TOUCH_SENSOR_2 = SensorPort.S2;
