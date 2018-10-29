@@ -49,6 +49,8 @@ public class Robot {
 
 		//private Drive drive;
 		private LinieFahren linieFahren; 
+		private ISection currentSection;
+		private Thread sectionThread;
 
 		public Robot() {
 
@@ -95,11 +97,13 @@ public class Robot {
 		}
 		
 		//Set/Run State
-		public void runLinieFahren()
+		public void run(Runnable section)
 		{
-			changeSettingsForLineFollower();
-			this.linieFahren = new LinieFahren(this);
-			linieFahren.run();
+			if(sectionThread != null) {
+				sectionThread.stop();
+			}
+			sectionThread = new Thread(section);
+			sectionThread.run();
 		}
 		
 		

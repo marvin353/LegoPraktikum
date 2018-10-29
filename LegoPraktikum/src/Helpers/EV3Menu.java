@@ -3,6 +3,8 @@ package Helpers;
 import java.util.HashMap;
 import java.util.Map;
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.Button;
+
 
 import LegoPraktikumPackage.ISection;
 import LegoPraktikumPackage.SECTION_ENUM;
@@ -23,7 +25,7 @@ public class EV3Menu {
 	public void drawMenu() {
 	  int index = 0;
 	  for(ISection sec: sectionMap.values()){
-	    if(index == markedIndex) {
+	    if(index == markedIndex % sectionMap.size()) {
 	      LCD.drawString(sec.getName(), 0, index * 2, true);
 	    } else {
 	      LCD.drawString(sec.getName(), 0, index * 2, false);
@@ -32,16 +34,23 @@ public class EV3Menu {
 	  }
 	}
 	
-	public ISection getMarked() {
+	public Runnable getMarked() {
 	  int index = 0;
     for(ISection sec: sectionMap.values()){
       if(index == markedIndex) {
-        return sec;
+        return (Runnable) sec;
       }
       index++;
     }
     
     return null;
 }
-
+	
+	public void up(){
+		markedIndex++;
+	}
+	
+	public void down(){
+		markedIndex--;
+	}
 }

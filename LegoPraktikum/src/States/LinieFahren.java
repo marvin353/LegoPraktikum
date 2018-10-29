@@ -25,6 +25,7 @@ public class LinieFahren implements Runnable, ISection {
 
   public LinieFahren(Robot robot) {
 	  this.robot = robot;
+	  robot.changeSettingsForLineFollower();
   }
 
   @Override
