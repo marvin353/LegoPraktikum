@@ -2,7 +2,8 @@ package Helpers;
 
 import java.util.HashMap;
 import java.util.Map;
-import lejos.nxt.LCD;
+import lejos.hardware.lcd.LCD;
+
 
 import LegoPraktikumPackage.ISection;
 import LegoPraktikumPackage.SECTION_ENUM;
@@ -14,7 +15,7 @@ public class EV3Menu {
 	LCD lcd;
 	
 	public EV3Menu() {
-	  lcd = new LCD ();
+	  lcd = new LCD();
 	}
 	
 	public void addSection(SECTION_ENUM sectionID, ISection section) {

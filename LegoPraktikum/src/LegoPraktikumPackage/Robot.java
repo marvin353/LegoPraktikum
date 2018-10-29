@@ -13,17 +13,19 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
 import Sensors.SensorThread;
+import Sensors.SingleValueSensorWrapper;
 
-import mission.LineFollower;
-import mission.Mission;
-import mission.MissionMenu;
-import sensor.SingleValueSensorWrapper;
+import Helpers.EV3Menu;
+
+import States.LinieFahren;
+
+
 
 public class Robot {
 	
 	// Date need to be measured and adjusted
-		private final double WHEEL_DIAMETER = 3.2d; // unit:cm
-		private final double TRACK_WIDTH = 11d; // unit: cm
+		//private final double WHEEL_DIAMETER = 3.2d; // unit:cm
+		//private final double TRACK_WIDTH = 11d; // unit: cm
 		private final Port LEFT_MOTOR = MotorPort.A;
 		private final Port MEDIUM_MOTOR = MotorPort.C;
 		private final Port RIGHT_MOTOR = MotorPort.D;
@@ -33,19 +35,20 @@ public class Robot {
 		private static final Port TOUCH_SENSOR_2 = SensorPort.S3;
 		private static final Port ULTRASONIC_SENSOR = SensorPort.S4;
 
-		//private SensorThread sensors;
+		private SensorThread sensors;
 		private final EV3ColorSensor colorS = new EV3ColorSensor(COLOR_SENSOR);
 		private final EV3TouchSensor touchS1 = new EV3TouchSensor(TOUCH_SENSOR_1);
 		private final EV3TouchSensor touchS2 = new EV3TouchSensor(TOUCH_SENSOR_2);
 		private final EV3UltrasonicSensor ultraS = new EV3UltrasonicSensor(ULTRASONIC_SENSOR);
 		
-		//private MissionMenu missionMenu;
+		private EV3Menu menu;
 
 		private EV3LargeRegulatedMotor leftMotor;
 		private EV3LargeRegulatedMotor rightMotor;
 		private EV3MediumRegulatedMotor mediumMotor;
 
 		//private Drive drive;
+		private LinieFahren linieFahren; 
 
 		public Robot() {
 
@@ -53,23 +56,28 @@ public class Robot {
 			this.rightMotor = new EV3LargeRegulatedMotor(RIGHT_MOTOR);
 			this.mediumMotor = new EV3MediumRegulatedMotor(MEDIUM_MOTOR);
 
-			//SingleValueSensorWrapper color = new SingleValueSensorWrapper(colorS, "Red");
-			//SingleValueSensorWrapper touch1 = new SingleValueSensorWrapper(touchS1, "Touch");
-			//SingleValueSensorWrapper touch2 = new SingleValueSensorWrapper(touchS2, "Touch");
-			//SingleValueSensorWrapper distance = new SingleValueSensorWrapper(ultraS, "Distance");
+			SingleValueSensorWrapper color = new SingleValueSensorWrapper(colorS, "Red");
+			SingleValueSensorWrapper touch1 = new SingleValueSensorWrapper(touchS1, "Touch");
+			SingleValueSensorWrapper touch2 = new SingleValueSensorWrapper(touchS2, "Touch");
+			SingleValueSensorWrapper distance = new SingleValueSensorWrapper(ultraS, "Distance");
 
-			//this.sensors = new SensorThread(color, touch1, touch2, distance);
-			//this.missionMenu = new MissionMenu();
+			this.sensors = new SensorThread(color, touch1, touch2, distance);
+			new Thread(this.sensors).start();
+			
+			this.menu = new EV3Menu();
 			//this.drive = new Drive(this);
-
-			//new Thread(this.sensors).start();
+			
+			changeSettingsForLineFollower();
+			this.linieFahren = new LinieFahren(this);
+			linieFahren.run();
+			
 		}
 		
 		public void mainLoop() throws InterruptedException {
 			//// new Thread(this.sensors).start();
 			//Button.LEDPattern(1); // green light
 			//this.missionMenu.startGUI(this); // show menu on the brick's screen
-			//System.exit(0);
+			System.exit(0);
 		}
 		
 		public void changeSettingsForLabyrinth() {
@@ -78,12 +86,41 @@ public class Robot {
 		}
 		
 		public void changeSettingsForLineFollower() {
-			//this.sensors.setsColor(new SingleValueSensorWrapper(colorS, "Red"));
+			this.sensors.setsColor(new SingleValueSensorWrapper(colorS, "Red"));
 		}
 		
 		public int getColorID() {
 			//return this.colorS.getColorID();
+			return 0;
 		}
+		
+		
+		
+		//Drive
+		public void setLeftMotorSpeed(int motorSpeed) {
+		      leftMotor.setSpeed(motorSpeed);
+		}
+		
+		public void setRightMotorSpeed(int motorSpeed) {
+			rightMotor.setSpeed(motorSpeed);
+		}
+		
+		public void setLeftMotorGoForward() {
+			leftMotor.forward();
+		}
+		
+		public void setRightMotorGoForward() {
+			rightMotor.forward();
+		}
+		
+		public void setLeftMotorGoBackward() {
+			leftMotor.forward();
+		}
+		
+		public void setRightMotorGoBackward() {
+			rightMotor.forward();
+		}
+		
 		
 		
 		// Getter und Setter
@@ -95,12 +132,12 @@ public class Robot {
 			this.sensors = sensors;
 		}
 
-		public MissionMenu getMissionMenu() {
-			return missionMenu;
+		public EV3Menu getMissionMenu() {
+			return menu;
 		}
 
-		public void setMissionMenu(MissionMenu missionMenu) {
-			this.missionMenu = missionMenu;
+		public void setMissionMenu(EV3Menu menu) {
+			this.menu = menu;
 		}
 
 		public EV3LargeRegulatedMotor getLeftMotor() {

@@ -36,12 +36,6 @@ public class LinieFahren implements Runnable, ISection {
   public void onStart() {
 	
 	  //Check if other State thread is running 
-
-	  
-	  
-    colorSensor = new EV3ColorSensor(SensorPort.S4);
-    motorRight = new EV3LargeRegulatedMotor(MotorPort.A);
-    motorLeft = new EV3LargeRegulatedMotor(MotorPort.B);
     
   }
 
@@ -55,7 +49,7 @@ public class LinieFahren implements Runnable, ISection {
   public void run() {
     onStart();
     
-    while(running) {
+   /* while() {
       SensorMode color = colorSensor.getRedMode();
       float[] colorSample = new float[color.sampleSize()];
       color.fetchSample(colorSample, 0);
@@ -77,15 +71,36 @@ public class LinieFahren implements Runnable, ISection {
       if (speedMotorLeft < 0)
         motorLeft.forward();
       else motorLeft.backward();
+    }*/
+    
+    while(running) {
+    	
+    	double brightness = robot.getSensors().getColor();
+    	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
+        
+        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 60;
+        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 60;
+        
+        robot.setLeftMotorSpeed(speedMotorLeft);
+        robot.setRightMotorSpeed(speedMotorRight);
+        
+        if(speedMotorRight < 0)
+          robot.setRightMotorGoForward();
+        else robot.setRightMotorGoBackward();
+        
+        if (speedMotorLeft < 0)
+        	robot.setLeftMotorGoForward();
+        else robot.setLeftMotorGoBackward();
+    	
     }
     
-    onEnd();
+    //onEnd();
   }
 
  
   @Override
   public void setRunningState(boolean state) {
-    running = state;
+    //running = state;
     
   }
 
