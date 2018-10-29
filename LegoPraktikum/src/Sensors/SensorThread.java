@@ -37,6 +37,7 @@ public class SensorThread implements Runnable {
 		}
 	}
 
+	//TODO umbenennen in TouchRight und Left
 	public float getTouch1() {
 		return touch1;
 	}
