@@ -110,7 +110,7 @@ public class Robot {
 		
 		//Drive
 		public void setLeftMotorSpeed(int motorSpeed) {
-		      leftMotor.setSpeed(motorSpeed);
+		    leftMotor.setSpeed(motorSpeed);
 		}
 		
 		public void setRightMotorSpeed(int motorSpeed) {
@@ -126,11 +126,11 @@ public class Robot {
 		}
 		
 		public void setLeftMotorGoBackward() {
-			leftMotor.forward();
+			leftMotor.backward();
 		}
 		
 		public void setRightMotorGoBackward() {
-			rightMotor.forward();
+			rightMotor.backward();
 		}
 		
 		

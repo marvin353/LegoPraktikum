@@ -15,7 +15,7 @@ public class LinieFahren implements Runnable, ISection {
   private final String NAME = "Linie fahren";
   private static double LIGHT_SENSOR_WHITE_VALUE = 0.5; //typischerweise bum die 60
   private static double LIGHT_SENSOR_BLACK_VALUE = 0.05; //typischerweise um die 20
-  static int SPEED_FACTOR = 200;
+  static int SPEED_FACTOR = 650;
   
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
@@ -79,8 +79,8 @@ public class LinieFahren implements Runnable, ISection {
     	double brightness = robot.getSensors().getColor();
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         
-        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 60;
-        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 60;
+        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 130;
+        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 130;
         
         robot.setLeftMotorSpeed(speedMotorLeft);
         robot.setRightMotorSpeed(speedMotorRight);
