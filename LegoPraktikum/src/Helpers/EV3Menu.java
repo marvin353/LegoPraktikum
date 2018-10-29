@@ -25,7 +25,7 @@ public class EV3Menu {
 	public void drawMenu() {
 	  int index = 0;
 	  for(ISection sec: sectionMap.values()){
-	    if(index == markedIndex % sectionMap.size()) {
+	    if(index == markedIndex) {
 	      LCD.drawString(sec.getName(), 0, index * 2, true);
 	    } else {
 	      LCD.drawString(sec.getName(), 0, index * 2, false);
@@ -46,11 +46,12 @@ public class EV3Menu {
     return null;
 }
 	
-	public void up(){
-		markedIndex++;
+	public void up(){		
+		markedIndex = (markedIndex - 1) % sectionMap.size();
+		if (markedIndex < 0) markedIndex += sectionMap.size();
 	}
 	
 	public void down(){
-		markedIndex--;
+		markedIndex = (markedIndex + 1) % sectionMap.size();
 	}
 }
