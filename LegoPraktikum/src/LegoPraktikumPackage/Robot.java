@@ -16,7 +16,7 @@ import Sensors.SensorThread;
 import Sensors.SingleValueSensorWrapper;
 
 import Helpers.EV3Menu;
-
+import States.ISection;
 import States.LinieFahren;
 
 
@@ -26,14 +26,14 @@ public class Robot {
 	// Date need to be measured and adjusted
 		//private final double WHEEL_DIAMETER = 3.2d; // unit:cm
 		//private final double TRACK_WIDTH = 11d; // unit: cm
-		private final Port LEFT_MOTOR = MotorPort.A;
+		private final Port LEFT_MOTOR = MotorPort.B;
 		private final Port MEDIUM_MOTOR = MotorPort.C;
-		private final Port RIGHT_MOTOR = MotorPort.D;
+		private final Port RIGHT_MOTOR = MotorPort.A;
 
-		private static final Port COLOR_SENSOR = SensorPort.S1;
-		private static final Port TOUCH_SENSOR_1 = SensorPort.S2;
-		private static final Port TOUCH_SENSOR_2 = SensorPort.S3;
-		private static final Port ULTRASONIC_SENSOR = SensorPort.S4;
+		private static final Port COLOR_SENSOR = SensorPort.S4;
+		private static final Port TOUCH_SENSOR_1 = SensorPort.S3;
+		private static final Port TOUCH_SENSOR_2 = SensorPort.S2;
+		private static final Port ULTRASONIC_SENSOR = SensorPort.S1;
 
 		private SensorThread sensors;
 		private final EV3ColorSensor colorS = new EV3ColorSensor(COLOR_SENSOR);
@@ -49,6 +49,8 @@ public class Robot {
 
 		//private Drive drive;
 		private LinieFahren linieFahren; 
+		private ISection currentSection;
+		private Thread sectionThread;
 
 		public Robot() {
 
@@ -67,9 +69,9 @@ public class Robot {
 			this.menu = new EV3Menu();
 			//this.drive = new Drive(this);
 			
-			changeSettingsForLineFollower();
-			this.linieFahren = new LinieFahren(this);
-			linieFahren.run();
+			//changeSettingsForLineFollower();
+			//this.linieFahren = new LinieFahren(this);
+			//linieFahren.run();
 			
 		}
 		
@@ -94,11 +96,21 @@ public class Robot {
 			return 0;
 		}
 		
+		//Set/Run State
+		public void run(Runnable section)
+		{
+			if(sectionThread != null) {
+				sectionThread.stop();
+			}
+			sectionThread = new Thread(section);
+			sectionThread.run();
+		}
+		
 		
 		
 		//Drive
 		public void setLeftMotorSpeed(int motorSpeed) {
-		      leftMotor.setSpeed(motorSpeed);
+		    leftMotor.setSpeed(motorSpeed);
 		}
 		
 		public void setRightMotorSpeed(int motorSpeed) {
@@ -114,11 +126,11 @@ public class Robot {
 		}
 		
 		public void setLeftMotorGoBackward() {
-			leftMotor.forward();
+			leftMotor.backward();
 		}
 		
 		public void setRightMotorGoBackward() {
-			rightMotor.forward();
+			rightMotor.backward();
 		}
 		
 		
