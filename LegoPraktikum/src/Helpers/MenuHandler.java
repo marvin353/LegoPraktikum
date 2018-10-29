@@ -26,15 +26,15 @@ public class MenuHandler implements Runnable{
 				menu.down();
 				break;
 			case Button.ID_ENTER:
-				robot.run(menu.getMarked());
+			  new Thread(new Runnable() {
+			    public void run() {
+			      robot.run(menu.getMarked());
+			    }
+			    }).start();
 				break;
 			default:
 				break;
 			}
-			
-			
 		}
-		
 	}
-
 }

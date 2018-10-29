@@ -107,8 +107,6 @@ public class Robot {
 			sectionThread.run();
 		}
 		
-		
-		
 		//Drive
 		public void setLeftMotorSpeed(int motorSpeed) {
 		    leftMotor.setSpeed(motorSpeed);
