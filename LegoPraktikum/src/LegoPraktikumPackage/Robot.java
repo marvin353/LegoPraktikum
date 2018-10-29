@@ -97,6 +97,9 @@ public class Robot {
 			return 0;
 		}
 		
+		
+		
+		
 		//Set/Run State
 		public void run(Runnable section)
 		{
@@ -132,6 +135,13 @@ public class Robot {
 			rightMotor.backward();
 		}
 		
+		public void stopRightMotor() {
+			rightMotor.stop();
+		}
+		
+		public void stopLeftMotor() {
+			leftMotor.stop();
+		}
 		
 		
 		// Getter und Setter

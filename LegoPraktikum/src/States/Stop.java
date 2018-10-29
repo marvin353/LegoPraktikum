@@ -35,10 +35,8 @@ public class Stop implements Runnable, ISection{
 
 	@Override
 	public void run() {
-		robot.setLeftMotorSpeed(0);
-        robot.setRightMotorSpeed(0);
-        robot.setLeftMotorGoForward();
-        robot.setLeftMotorGoForward();
+		robot.stopLeftMotor();
+		robot.stopRightMotor();
 	}
 
 }
