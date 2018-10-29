@@ -1,11 +1,14 @@
-package LegoPraktikumPackage;
+package States;
 
 import lejos.utility.Delay;
+import LegoPraktikumPackage.ISection;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
+
+import LegoPraktikumPackage.Robot;
 
 public class LinieFahren implements Runnable, ISection {
   
@@ -17,7 +20,12 @@ public class LinieFahren implements Runnable, ISection {
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
   EV3LargeRegulatedMotor motorLeft;
+  
+  Robot robot;
 
+  public LinieFahren(Robot robot) {
+	  this.robot = robot;
+  }
 
   @Override
   public String getName() {
@@ -26,6 +34,11 @@ public class LinieFahren implements Runnable, ISection {
 
   @Override
   public void onStart() {
+	
+	  //Check if other State thread is running 
+
+	  
+	  
     colorSensor = new EV3ColorSensor(SensorPort.S4);
     motorRight = new EV3LargeRegulatedMotor(MotorPort.A);
     motorLeft = new EV3LargeRegulatedMotor(MotorPort.B);
