@@ -151,6 +151,7 @@ public class Robot {
 		
 		public int getTachoCountRightMotor() {
 			return rightMotor.getTachoCount();
+		}
 	
 		public void stopRightMotor() {
 			rightMotor.stop();

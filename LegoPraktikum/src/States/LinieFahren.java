@@ -90,6 +90,7 @@ public class LinieFahren implements Runnable, ISection {
     	
         if (count >= 100) {  //Keine Ahnung welcher Wert hier gut ist
     		//hier zählen anfangen
+        	System.out.println("Count >= 100");
         	t_count_left_init = robot.getTachoCountLeftMotor();
         	t_count_right_init = robot.getTachoCountRightMotor();
         	
@@ -97,6 +98,7 @@ public class LinieFahren implements Runnable, ISection {
     	
     	if (count >= 1000) {  //Keine Ahnung welcher Wert hier gut ist
     		
+    		System.out.println("Continue on Line End");
     		int t_count_left = robot.getTachoCountLeftMotor();
         	int t_count_right = robot.getTachoCountRightMotor();
     		continueOnLineEnd(t_count_left - t_count_left_init, t_count_right - t_count_right_init);
