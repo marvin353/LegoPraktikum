@@ -13,7 +13,7 @@ public class MainClass {
 		menu.addSection(SECTION_ENUM.LINIE, linie);
 		menu.drawMenu();
 		
-		//robot.runLinieFahren();
+		robot.runLinieFahren();
 		
 		
 		// TODO Auto-generated method stub
