@@ -31,23 +31,13 @@ public class LienieFahren {
 			float[] colorSample = new float[color.sampleSize()];
 			color.fetchSample(colorSample, 0);
 			
-			//readInBrightness soll zurückgeben welche Helligkeit gemessen wurde (soll Reflected Light Intensity von dem Lichtsensor auslesen)
-	        double brightness = colorSample[0];
+	    double brightness = colorSample[0];
 	        
-	        //Berechne relative Helligkeit als Wert zwischen 0 und 1
-	        double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
+	    double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
 	        
-	        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 60;
-	        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 60;
-	        //int speedMotorRight = 30;
-	        //int speedMotorLeft = 30;
-	        //speedMotorRight =  (int) ((-1) * (1-relativeBrightness) * SPEED_FACTOR);
-	        //int speedMotorLeft = (int) ((-1) * relativeBrightness * SPEED_FACTOR);
-	        
-	        
-	        //System.out.println("Brigthness is: " + brightness);
-	        
-	        //Set Motor Speeds
+	    int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 60;
+	    int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 60;
+	    
 			motorRight.setSpeed(speedMotorRight);
 			motorLeft.setSpeed(speedMotorLeft);
 			
