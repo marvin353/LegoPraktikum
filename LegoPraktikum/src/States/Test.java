@@ -37,8 +37,9 @@ public class Test implements Runnable, ISection{
 
 	@Override
 	public void run() {
-		robot.turnLeft(360);
-		robot.turnRight(360);
+		robot.turnLeft(90);
+		robot.goForwardByDegree(700, true);
+		robot.turnRight(90);
 		for (int i = 0; i < 1; i++) {
 			//robot.turnLeft(360);
 		}
