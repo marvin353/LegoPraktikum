@@ -99,6 +99,61 @@ public class LinieFahren implements Runnable, ISection {
     	} else {
     		blackFound = false;
     	}
+    	
+    	//hardcoded obstacle detection
+    	if(robot.getSensors().getTouch1() >= 1) {
+    	  //touch left
+    	  int initTachoCountLeft = robot.getTachoCountLeftMotor();
+        int initTachoCountRight = robot.getTachoCountRightMotor();
+        int deltaLeft = 0, deltaRight = 0;
+        while(deltaLeft <= 360 || deltaRight <= 360) {
+          robot.stopLeftMotor();
+          robot.setRightMotorSpeed(100);
+          
+          robot.setRightMotorGoBackward();
+          
+          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
+          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+        }
+        initTachoCountLeft = robot.getTachoCountLeftMotor();
+        initTachoCountRight = robot.getTachoCountRightMotor();
+        deltaLeft = 0;
+        deltaRight = 0;
+        while(deltaLeft <= 720 || deltaRight <= 720) {
+          robot.setLeftMotorSpeed(100);
+          robot.setRightMotorSpeed(100);
+          
+          robot.setRightMotorGoForward();
+          robot.setLeftMotorGoForward();
+          
+          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
+          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+        }
+        initTachoCountLeft = robot.getTachoCountLeftMotor();
+        initTachoCountRight = robot.getTachoCountRightMotor();
+        deltaLeft = 0;
+        deltaRight = 0;
+        while(deltaLeft <= 360 || deltaRight <= 360) {
+          robot.stopLeftMotor();
+          robot.setRightMotorSpeed(100);
+          
+          robot.setRightMotorGoForward();
+          
+          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
+          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+        }
+        while(brightness <= 0.1) {
+          robot.setLeftMotorSpeed(100);
+          robot.setRightMotorSpeed(100);
+          
+          robot.setRightMotorGoForward();
+          robot.setLeftMotorGoForward();
+        }
+        
+    	} else if(robot.getSensors().getTouch2() >= 1) {
+    	  //touch right
+    	}
+    	
     	/*
     	//int t_count_left_init = 0;
     	//int t_count_right_init = 0;
