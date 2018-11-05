@@ -77,15 +77,40 @@ public class LinieFahren implements Runnable, ISection {
     	
     	double brightness = robot.getSensors().getColor();
     	
-    	int t_count_left_init = 0;
-    	int t_count_right_init = 0;
+    	boolean blackFound = false;
+    	int startTachoCountLeft = 0, startTachoCountRight = 0;
+    	
+    	if(brightness <= 0.1) {
+    		if (!blackFound) {
+    			startTachoCountLeft = robot.getTachoCountLeftMotor();
+        		startTachoCountRight = robot.getTachoCountRightMotor();
+        		blackFound = true;
+    		} else {
+    			int curTachoCountLeft = robot.getTachoCountLeftMotor();
+    			int curTachoCountRight = robot.getTachoCountRightMotor();
+    			
+    			int deltaLeft = curTachoCountLeft - startTachoCountLeft;
+    			int deltaRight = curTachoCountRight - startTachoCountRight;
+    			
+    			if (deltaLeft >= 720 || deltaRight >= 720) {
+    				continueOnLineEnd(deltaLeft, deltaRight);
+    			}
+    		}    		
+    	} else {
+    		blackFound = false;
+    	}
+    	/*
+    	//int t_count_left_init = 0;
+    	//int t_count_right_init = 0;
     	
     	if(brightness < 0.1) {
-    		count++;
+    		//robot.getLeftMotor().resetTachoCount();
+    		//robot.getRightMotor().resetTachoCount();
+    		//count++;
     	} else {
-    		t_count_left_init = 0;
-    		t_count_right_init = 0;
-    		count = 0;
+    		//t_count_left_init = 0;
+    		//t_count_right_init = 0;
+    		//count = 0;
     	}
     	
         if (count >= 100) {  //Keine Ahnung welcher Wert hier gut ist
@@ -102,7 +127,7 @@ public class LinieFahren implements Runnable, ISection {
     		int t_count_left = robot.getTachoCountLeftMotor();
         	int t_count_right = robot.getTachoCountRightMotor();
     		continueOnLineEnd(t_count_left - t_count_left_init, t_count_right - t_count_right_init);
-    	}
+    	} */
     	
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         

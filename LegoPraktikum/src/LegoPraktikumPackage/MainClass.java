@@ -28,7 +28,7 @@ public class MainClass {
 		//robot.runLinieFahren();
 		
 		
-		// TODO Auto-generated method stub
+		
 		
 		
 		//Menu anzeigen
