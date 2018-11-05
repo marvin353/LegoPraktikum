@@ -186,6 +186,7 @@ public class Robot {
 			
 			int left = (int)(degree * factor);
 			int right = (int)(degree * factor * (-1));
+			while (this.isMoving()) {}
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left);
@@ -197,6 +198,7 @@ public class Robot {
 			
 			int right = (int)(degree * factor);
 			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {}
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left);
@@ -208,6 +210,7 @@ public class Robot {
 			
 			int left = (int)(degree * factor);
 			int right = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
@@ -219,6 +222,7 @@ public class Robot {
 			
 			int right = (int)(degree * factor);
 			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
