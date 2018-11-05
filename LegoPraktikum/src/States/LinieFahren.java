@@ -111,9 +111,9 @@ public class LinieFahren implements Runnable, ISection {
         int initTachoCountRight = robot.getTachoCountRightMotor();
         int deltaLeft = 0, deltaRight = 0;
         
-        while(Math.abs(deltaLeft) <= 360 || Math.abs(deltaRight) <= 360) {
+        while(Math.abs(deltaRight) <= 360) {
           robot.stopLeftMotor();
-          robot.setRightMotorSpeed(100);
+          robot.setRightMotorSpeed(200);
           
           robot.setRightMotorGoForward();
           
@@ -141,7 +141,7 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(Math.abs(deltaLeft) <= 360 || Math.abs(deltaRight) <= 360) {
+        while(Math.abs(deltaRight) <= 360) {
           robot.stopLeftMotor();
           robot.setRightMotorSpeed(200);
           
