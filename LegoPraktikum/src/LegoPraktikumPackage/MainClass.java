@@ -5,6 +5,7 @@ import Helpers.MenuHandler;
 import States.ISection;
 import States.LinieFahren;
 import States.Stop;
+import States.Test;
 import lejos.hardware.Button;
 
 
@@ -16,8 +17,10 @@ public class MainClass {
 	public static void main(String[] args) {
 		ISection linie = new LinieFahren(robot);
 		ISection stop = new Stop(robot);
+		ISection test = new Test(robot);
 		menu.addSection(SECTION_ENUM.LINIE, linie);
 		menu.addSection(SECTION_ENUM.STOP, stop);
+		menu.addSection(SECTION_ENUM.TEST, test);
 		
 		MenuHandler handler = new MenuHandler(menu, robot);
 		Thread t = new Thread(handler);
