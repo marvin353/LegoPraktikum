@@ -204,6 +204,7 @@ public class LinieFahren implements Runnable, ISection {
     
     //onEnd();
   }
+  
   int count;
   Boolean lineFound = false;
   int move_count = 0;
