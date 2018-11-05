@@ -141,7 +141,7 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(Math.abs(deltaRight) <= 360) {
+        while(Math.abs(deltaRight) <= 500) {
           robot.stopLeftMotor();
           robot.setRightMotorSpeed(200);
           
@@ -161,10 +161,7 @@ public class LinieFahren implements Runnable, ISection {
           robot.setLeftMotorGoBackward();
         }
         
-    	} else if(robot.getSensors().getTouch2() >= 1) {
-    	  //touch right
-    	}
-    	
+    	} 
     	/*
     	//int t_count_left_init = 0;
     	//int t_count_right_init = 0;
