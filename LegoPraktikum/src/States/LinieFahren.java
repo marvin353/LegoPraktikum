@@ -105,57 +105,60 @@ public class LinieFahren implements Runnable, ISection {
     	}
     	
     	//hardcoded obstacle detection
-    	if(robot.getSensors().getTouch1() >= 1) {
-    	  //touch left
+    	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
+    	  //touch left or right
     	  int initTachoCountLeft = robot.getTachoCountLeftMotor();
         int initTachoCountRight = robot.getTachoCountRightMotor();
         int deltaLeft = 0, deltaRight = 0;
-        LCD.drawString("Zurück", 0, 5);
-        while(Math.abs(deltaLeft) <= 360 || Math.abs(deltaRight) <= 360) {
+        
+        while(Math.abs(deltaRight) <= 360) {
           robot.stopLeftMotor();
-          robot.setRightMotorSpeed(100);
+          robot.setRightMotorSpeed(200);
+          
+          robot.setRightMotorGoForward();
+          
+          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
+          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+          LCD.drawString("Zurück LR: " + deltaLeft + " " + deltaRight, 0, 5);
+        }
+        initTachoCountLeft = robot.getTachoCountLeftMotor();
+        initTachoCountRight = robot.getTachoCountRightMotor();
+        deltaLeft = 0;
+        deltaRight = 0;
+        while(Math.abs(deltaLeft) <= 720 || Math.abs(deltaRight) <= 720) {
+          robot.setLeftMotorSpeed(200);
+          robot.setRightMotorSpeed(200);
+          
+          robot.setRightMotorGoBackward();
+          robot.setLeftMotorGoBackward();
+          
+          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
+          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+          LCD.drawString("Vorwärts LR: " + deltaLeft + " " + deltaRight, 0, 5);
+
+        }
+        initTachoCountLeft = robot.getTachoCountLeftMotor();
+        initTachoCountRight = robot.getTachoCountRightMotor();
+        deltaLeft = 0;
+        deltaRight = 0;
+        while(Math.abs(deltaRight) <= 360) {
+          robot.stopLeftMotor();
+          robot.setRightMotorSpeed(200);
           
           robot.setRightMotorGoBackward();
           
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-        }
-        initTachoCountLeft = robot.getTachoCountLeftMotor();
-        initTachoCountRight = robot.getTachoCountRightMotor();
-        deltaLeft = 0;
-        deltaRight = 0;
-        LCD.drawString("Vorwärts", 0, 5);
-        while(Math.abs(deltaLeft) <= 720 || Math.abs(deltaRight) <= 720) {
-          robot.setLeftMotorSpeed(200);
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoForward();
-          robot.setLeftMotorGoForward();
-          
-          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-        }
-        initTachoCountLeft = robot.getTachoCountLeftMotor();
-        initTachoCountRight = robot.getTachoCountRightMotor();
-        deltaLeft = 0;
-        deltaRight = 0;
-        LCD.drawString("Links drehen", 0, 5);
-        while(Math.abs(deltaLeft) <= 360 || Math.abs(deltaRight) <= 360) {
-          robot.stopLeftMotor();
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoForward();
-          
-          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightM0tor() - initTachoCountRight;
+          LCD.drawString("Links drehen LR: " + deltaLeft + " " + deltaRight, 0, 5);
+
         }
         LCD.drawString("Linie suchen", 0, 5);
         while(brightness <= 0.1) {
           robot.setLeftMotorSpeed(200);
           robot.setRightMotorSpeed(200);
           
-          robot.setRightMotorGoForward();
-          robot.setLeftMotorGoForward();
+          robot.setRightMotorGoBackward();
+          robot.setLeftMotorGoBackward();
         }
         
     	} else if(robot.getSensors().getTouch2() >= 1) {
