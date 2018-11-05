@@ -110,7 +110,8 @@ public class LinieFahren implements Runnable, ISection {
     	  int initTachoCountLeft = robot.getTachoCountLeftMotor();
         int initTachoCountRight = robot.getTachoCountRightMotor();
         int deltaLeft = 0, deltaRight = 0;
-        while(deltaLeft <= 360 || deltaRight <= 360) {
+        LCD.drawString("Zurück", 0, 5);
+        while(Math.abs(deltaLeft) <= 360 || Math.abs(deltaRight) <= 360) {
           robot.stopLeftMotor();
           robot.setRightMotorSpeed(100);
           
@@ -123,9 +124,10 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(deltaLeft <= 720 || deltaRight <= 720) {
-          robot.setLeftMotorSpeed(100);
-          robot.setRightMotorSpeed(100);
+        LCD.drawString("Vorwärts", 0, 5);
+        while(Math.abs(deltaLeft) <= 720 || Math.abs(deltaRight) <= 720) {
+          robot.setLeftMotorSpeed(200);
+          robot.setRightMotorSpeed(200);
           
           robot.setRightMotorGoForward();
           robot.setLeftMotorGoForward();
@@ -137,18 +139,20 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(deltaLeft <= 360 || deltaRight <= 360) {
+        LCD.drawString("Links drehen", 0, 5);
+        while(Math.abs(deltaLeft) <= 360 || Math.abs(deltaRight) <= 360) {
           robot.stopLeftMotor();
-          robot.setRightMotorSpeed(100);
+          robot.setRightMotorSpeed(200);
           
           robot.setRightMotorGoForward();
           
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+          deltaRight = robot.getTachoCountRightM0tor() - initTachoCountRight;
         }
+        LCD.drawString("Linie suchen", 0, 5);
         while(brightness <= 0.1) {
-          robot.setLeftMotorSpeed(100);
-          robot.setRightMotorSpeed(100);
+          robot.setLeftMotorSpeed(200);
+          robot.setRightMotorSpeed(200);
           
           robot.setRightMotorGoForward();
           robot.setLeftMotorGoForward();

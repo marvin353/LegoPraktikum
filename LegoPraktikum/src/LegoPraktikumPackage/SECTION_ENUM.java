@@ -5,5 +5,6 @@ public enum SECTION_ENUM {
   PAKET,
   RAMPE,
   SUCHE,
-  STOP
+  STOP,
+  TEST
 }
