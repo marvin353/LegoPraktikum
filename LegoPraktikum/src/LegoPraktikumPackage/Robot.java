@@ -146,12 +146,12 @@ public class Robot {
 		}
 		
 		public void setLeftMotorRotateAsync(int angle) {
-			leftMotor.stop();
+			leftMotor.stop(true);
 			leftMotor.rotate(angle,true);
 		}
 		
 		public void setRightMotorRotateAsync(int angle) {
-			rightMotor.stop();
+			rightMotor.stop(true);
 			rightMotor.rotate(angle,true);
 		}
 		
@@ -171,8 +171,16 @@ public class Robot {
 			leftMotor.stop();
 		}
 		
+		public void stopRightMotor(boolean async) {
+			rightMotor.stop(async);
+		}
+		
+		public void stopLeftMotor(boolean async) {
+			leftMotor.stop(async);
+		}
+		
+		double factor = 3.4;
 		public void turnLeft(int degree) {
-			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
@@ -184,7 +192,6 @@ public class Robot {
 		}
 		
 		public void turnRight(int degree) {
-			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
@@ -196,7 +203,6 @@ public class Robot {
 		}
 		
 		public void turnLeft(int degree, boolean async) {
-			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
@@ -208,7 +214,6 @@ public class Robot {
 		}
 		
 		public void turnRight(int degree, boolean async) {
-			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
@@ -217,6 +222,26 @@ public class Robot {
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
+		}
+		
+		public void goForwardByDegree(int degree, boolean async) {
+			rightMotor.stop(true);
+			leftMotor.stop(true);
+			
+			int right = (int)(degree * factor);
+			int left = (int)(degree * factor * (-1));
+					
+			int tcR_init = 0;
+			int tcL_init = 0;
+			tcR_init = rightMotor.getTachoCount();
+			tcR_init = leftMotor.getTachoCount();
+			
+			rightMotor.rotate(right, true);
+			leftMotor.rotate(left, true);
+			
+			while (leftMotor.getTachoCount() - tcR_init <= degree || rightMotor.getTachoCount() - tcR_init <= degree ) {
+				//wait
+			}
 		}
 		
 		//Sound
@@ -275,9 +300,9 @@ public class Robot {
 		public void setMediumMotor(EV3MediumRegulatedMotor mediumMotor) {
 			this.mediumMotor = mediumMotor;
 		}
-
+		
 		public boolean isMoving() {
-			return (leftMotor.isMoving() || rightMotor.isMoving());
-		}
+ 			return (leftMotor.isMoving() || rightMotor.isMoving());
+ 		}
 		
 }
