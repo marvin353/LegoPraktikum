@@ -171,6 +171,14 @@ public class Robot {
 			leftMotor.stop();
 		}
 		
+		public void stopRightMotor(boolean async) {
+			rightMotor.stop(async);
+		}
+		
+		public void stopLeftMotor(boolean async) {
+			leftMotor.stop(async);
+		}
+		
 		double factor = 3.4;
 		public void turnLeft(int degree) {
 			rightMotor.stop(true);

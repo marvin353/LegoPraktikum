@@ -223,8 +223,8 @@ public class LinieFahren implements Runnable, ISection {
 	  
 	  int leftMotorTachoCount = 0;
 	  int rightMotorTachoCount = 0;
-	  robot.stopLeftMotor();
-	  robot.stopRightMotor();
+	  robot.stopLeftMotor(true);
+	  robot.stopRightMotor(true);
 	  LCD.drawString("Line End!", 0, 5);
 	  Delay.msDelay(3000);
 	  
@@ -240,22 +240,22 @@ public class LinieFahren implements Runnable, ISection {
 	  
 	  LCD.drawString("Start Pos", 0, 5);
 	  Delay.msDelay(5000);
-	  
+	  LCD.drawString("Search Line!", 0, 5);
+	  Delay.msDelay(2000);
 	  //Find new line
-	  while (lineFound == false) {
-		  LCD.drawString("Search Line!", 0, 5);
-		  Delay.msDelay(2000);
+	  while (robot.getSensors().getColor() < 0.2) {
+		  /*
 		  double brightness = robot.getSensors().getColor();
 		  if (brightness > 0.3) {
 			  lineFound = true;
-			  LCD.drawString("LineFound!", 0, 5);
+			  LCD.drawString("Line Found!", 0, 5);
 			  Delay.msDelay(2000);
-		  }
-		  else { //Search for line
+		  }*/
+		   //Search for line
 			  
 			  if (stage == 0) {
 				  LCD.drawString("turn right", 0, 5);
-				  Delay.msDelay(2000);
+				  Delay.msDelay(4000);
 				  //Rotate 100 degrees to right
 				  robot.turnRight(100, true);
 				  stage++;
@@ -266,14 +266,14 @@ public class LinieFahren implements Runnable, ISection {
 				  if(!robot.isMoving()) {
 					  stage++;
 					  LCD.drawString("finished turn", 0, 5);
-					  Delay.msDelay(2000);
+					  Delay.msDelay(4000);
 				  }
 					  
 			  }
 			  
 			  else if (stage == 2) {
 				  LCD.drawString("turn left", 0, 5);
-				  Delay.msDelay(2000);
+				  Delay.msDelay(4000);
 				  //rotate 200 degrees to left
 				  robot.turnLeft(200, true);
 				  stage++;
@@ -283,14 +283,14 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage++;
 					  LCD.drawString("finished", 0, 5);
-					  Delay.msDelay(2000);
+					  Delay.msDelay(4000);
 				  }
 					  
 			  }
 			  
 			  if(stage == 4) {
 				  LCD.drawString("turn right", 0, 5);
-				  Delay.msDelay(2000);
+				  Delay.msDelay(4000);
 				 //Rotate 100 to right 
 				  robot.turnRight(100, true);
 					  stage++;
@@ -300,13 +300,13 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage++;
 					  LCD.drawString("finished", 0, 5);
-					  Delay.msDelay(2000);
+					  Delay.msDelay(4000);
 				  }
 			  }
 			  
 			  else if(stage == 6) {
 				  LCD.drawString("forward", 0, 5);
-				  Delay.msDelay(2000);
+				  Delay.msDelay(4000);
 				  //Move a bit forward
 				  robot.setLeftMotorSpeed(100);
 				  robot.setRightMotorSpeed(100);
@@ -325,10 +325,9 @@ public class LinieFahren implements Runnable, ISection {
 					  robot.stopLeftMotor();
 					  robot.stopRightMotor();
 					  stage ++;
-				  }
-				  LCD.drawString("Stop!", 0, 5);
-				  Delay.msDelay(2000);
-				  
+					  LCD.drawString("Stop!", 0, 5);
+					  Delay.msDelay(2000);
+				  }			  
 			  }
 			  else if(stage == 8) {
 				  if(!robot.isMoving())
@@ -338,7 +337,7 @@ public class LinieFahren implements Runnable, ISection {
 					  Delay.msDelay(2000);
 				  }					  
 			  }			  
-		  }		  
+		  	  
 	  }
   }
 
