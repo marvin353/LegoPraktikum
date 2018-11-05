@@ -243,7 +243,7 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(5000);
 	  LCD.drawString("Search Line!", 0, 5);
 	  Delay.msDelay(2000);
-	  robot.goForwardByDegree(80,true);
+	  robot.goForwardByDegree(80);
 	  //Find new line
 	  while (robot.getSensors().getColor() < 0.2) {
 		  /*
