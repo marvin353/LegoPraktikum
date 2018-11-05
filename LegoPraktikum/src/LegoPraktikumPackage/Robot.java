@@ -89,7 +89,7 @@ public class Robot {
 		}
 		
 		public void changeSettingsForLineFollower() {
-			this.sensors.setsColor(new SingleValueSensorWrapper(colorS, "Red"));
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
 		}
 		
 		public int getColorID() {
