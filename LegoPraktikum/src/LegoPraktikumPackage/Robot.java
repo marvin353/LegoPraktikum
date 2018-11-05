@@ -89,7 +89,7 @@ public class Robot {
 		}
 		
 		public void changeSettingsForLineFollower() {
-			this.sensors.setsColor(new SingleValueSensorWrapper(colorS, "Red"));
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
 		}
 		
 		public int getColorID() {
@@ -162,26 +162,31 @@ public class Robot {
 		}
 		
 		public void turnLeft(int degree) {
+			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
-			int right = degree * 4;
-			int left = degree * 4 * (-1);
+			int left = (int)(degree * factor);
+			int right = (int)(degree * factor * (-1));
 					
-			rightMotor.rotate(right);
-			leftMotor.rotate(left);
+			rightMotor.rotate(right, true);
+			leftMotor.rotate(left, true);
 		}
 		
 		public void turnRight(int degree) {
+			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
-			int right = degree * 4;
-			int left = degree * 4 * (-1);
+			int right = (int)(degree * factor);
+			int left = (int)(degree * factor * (-1));
 					
-			rightMotor.rotate(right);
-			leftMotor.rotate(left);
+			rightMotor.rotate(right, true);
+			leftMotor.rotate(left, true);
 		}
+		
+		//Sound
+		
 		
 		
 		// Getter und Setter
