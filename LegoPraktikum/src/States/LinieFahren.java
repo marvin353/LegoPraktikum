@@ -112,7 +112,7 @@ public class LinieFahren implements Runnable, ISection {
         int initTachoCountRight = robot.getTachoCountRightMotor();
         int deltaLeft = 0, deltaRight = 0;
         
-        while(Math.abs(deltaRight) <= 280) {
+        while(Math.abs(deltaRight) <= 300) {
           robot.stopLeftMotor();
           robot.setRightMotorSpeed(200);
           
@@ -126,7 +126,7 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(Math.abs(deltaLeft) <= 450 || Math.abs(deltaRight) <= 450) {
+        while(Math.abs(deltaLeft) <= 500 || Math.abs(deltaRight) <= 500) {
           robot.setLeftMotorSpeed(200);
           robot.setRightMotorSpeed(200);
           
@@ -142,11 +142,11 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(Math.abs(deltaLeft) <= 560) {
-          robot.stopRightMotor();
-          robot.setLeftMotorSpeed(200);
+        while(Math.abs(deltaRight) <= 800) {
+          robot.stopLeftMotor();
+          robot.setRightMotorSpeed(200);
           
-          robot.setLeftMotorGoForward();
+          robot.setRightMotorGoBackward();
           
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
@@ -234,7 +234,7 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.setRightMotorRotateAsync(t_count_right * (-1));
 	  
 	  
-	  int stage= 0;//encodes if we are turning right, left, or second time right
+	  int stage = 0;//encodes if we are turning right, left, or second time right
 	  while (robot.isMoving()){
 		  
 	  }
