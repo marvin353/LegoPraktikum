@@ -149,6 +149,7 @@ public class LinieFahren implements Runnable, ISection {
           
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
+
           LCD.drawString("Links drehen LR: " + deltaLeft + " " + deltaRight, 0, 5);
 
         }
@@ -221,6 +222,8 @@ public class LinieFahren implements Runnable, ISection {
   
   private void continueOnLineEnd(int t_count_left, int t_count_right) {
 	  
+	  int leftMotorTachoCount = 0;
+	  int rightMotorTachoCount = 0;
 	  robot.stopLeftMotor();
 	  robot.stopRightMotor();
 	  LCD.drawString("Line End!", 0, 5);
@@ -242,32 +245,53 @@ public class LinieFahren implements Runnable, ISection {
 		  }
 		  else { //Search for line
 			  
-			  
 			  if (stage == 0) {
 				  //Rotate 100 degrees to right
 				  stage++;
 			  }
 			  
+			  else if(stage == 1) {
+				  if(!robot.isMoving())
+					  stage++;
+			  }
 			  
-			  if (stage == 1) {
+			  else if (stage == 2) {
 				  //rotate 200 degrees to left
-				  stage++;
+				  
+					  stage++;
+			  }
+			  else if(stage == 3) {
+				  if(!robot.isMoving())
+					  stage++;
 			  }
 			  
-			  
-			  if(stage == 2) {
+			  if(stage == 4) {
 				 //Rotate 100 to right 
-				  stage++;
+				  if(!robot.isMoving())
+					  stage++;
+			  }
+			  else if(stage == 5) {
+				  if(!robot.isMoving())
+					  stage++;
 			  }
 			  
-			  if(stage == 3) {
+			  else if(stage == 6) {
 				  //Move a bit forward
 				  robot.setLeftMotorSpeed(100);
 				  robot.setRightMotorSpeed(100);
 				  robot.setLeftMotorGoBackward();
 				  robot.setRightMotorGoBackward();
+				  leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
+				  rightMotorTachoCount = robot.getRightMotor().getTachoCount();
+				  stage ++;
 				  
-				  //TODO Check how much moved forward with tacho and then change stage
+			  }
+			  if (stage == 7) {
+				//TODO Check how much moved forward with tacho and then change stage
+				  int leftDelta = Math.abs(robot.getLeftMotor().getTachoCount() - leftMotorTachoCount);
+				  if(leftDelta == 200) {
+					  
+				  }
 				  stage = 0;
 			  }
 			  

@@ -180,10 +180,34 @@ public class Robot {
 			int right = (int)(degree * factor * (-1));
 					
 			rightMotor.rotate(right, true);
-			leftMotor.rotate(left, true);
+			leftMotor.rotate(left);
 		}
 		
 		public void turnRight(int degree) {
+			double factor = 3.4;
+			rightMotor.stop(true);
+			leftMotor.stop(true);
+			
+			int right = (int)(degree * factor);
+			int left = (int)(degree * factor * (-1));
+					
+			rightMotor.rotate(right, true);
+			leftMotor.rotate(left);
+		}
+		
+		public void turnLeft(int degree, boolean async) {
+			double factor = 3.4;
+			rightMotor.stop(true);
+			leftMotor.stop(true);
+			
+			int left = (int)(degree * factor);
+			int right = (int)(degree * factor * (-1));
+					
+			rightMotor.rotate(right, true);
+			leftMotor.rotate(left, true);
+		}
+		
+		public void turnRight(int degree, boolean async) {
 			double factor = 3.4;
 			rightMotor.stop(true);
 			leftMotor.stop(true);
@@ -250,6 +274,10 @@ public class Robot {
 
 		public void setMediumMotor(EV3MediumRegulatedMotor mediumMotor) {
 			this.mediumMotor = mediumMotor;
+		}
+
+		public boolean isMoving() {
+			return (leftMotor.isMoving() || rightMotor.isMoving());
 		}
 		
 }
