@@ -161,6 +161,28 @@ public class Robot {
 			leftMotor.stop();
 		}
 		
+		public void turnLeft(int degree) {
+			rightMotor.stop(true);
+			leftMotor.stop(true);
+			
+			int right = degree * 4;
+			int left = degree * 4 * (-1);
+					
+			rightMotor.rotate(right);
+			leftMotor.rotate(left);
+		}
+		
+		public void turnRight(int degree) {
+			rightMotor.stop(true);
+			leftMotor.stop(true);
+			
+			int right = degree * 4;
+			int left = degree * 4 * (-1);
+					
+			rightMotor.rotate(right);
+			leftMotor.rotate(left);
+		}
+		
 		
 		// Getter und Setter
 		public SensorThread getSensors() {
