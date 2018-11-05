@@ -1,6 +1,7 @@
 package States;
 
 import lejos.utility.Delay;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
@@ -14,7 +15,7 @@ public class LinieFahren implements Runnable, ISection {
   private final String NAME = "Linie fahren";
   private static double LIGHT_SENSOR_WHITE_VALUE = 0.5; //typischerweise bum die 60
   private static double LIGHT_SENSOR_BLACK_VALUE = 0.05; //typischerweise um die 20
-  static int SPEED_FACTOR = 650;
+  static int SPEED_FACTOR = 540;
   
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
@@ -72,18 +73,18 @@ public class LinieFahren implements Runnable, ISection {
         motorLeft.forward();
       else motorLeft.backward();
     }*/
-    
+    boolean blackFound = false;
+    int startTachoCountLeft = 0, startTachoCountRight = 0; 
     while(running) {
     	
     	double brightness = robot.getSensors().getColor();
     	
-    	boolean blackFound = false;
-    	int startTachoCountLeft = 0, startTachoCountRight = 0;
     	
     	if(brightness <= 0.1) {
-    		if (!blackFound) {
+    		if (blackFound == false) {
     			startTachoCountLeft = robot.getTachoCountLeftMotor();
         		startTachoCountRight = robot.getTachoCountRightMotor();
+        		
         		blackFound = true;
     		} else {
     			int curTachoCountLeft = robot.getTachoCountLeftMotor();
@@ -92,7 +93,10 @@ public class LinieFahren implements Runnable, ISection {
     			int deltaLeft = curTachoCountLeft - startTachoCountLeft;
     			int deltaRight = curTachoCountRight - startTachoCountRight;
     			
-    			if (deltaLeft >= 720 || deltaRight >= 720) {
+    			//LCD.drawString("D l:" + deltaLeft, 0, 5);
+    			LCD.drawString("D r:" + deltaRight, 0, 5);
+    			
+    			if (Math.abs(deltaLeft) >= 300 || Math.abs(deltaRight) >= 300) {
     				continueOnLineEnd(deltaLeft, deltaRight);
     			}
     		}    		
@@ -131,11 +135,11 @@ public class LinieFahren implements Runnable, ISection {
     	
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         
-        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 130;
-        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 130;
+        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 100;
+        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 100;
         
-        robot.setLeftMotorSpeed(speedMotorLeft);
-        robot.setRightMotorSpeed(speedMotorRight);
+        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
         
         if(speedMotorRight < 0)
           robot.setRightMotorGoForward();
@@ -157,6 +161,11 @@ public class LinieFahren implements Runnable, ISection {
   
   private void continueOnLineEnd(int t_count_left, int t_count_right) {
 	  
+	  robot.stopLeftMotor();
+	  robot.stopRightMotor();
+	  LCD.drawString("Line End!", 0, 5);
+	  Delay.msDelay(2000);
+	  
 	  //Move backward
 	  robot.setLeftMotorRotateTo(t_count_left * (-1));
 	  robot.setRightMotorRotateTo(t_count_right * (-1));
@@ -166,7 +175,7 @@ public class LinieFahren implements Runnable, ISection {
 		  
 		  double brightness = robot.getSensors().getColor();
 		  
-		  if (brightness < 0.6 && brightness > 0.4) {
+		  if ( brightness > 0.3) {
 			  lineFound = true;
 		  }
 		  
