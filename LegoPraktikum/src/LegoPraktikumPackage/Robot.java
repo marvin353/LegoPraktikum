@@ -135,14 +135,24 @@ public class Robot {
 			rightMotor.backward();
 		}
 		
-		public void setLeftMotorRotateTo(int angle) {
+		public void setLeftMotorRotate(int angle) {
 			leftMotor.stop();
 			leftMotor.rotate(angle);
 		}
 		
-		public void setRightMotorRotateTo(int angle) {
+		public void setRightMotorRotate(int angle) {
 			rightMotor.stop();
 			rightMotor.rotate(angle);
+		}
+		
+		public void setLeftMotorRotateAsync(int angle) {
+			leftMotor.stop();
+			leftMotor.rotate(angle,true);
+		}
+		
+		public void setRightMotorRotateAsync(int angle) {
+			rightMotor.stop();
+			rightMotor.rotate(angle,true);
 		}
 		
 		public int getTachoCountLeftMotor() {

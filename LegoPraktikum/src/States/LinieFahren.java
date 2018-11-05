@@ -210,10 +210,10 @@ public class LinieFahren implements Runnable, ISection {
   }
   
   int count;
-  Boolean lineFound = false;
+  boolean lineFound = false;
   int move_count = 0;
   int degree = 10;
-  Boolean turnLeft = false;
+  boolean turnLeft = false;
   
   private void continueOnLineEnd(int t_count_left, int t_count_right) {
 	  
@@ -222,9 +222,11 @@ public class LinieFahren implements Runnable, ISection {
 	  LCD.drawString("Line End!", 0, 5);
 	  Delay.msDelay(2000);
 	  
-	  //Move backward
-	  robot.setLeftMotorRotateTo(t_count_left * (-1));
-	  robot.setRightMotorRotateTo(t_count_right * (-1));
+	  //Move to position before line was lost
+	  robot.setLeftMotorRotate(t_count_left * (-1));
+	  robot.setRightMotorRotate(t_count_right * (-1));
+	  
+	  int stage= 0;//encodes if we are turning right, left, or sencond time right
 	  
 	  //Find new line
 	  while (lineFound == false) {
@@ -234,7 +236,39 @@ public class LinieFahren implements Runnable, ISection {
 		  if ( brightness > 0.3) {
 			  lineFound = true;
 		  }
-		  
+		  else { //Search for line
+			  
+			  
+			  if (stage == 0) {
+				  //Rotate 100 degrees to right
+				  stage++;
+			  }
+			  
+			  
+			  if (stage == 1) {
+				  //rotate 200 degrees to left
+				  stage++;
+			  }
+			  
+			  
+			  if(stage == 2) {
+				 //Rotate 100 to right 
+				  stage++;
+			  }
+			  
+			  if(stage == 3) {
+				  //Move a bit forward
+				  robot.setLeftMotorSpeed(100);
+				  robot.setRightMotorSpeed(100);
+				  robot.setLeftMotorGoBackward();
+				  robot.setRightMotorGoBackward();
+				  
+				  //TODO Check how much moved forward with tacho and then change stage
+				  stage = 0;
+			  }
+			  
+		  }
+		  /*
 		  if (move_count == 100) {
 			  if (turnLeft == true) {
 				  robot.setLeftMotorRotateTo(degree * move_count * (-1));
@@ -249,7 +283,7 @@ public class LinieFahren implements Runnable, ISection {
 				  move_count++;
 				  robot.setRightMotorRotateTo(degree);
 			  }
-		  }
+		  } */
 	  }
   }
 
