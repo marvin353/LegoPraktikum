@@ -226,25 +226,29 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.stopLeftMotor();
 	  robot.stopRightMotor();
 	  LCD.drawString("Line End!", 0, 5);
-	  Delay.msDelay(2000);
+	  Delay.msDelay(3000);
 	  
 	  //Move to position before line was lost
 	  robot.setLeftMotorRotate(t_count_left * (-1));
 	  robot.setRightMotorRotate(t_count_right * (-1));
 	  
-	  int stage= 0;//encodes if we are turning right, left, or sencond time right
 	  
+	  int stage= 0;//encodes if we are turning right, left, or sencond time right
+	  while (robot.isMoving()){
+		  
+	  }
 	  LCD.drawString("Start Pos", 0, 5);
-	  Delay.msDelay(2000);
+	  Delay.msDelay(3000);
 	  
 	  //Find new line
 	  while (lineFound == false) {
-		  
-		  double brightness = robot.getSensors().getColor();
 		  LCD.drawString("Search Line!", 0, 5);
 		  Delay.msDelay(2000);
-		  if ( brightness > 0.3) {
+		  double brightness = robot.getSensors().getColor();
+		  if (brightness > 0.3) {
 			  lineFound = true;
+			  LCD.drawString("LineFound!", 0, 5);
+			  Delay.msDelay(2000);
 		  }
 		  else { //Search for line
 			  
@@ -270,8 +274,8 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn left", 0, 5);
 				  Delay.msDelay(2000);
 				  //rotate 200 degrees to left
-				  	robot.turnLeft(200, true);
-					  stage++;
+				  robot.turnLeft(200, true);
+				  stage++;
 			  }
 			  else if(stage == 3) {
 				  if(!robot.isMoving())
@@ -331,27 +335,9 @@ public class LinieFahren implements Runnable, ISection {
 					  stage = 0;
 					  LCD.drawString("Von vorne!", 0, 5);
 					  Delay.msDelay(2000);
-				  }
-					  
-			  }
-			  
-		  }
-		  /*
-		  if (move_count == 100) {
-			  if (turnLeft == true) {
-				  robot.setLeftMotorRotateTo(degree * move_count * (-1));
-			  } else {
-				  robot.setRightMotorRotateTo(degree * move_count * (-1));
-			  }
-		  } else {
-			  if (turnLeft == true) {
-				  move_count++;
-				  robot.setLeftMotorRotateTo(degree);
-			  } else {
-				  move_count++;
-				  robot.setRightMotorRotateTo(degree);
-			  }
-		  } */
+				  }					  
+			  }			  
+		  }		  
 	  }
   }
 
