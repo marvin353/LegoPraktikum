@@ -96,7 +96,7 @@ public class LinieFahren implements Runnable, ISection {
     			//LCD.drawString("D l:" + deltaLeft, 0, 5);
     			LCD.drawString("D r:" + deltaRight, 0, 5);
     			
-    			if (Math.abs(deltaLeft) >= 300 || Math.abs(deltaRight) >= 300) {
+    			if (Math.abs(deltaLeft) >= 200 || Math.abs(deltaRight) >= 200) {
     				continueOnLineEnd(deltaLeft, deltaRight);
     			}
     		}    		
@@ -111,7 +111,7 @@ public class LinieFahren implements Runnable, ISection {
         int initTachoCountRight = robot.getTachoCountRightMotor();
         int deltaLeft = 0, deltaRight = 0;
         
-        while(Math.abs(deltaRight) <= 360) {
+        while(Math.abs(deltaRight) <= 280) {
           robot.stopLeftMotor();
           robot.setRightMotorSpeed(200);
           
@@ -119,13 +119,13 @@ public class LinieFahren implements Runnable, ISection {
           
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-          LCD.drawString("Zurück LR: " + deltaLeft + " " + deltaRight, 0, 5);
+          LCD.drawString("Zuruck LR: " + deltaLeft + " " + deltaRight, 0, 5);
         }
         initTachoCountLeft = robot.getTachoCountLeftMotor();
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(Math.abs(deltaLeft) <= 720 || Math.abs(deltaRight) <= 720) {
+        while(Math.abs(deltaLeft) <= 450 || Math.abs(deltaRight) <= 450) {
           robot.setLeftMotorSpeed(200);
           robot.setRightMotorSpeed(200);
           
@@ -141,17 +141,15 @@ public class LinieFahren implements Runnable, ISection {
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
         deltaRight = 0;
-        while(Math.abs(deltaRight) <= 500) {
-          robot.stopLeftMotor();
-          robot.setRightMotorSpeed(200);
+        while(Math.abs(deltaLeft) <= 560) {
+          robot.stopRightMotor();
+          robot.setLeftMotorSpeed(200);
           
-          robot.setRightMotorGoBackward();
+          robot.setLeftMotorGoForward();
           
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-
-          LCD.drawString("Links drehen LR: " + deltaLeft + " " + deltaRight, 0, 5);
-
+          LCD.drawString("Zurück LR: " + deltaLeft + " " + deltaRight, 0, 5);
         }
         LCD.drawString("Linie suchen", 0, 5);
         while(brightness <= 0.1) {
@@ -161,6 +159,7 @@ public class LinieFahren implements Runnable, ISection {
           robot.setRightMotorGoBackward();
           robot.setLeftMotorGoBackward();
         }
+        LCD.clearDisplay();
         
     	} 
     	/*
@@ -227,55 +226,86 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.stopLeftMotor();
 	  robot.stopRightMotor();
 	  LCD.drawString("Line End!", 0, 5);
-	  Delay.msDelay(2000);
+	  Delay.msDelay(3000);
 	  
 	  //Move to position before line was lost
 	  robot.setLeftMotorRotate(t_count_left * (-1));
 	  robot.setRightMotorRotate(t_count_right * (-1));
 	  
+	  
 	  int stage= 0;//encodes if we are turning right, left, or sencond time right
+	  while (robot.isMoving()){
+		  
+	  }
+	  LCD.drawString("Start Pos", 0, 5);
+	  Delay.msDelay(3000);
 	  
 	  //Find new line
 	  while (lineFound == false) {
-		  
+		  LCD.drawString("Search Line!", 0, 5);
+		  Delay.msDelay(2000);
 		  double brightness = robot.getSensors().getColor();
-		  
-		  if ( brightness > 0.3) {
+		  if (brightness > 0.3) {
 			  lineFound = true;
+			  LCD.drawString("LineFound!", 0, 5);
+			  Delay.msDelay(2000);
 		  }
 		  else { //Search for line
 			  
 			  if (stage == 0) {
+				  LCD.drawString("turn right", 0, 5);
+				  Delay.msDelay(2000);
 				  //Rotate 100 degrees to right
+				  robot.turnRight(100, true);
 				  stage++;
+				  
 			  }
 			  
 			  else if(stage == 1) {
-				  if(!robot.isMoving())
+				  if(!robot.isMoving()) {
 					  stage++;
+					  LCD.drawString("finished turn", 0, 5);
+					  Delay.msDelay(2000);
+				  }
+					  
 			  }
 			  
 			  else if (stage == 2) {
+				  LCD.drawString("turn left", 0, 5);
+				  Delay.msDelay(2000);
 				  //rotate 200 degrees to left
-				  
-					  stage++;
+				  robot.turnLeft(200, true);
+				  stage++;
 			  }
 			  else if(stage == 3) {
 				  if(!robot.isMoving())
+				  {
 					  stage++;
+					  LCD.drawString("finished", 0, 5);
+					  Delay.msDelay(2000);
+				  }
+					  
 			  }
 			  
 			  if(stage == 4) {
+				  LCD.drawString("turn right", 0, 5);
+				  Delay.msDelay(2000);
 				 //Rotate 100 to right 
-				  if(!robot.isMoving())
+				  robot.turnRight(100, true);
 					  stage++;
 			  }
 			  else if(stage == 5) {
 				  if(!robot.isMoving())
+				  {
 					  stage++;
+					  LCD.drawString("finished", 0, 5);
+					  Delay.msDelay(2000);
+				  }
 			  }
 			  
 			  else if(stage == 6) {
+				  LCD.drawString("forward", 0, 5);
+				  Delay.msDelay(2000);
 				  //Move a bit forward
 				  robot.setLeftMotorSpeed(100);
 				  robot.setRightMotorSpeed(100);
@@ -286,32 +316,28 @@ public class LinieFahren implements Runnable, ISection {
 				  stage ++;
 				  
 			  }
-			  if (stage == 7) {
-				//TODO Check how much moved forward with tacho and then change stage
+			  else if (stage == 7) {
+				  
 				  int leftDelta = Math.abs(robot.getLeftMotor().getTachoCount() - leftMotorTachoCount);
-				  if(leftDelta == 200) {
-					  
+				  int rightDelta = Math.abs(robot.getRightMotor().getTachoCount() - rightMotorTachoCount);
+				  if(leftDelta >= 200 || rightDelta >= 200) {
+					  robot.stopLeftMotor();
+					  robot.stopRightMotor();
+					  stage ++;
 				  }
-				  stage = 0;
+				  LCD.drawString("Stop!", 0, 5);
+				  Delay.msDelay(2000);
+				  
 			  }
-			  
-		  }
-		  /*
-		  if (move_count == 100) {
-			  if (turnLeft == true) {
-				  robot.setLeftMotorRotateTo(degree * move_count * (-1));
-			  } else {
-				  robot.setRightMotorRotateTo(degree * move_count * (-1));
-			  }
-		  } else {
-			  if (turnLeft == true) {
-				  move_count++;
-				  robot.setLeftMotorRotateTo(degree);
-			  } else {
-				  move_count++;
-				  robot.setRightMotorRotateTo(degree);
-			  }
-		  } */
+			  else if(stage == 8) {
+				  if(!robot.isMoving())
+				  {
+					  stage = 0;
+					  LCD.drawString("Von vorne!", 0, 5);
+					  Delay.msDelay(2000);
+				  }					  
+			  }			  
+		  }		  
 	  }
   }
 
