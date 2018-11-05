@@ -251,5 +251,9 @@ public class Robot {
 		public void setMediumMotor(EV3MediumRegulatedMotor mediumMotor) {
 			this.mediumMotor = mediumMotor;
 		}
+
+		public boolean isMoving() {
+			return (leftMotor.isMoving() || rightMotor.isMoving());
+		}
 		
 }
