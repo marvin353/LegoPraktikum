@@ -146,12 +146,12 @@ public class Robot {
 		}
 		
 		public void setLeftMotorRotateAsync(int angle) {
-			leftMotor.stop();
+			leftMotor.stop(true);
 			leftMotor.rotate(angle,true);
 		}
 		
 		public void setRightMotorRotateAsync(int angle) {
-			rightMotor.stop();
+			rightMotor.stop(true);
 			rightMotor.rotate(angle,true);
 		}
 		

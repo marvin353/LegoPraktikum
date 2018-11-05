@@ -229,16 +229,17 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(3000);
 	  
 	  //Move to position before line was lost
-	  robot.setLeftMotorRotate(t_count_left * (-1));
-	  robot.setRightMotorRotate(t_count_right * (-1));
+	  robot.setLeftMotorRotateAsync(t_count_left * (-1));
+	  robot.setRightMotorRotateAsync(t_count_right * (-1));
 	  
 	  
-	  int stage= 0;//encodes if we are turning right, left, or sencond time right
+	  int stage= 0;//encodes if we are turning right, left, or second time right
 	  while (robot.isMoving()){
 		  
 	  }
+	  
 	  LCD.drawString("Start Pos", 0, 5);
-	  Delay.msDelay(3000);
+	  Delay.msDelay(5000);
 	  
 	  //Find new line
 	  while (lineFound == false) {
