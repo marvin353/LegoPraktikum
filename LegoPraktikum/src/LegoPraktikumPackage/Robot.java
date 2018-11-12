@@ -43,10 +43,13 @@ public class Robot {
 		private final EV3UltrasonicSensor ultraS = new EV3UltrasonicSensor(ULTRASONIC_SENSOR);
 		
 		private EV3Menu menu;
-
+		
 		private EV3LargeRegulatedMotor leftMotor;
 		private EV3LargeRegulatedMotor rightMotor;
 		private EV3MediumRegulatedMotor mediumMotor;
+		
+		private static DifferentialPilot pilot;
+
 
 		//private Drive drive;
 		private LinieFahren linieFahren; 
@@ -63,6 +66,8 @@ public class Robot {
 			SingleValueSensorWrapper touch1 = new SingleValueSensorWrapper(touchS1, "Touch");
 			SingleValueSensorWrapper touch2 = new SingleValueSensorWrapper(touchS2, "Touch");
 			SingleValueSensorWrapper distance = new SingleValueSensorWrapper(ultraS, "Distance");
+			
+			pilot = new DifferentialPilot(6.88f, 12.0f, leftMotor, rightMotor);
 
 			this.sensors = new SensorThread(color, touch1, touch2, distance);
 			new Thread(this.sensors).start();
@@ -186,9 +191,22 @@ public class Robot {
 			
 			int left = (int)(degree * factor);
 			int right = (int)(degree * factor * (-1));
+
+			while (this.isMoving()) {}
+
+			
+			int tcR_init = rightMotor.getTachoCount();
+			int tcL_init = leftMotor.getTachoCount();
+
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left);
+			
+			/*TODO Test
+			while (Math.abs(leftMotor.getTachoCount() - tcL_init) <= Math.abs(left) || Math.abs(rightMotor.getTachoCount() - tcR_init) <= Math.abs(right)) {
+				//wait
+			}*/
+			
 		}
 		
 		public void turnRight(int degree) {
@@ -197,6 +215,7 @@ public class Robot {
 			
 			int right = (int)(degree * factor);
 			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {}
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left);
@@ -208,6 +227,7 @@ public class Robot {
 			
 			int left = (int)(degree * factor);
 			int right = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
@@ -219,27 +239,26 @@ public class Robot {
 			
 			int right = (int)(degree * factor);
 			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
 		}
 		
-		public void goForwardByDegree(int degree, boolean async) {
+		public void goForwardByDegree(int degree) {
 			rightMotor.stop(true);
 			leftMotor.stop(true);
 			
-			int right = (int)(degree * factor);
+			int right = (int)(degree * factor * (-1));
 			int left = (int)(degree * factor * (-1));
 					
-			int tcR_init = 0;
-			int tcL_init = 0;
-			tcR_init = rightMotor.getTachoCount();
-			tcR_init = leftMotor.getTachoCount();
+			int tcR_init = rightMotor.getTachoCount();
+			int tcL_init = leftMotor.getTachoCount();
 			
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
 			
-			while (leftMotor.getTachoCount() - tcR_init <= degree || rightMotor.getTachoCount() - tcR_init <= degree ) {
+			while (Math.abs(leftMotor.getTachoCount() - tcL_init) <= Math.abs(degree) || Math.abs(rightMotor.getTachoCount() - tcR_init) <= Math.abs(degree)) {
 				//wait
 			}
 		}
