@@ -129,11 +129,7 @@ public class LinieFahren implements Runnable, ISection {
         
         Delay.msDelay(500);
         while(robot.getSensors().getColor() <= 0.1) {
-          robot.setLeftMotorSpeed(150);
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoBackward();
-          robot.setLeftMotorGoBackward();
+          robot.travelArc(40, 100);
         }
         /*
         initTachoCountLeft = robot.getTachoCountLeftMotor();
