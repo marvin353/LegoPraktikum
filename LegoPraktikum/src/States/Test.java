@@ -40,9 +40,7 @@ public class Test implements Runnable, ISection{
 	public void run() {
 
 		
-		//robot.turnRight(100, true);
-		
-
+		//robot.turnRight(100, true);		
 		
 		robot.turnLeftPilot(90);
 		Delay.msDelay(2000);
@@ -53,14 +51,6 @@ public class Test implements Runnable, ISection{
 		robot.turnLeftPilot(90);
 		Delay.msDelay(2000);
 		robot.turnRightPilot(90);
-		Delay.msDelay(2000);
-		robot.goForwardPilot(10);
-
-		/*robot.turnLeft(90);
-		robot.turnRight(180);
-		robot.turnLeft(90);
-		robot.goForwardByDegree(720);*/
 		
-
 	}
 }

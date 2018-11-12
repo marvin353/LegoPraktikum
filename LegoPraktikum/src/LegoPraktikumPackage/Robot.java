@@ -171,6 +171,10 @@ public class Robot {
 		public int getTachoCountRightMotor() {
 			return rightMotor.getTachoCount();
 		}
+		
+		public void travelArc(double radius, double distance) {
+		  pilot.travelArc(radius * 2, distance * 2 * (-1), true);
+		}
 	
 		public void stopRightMotor() {
 			rightMotor.stop();
