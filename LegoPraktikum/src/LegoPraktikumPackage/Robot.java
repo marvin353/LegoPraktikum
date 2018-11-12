@@ -191,16 +191,21 @@ public class Robot {
 			
 			int left = (int)(degree * factor);
 			int right = (int)(degree * factor * (-1));
+
+			while (this.isMoving()) {}
+
 			
 			int tcR_init = rightMotor.getTachoCount();
 			int tcL_init = leftMotor.getTachoCount();
+
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left);
 			
+			/*TODO Test
 			while (Math.abs(leftMotor.getTachoCount() - tcL_init) <= Math.abs(left) || Math.abs(rightMotor.getTachoCount() - tcR_init) <= Math.abs(right)) {
 				//wait
-			}
+			}*/
 			
 		}
 		
@@ -210,6 +215,7 @@ public class Robot {
 			
 			int right = (int)(degree * factor);
 			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {}
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left);
@@ -221,6 +227,7 @@ public class Robot {
 			
 			int left = (int)(degree * factor);
 			int right = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);
@@ -232,6 +239,7 @@ public class Robot {
 			
 			int right = (int)(degree * factor);
 			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);

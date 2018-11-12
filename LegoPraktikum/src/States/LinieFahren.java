@@ -16,6 +16,7 @@ public class LinieFahren implements Runnable, ISection {
   private static double LIGHT_SENSOR_WHITE_VALUE = 0.5; //typischerweise bum die 60
   private static double LIGHT_SENSOR_BLACK_VALUE = 0.05; //typischerweise um die 20
   static int SPEED_FACTOR = 540;
+  private static int treshhold_line_lost = 300;
   
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
@@ -96,7 +97,7 @@ public class LinieFahren implements Runnable, ISection {
     			//LCD.drawString("D l:" + deltaLeft, 0, 5);
     			LCD.drawString("D r:" + deltaRight, 0, 5);
     			
-    			if (Math.abs(deltaLeft) >= 200 || Math.abs(deltaRight) >= 200) {
+    			if (Math.abs(deltaLeft) >= treshhold_line_lost || Math.abs(deltaRight) >= treshhold_line_lost) {
     				continueOnLineEnd(deltaLeft, deltaRight);
     			}
     		}    		
@@ -242,6 +243,7 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(5000);
 	  LCD.drawString("Search Line!", 0, 5);
 	  Delay.msDelay(2000);
+	  robot.goForwardByDegree(80);
 	  //Find new line
 	  while (robot.getSensors().getColor() < 0.2) {
 		  /*
@@ -258,8 +260,7 @@ public class LinieFahren implements Runnable, ISection {
 				  Delay.msDelay(4000);
 				  //Rotate 100 degrees to right
 				  robot.turnRight(100, true);
-				  stage++;
-				  
+				  stage++;				  
 			  }
 			  
 			  else if(stage == 1) {
@@ -288,7 +289,7 @@ public class LinieFahren implements Runnable, ISection {
 					  
 			  }
 			  
-			  if(stage == 4) {
+			  else if(stage == 4) {
 				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(4000);
 				 //Rotate 100 to right 
