@@ -64,6 +64,7 @@ public class Test implements Runnable, ISection{
 			robot.turnLeft(90);
 			robot.goForwardByDegree(360);
 		}*/
+		/*
 		for (int i = 0; i < 1; i++) {
 			//robot.turnRight(360);
 		}*/

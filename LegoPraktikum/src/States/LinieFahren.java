@@ -16,7 +16,7 @@ public class LinieFahren implements Runnable, ISection {
   private static double LIGHT_SENSOR_WHITE_VALUE = 0.5; //typischerweise bum die 60
   private static double LIGHT_SENSOR_BLACK_VALUE = 0.05; //typischerweise um die 20
   static int SPEED_FACTOR = 540;
-  private static int treshhold_line_lost = 300;
+  private static int treshhold_line_lost = 350;
   
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
@@ -124,6 +124,14 @@ public class LinieFahren implements Runnable, ISection {
         }
         LCD.clearDisplay();
         LCD.drawString("Linie suchen", 0, 5);
+        
+        robot.setLeftMotorSpeed(150);
+        robot.setRightMotorSpeed(200);
+        
+        robot.setRightMotorGoBackward();
+        robot.setLeftMotorGoBackward();
+        
+        Delay.msDelay(500);
         while(robot.getSensors().getColor() <= 0.1) {
           robot.setLeftMotorSpeed(150);
           robot.setRightMotorSpeed(200);
@@ -203,7 +211,7 @@ public class LinieFahren implements Runnable, ISection {
         	int t_count_right = robot.getTachoCountRightMotor();
     		continueOnLineEnd(t_count_left - t_count_left_init, t_count_right - t_count_right_init);
     	} */
-    	
+    	brightness = robot.getSensors().getColor();
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         
         int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 100;
