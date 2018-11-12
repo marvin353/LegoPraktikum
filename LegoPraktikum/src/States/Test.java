@@ -3,6 +3,7 @@
 package States;
 
 import States.ISection;
+import lejos.utility.Delay;
 import LegoPraktikumPackage.Robot;
 
 public class Test implements Runnable, ISection{
@@ -37,12 +38,19 @@ public class Test implements Runnable, ISection{
 
 	@Override
 	public void run() {
+		robot.LookLeft();
+		Delay.msDelay(4000);
+		robot.LookRight();
+		Delay.msDelay(4000);
+		robot.LookLeft();
+		Delay.msDelay(4000);
+		robot.LookRight();
 		/*robot.turnLeft(90);
 		robot.turnRight(180);
 		robot.turnLeft(90);
 		robot.goForwardByDegree(720);*/
 		
-		for (int i = 0; i < 2; i++) {
+		/*for (int i = 0; i < 2; i++) {
 			robot.turnLeft(90);
 			robot.turnRight(180);
 			robot.turnLeft(90);
@@ -50,7 +58,7 @@ public class Test implements Runnable, ISection{
 		}
 		for (int i = 0; i < 1; i++) {
 			//robot.turnRight(360);
-		}
+		}*/
 		//robot.turnRight(180);
 	}
 }

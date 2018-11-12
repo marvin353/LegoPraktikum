@@ -97,6 +97,10 @@ public class Robot {
 			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
 		}
 		
+		public void changeSettingsForPackageDelivery() {
+			
+		}
+		
 		public int getColorID() {
 			//return this.colorS.getColorID();
 			return 0;
@@ -261,6 +265,15 @@ public class Robot {
 			while (Math.abs(leftMotor.getTachoCount() - tcL_init) <= Math.abs(degree) || Math.abs(rightMotor.getTachoCount() - tcR_init) <= Math.abs(degree)) {
 				//wait
 			}
+		}
+		
+		//Medium Motor Controlls
+		public void LookLeft() {
+			mediumMotor.rotateTo(90);
+		}
+		
+		public void LookRight() {
+			mediumMotor.rotateTo(270);
 		}
 		
 		//Sound
