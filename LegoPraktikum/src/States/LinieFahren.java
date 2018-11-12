@@ -16,7 +16,7 @@ public class LinieFahren implements Runnable, ISection {
   private static double LIGHT_SENSOR_WHITE_VALUE = 0.5; //typischerweise bum die 60
   private static double LIGHT_SENSOR_BLACK_VALUE = 0.05; //typischerweise um die 20
   static int SPEED_FACTOR = 540;
-  private static int treshhold_line_lost = 350;
+  private static int treshhold_line_lost = 600;
   
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
@@ -323,10 +323,11 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("forward", 0, 5);
 				  Delay.msDelay(4000);
 				  //Move a bit forward
-				  robot.setLeftMotorSpeed(100);
+				  /*robot.setLeftMotorSpeed(100);
 				  robot.setRightMotorSpeed(100);
 				  robot.setLeftMotorGoBackward();
-				  robot.setRightMotorGoBackward();
+				  robot.setRightMotorGoBackward();*/
+				  robot.goForwardPilot(10);
 				  leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
 				  rightMotorTachoCount = robot.getRightMotor().getTachoCount();
 				  stage ++;
