@@ -1,5 +1,5 @@
 /.metadata/
 /.recommenders/
-/.DS_Store/
-/.jar/
-/.gen/
+*.DS_Store/
+*.jar/
+*.gen/
