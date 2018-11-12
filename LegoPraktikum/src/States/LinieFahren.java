@@ -121,6 +121,15 @@ public class LinieFahren implements Runnable, ISection {
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
           LCD.drawString("Zuruck LR: " + deltaLeft + " " + deltaRight, 0, 5);
         }
+        
+        while(robot.getSensors().getColor() <= 0.1) {
+          robot.setLeftMotorSpeed(100);
+          robot.setRightMotorSpeed(200);
+          
+          robot.setRightMotorGoBackward();
+          robot.setLeftMotorGoBackward();
+        }
+        
         initTachoCountLeft = robot.getTachoCountLeftMotor();
         initTachoCountRight = robot.getTachoCountRightMotor();
         deltaLeft = 0;
@@ -152,7 +161,7 @@ public class LinieFahren implements Runnable, ISection {
           LCD.drawString("Zurück LR: " + deltaLeft + " " + deltaRight, 0, 5);
         }
         LCD.drawString("Linie suchen", 0, 5);
-        while(brightness <= 0.1) {
+        while(robot.getSensors().getColor() <= 0.1) {
           robot.setLeftMotorSpeed(200);
           robot.setRightMotorSpeed(200);
           
