@@ -242,8 +242,9 @@ public class LinieFahren implements Runnable, ISection {
 	  LCD.drawString("Start Pos", 0, 5);
 	  Delay.msDelay(5000);
 	  LCD.drawString("Search Line!", 0, 5);
-	  Delay.msDelay(2000);
+	  Delay.msDelay(5000);
 	  robot.goForwardByDegree(80);
+	  while (robot.isMoving()) {}
 	  //Find new line
 	  while (robot.getSensors().getColor() < 0.2) {
 		  /*
@@ -266,6 +267,8 @@ public class LinieFahren implements Runnable, ISection {
 			  else if(stage == 1) {
 				  if(!robot.isMoving()) {
 					  stage++;
+					  robot.stopLeftMotor(true);
+					  robot.stopRightMotor(true);
 					  LCD.drawString("finished turn", 0, 5);
 					  Delay.msDelay(4000);
 				  }
@@ -287,8 +290,7 @@ public class LinieFahren implements Runnable, ISection {
 					  Delay.msDelay(4000);
 				  }
 					  
-			  }
-			  
+			  }			  
 			  else if(stage == 4) {
 				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(4000);

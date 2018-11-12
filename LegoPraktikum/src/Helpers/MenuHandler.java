@@ -1,6 +1,7 @@
 package Helpers;
 import LegoPraktikumPackage.Robot;
 import lejos.hardware.Button;
+import lejos.utility.Delay;
 
 
 public class MenuHandler implements Runnable{
@@ -23,17 +24,18 @@ public class MenuHandler implements Runnable{
 			case Button.ID_UP:
 				menu.up();
 				menu.drawMenu();
+				Delay.msDelay(50);
 				break;
 			case Button.ID_DOWN:
 				menu.down();
 				menu.drawMenu();
+				Delay.msDelay(50);
 				break;
 			case Button.ID_ENTER:
-			  new Thread(new Runnable() {
-			    public void run() {
+			  
 			      robot.run(menu.getMarked());
-			    }
-			    }).start();
+			      Delay.msDelay(100);
+			
 			  
 				break;
 			default:
