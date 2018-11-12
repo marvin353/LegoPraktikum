@@ -44,13 +44,21 @@ public class Test implements Runnable, ISection{
 		
 
 		robot.LookLeft();
-		Delay.msDelay(4000);
+		Delay.msDelay(1000);
 		robot.LookRight();
-		Delay.msDelay(4000);
+		Delay.msDelay(1000);
 		robot.LookLeft();
-		Delay.msDelay(4000);
+		Delay.msDelay(1000);
 		robot.LookRight();
 
+		
+		robot.turnLeftPilot(90);
+		Delay.msDelay(2000);
+		robot.turnRightPilot(90);
+		Delay.msDelay(2000);
+		robot.turnLeftPilot(90);
+		Delay.msDelay(2000);
+		robot.turnRightPilot(90);
 		/*robot.turnLeft(90);
 		robot.turnRight(180);
 		robot.turnLeft(90);
