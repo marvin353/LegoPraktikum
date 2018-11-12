@@ -48,7 +48,7 @@ public class Robot {
 		private EV3LargeRegulatedMotor rightMotor;
 		private EV3MediumRegulatedMotor mediumMotor;
 		
-		private static DifferentialPilot pilot;
+		private static DifferentialPilot pilot;		
 
 
 		//private Drive drive;
@@ -189,6 +189,9 @@ public class Robot {
 		}
 		
 		double factor = 3.4;
+		double factorP = 2;
+		double distanceFactor = 2;
+		
 		public void turnLeft(int degree) {
 			rightMotor.stop(true);
 			leftMotor.stop(true);
@@ -226,7 +229,8 @@ public class Robot {
 		}
 		
 		public void turnLeft(int degree, boolean async) {
-			rightMotor.stop(true);
+			turnLeftPilot(degree);
+			/*rightMotor.stop(true);
 			leftMotor.stop(true);
 			
 			int left = (int)(degree * factor);
@@ -234,19 +238,23 @@ public class Robot {
 			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
-			leftMotor.rotate(left, true);
+			leftMotor.rotate(left, true);*/
 		}
 		
 		public void turnRightPilot(int degree) {
-			pilot.rotate(degree * (-1));
+			pilot.rotate(degree * (-1) * factorP,true);
 		}
 		
 		public void turnLeftPilot(int degree) {
-			pilot.rotate(degree);
+			pilot.rotate(degree * factorP,true);
+		}
+		
+		public void goForwardPilot(double distance) {
+			pilot.travel(distance * distanceFactor * (-1), true);
 		}
 		
 		public void turnRight(int degree, boolean async) {
-			rightMotor.stop(true);
+			/*rightMotor.stop(true);
 			leftMotor.stop(true);
 			
 			int right = (int)(degree * factor);
@@ -254,7 +262,8 @@ public class Robot {
 			while (this.isMoving()) {} //TEST
 					
 			rightMotor.rotate(right, true);
-			leftMotor.rotate(left, true);
+			leftMotor.rotate(left, true);*/
+			turnLeftPilot(degree);
 		}
 		
 		public void goForwardByDegree(int degree) {
