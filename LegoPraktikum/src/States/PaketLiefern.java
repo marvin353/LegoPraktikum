@@ -5,6 +5,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.utility.Delay;
 
 public class PaketLiefern implements Runnable, ISection {
 	
@@ -57,15 +58,35 @@ public class PaketLiefern implements Runnable, ISection {
 	    	boolean packageHit = false;
 	    	
 	    	
-	    	if(distance > distanceToPackage) {
+	    	if(distance < distanceToPackage) {
 	    		if (packageHit == false) {
-	    			
+	    			robot.goForwardPilot(10);
+	    			Delay.msDelay(2000);
+	    			robot.turnRightPilot(90);
+	    			Delay.msDelay(2000);
 	    		} else {
 	    			
 	    		}
 	    	} else {
 	    		
 	    	}
+	    	
+	    	double relativeDistance = (distance - distanceToWall);
+	        
+	        int speedMotorRight =  (int) ((1-relativeDistance) * SPEED_FACTOR) - 100;
+	        int speedMotorLeft = (int) (relativeDistance * SPEED_FACTOR) - 100;
+	        
+	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+	        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
+	        
+	        if(speedMotorRight < 0)
+	          robot.setRightMotorGoForward();
+	        else robot.setRightMotorGoBackward();
+	        
+	        if (speedMotorLeft < 0)
+	        	robot.setLeftMotorGoForward();
+	        else robot.setLeftMotorGoBackward();
+	    	
 	    }
 	    
 	  }
