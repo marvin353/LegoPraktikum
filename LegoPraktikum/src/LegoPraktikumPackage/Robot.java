@@ -81,6 +81,11 @@ public class Robot {
 			
 		}
 		
+		//Possible Modes: "Red", "Color ID", "RGB"
+		public void setColorSensorMode(String mode) {
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, mode));
+		}
+		
 		public void mainLoop() throws InterruptedException {
 			//// new Thread(this.sensors).start();
 			//Button.LEDPattern(1); // green light
@@ -101,10 +106,11 @@ public class Robot {
 			
 		}
 		
+		/*
 		public int getColorID() {
 			//return this.colorS.getColorID();
 			return 0;
-		}
+		}*/
 		
 		
 		

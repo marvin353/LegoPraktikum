@@ -7,8 +7,9 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
-
+import lejos.robotics.Color;
 import LegoPraktikumPackage.Robot;
+import Sensors.SingleValueSensorWrapper;
 
 public class LinieFahren implements Runnable, ISection {
   
@@ -50,6 +51,7 @@ public class LinieFahren implements Runnable, ISection {
   @Override
   public void run() {
     onStart();
+    //driveParallelToWall();//to test method uncomment this line
     
    /* while() {
       SensorMode color = colorSensor.getRedMode();
@@ -368,6 +370,39 @@ public class LinieFahren implements Runnable, ISection {
   public void setRunningState(boolean state) {
     //running = state;
     
+  }
+  
+  //TODO Test this Method
+  private void driveParallelToWall() {
+	  robot.LookLeft();
+	  Delay.msDelay(1000);
+	  robot.setColorSensorMode("ColorID");
+	  
+	  //TODO make sure this works because getColor returns float and Color.BLUE is int
+	  while (robot.getSensors().getColor() != Color.BLUE) {
+		  float distance =  robot.getSensors().getDistance();
+		  
+		  LCD.drawString("Distance: " + distance, 0, 5);
+		  
+		  
+		  int speedMotorLeft =  (int) ((0.60-distance) * SPEED_FACTOR);
+	      int speedMotorRight = (int) (distance * SPEED_FACTOR);
+	        
+	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+	        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
+	        
+	        if(speedMotorRight < 0)
+	          robot.setRightMotorGoForward();
+	        else robot.setRightMotorGoBackward();
+	        
+	        if (speedMotorLeft < 0)
+	        	robot.setLeftMotorGoForward();
+	        else robot.setLeftMotorGoBackward();
+	  }
+	  
+	  LCD.drawString("BLUE!!!", 0, 5);
+	  robot.setColorSensorMode("Red");
+	  Delay.msDelay(3000);
   }
 
 }
