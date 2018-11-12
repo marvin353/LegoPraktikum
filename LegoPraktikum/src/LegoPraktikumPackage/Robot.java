@@ -267,7 +267,7 @@ public class Robot {
 					
 			rightMotor.rotate(right, true);
 			leftMotor.rotate(left, true);*/
-			turnLeftPilot(degree);
+			turnRightPilot(degree);
 		}
 		
 		public void goForwardByDegree(int degree) {

@@ -254,7 +254,8 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(5000);
 	  LCD.drawString("Search Line!", 0, 5);
 	  Delay.msDelay(5000);
-	  robot.goForwardByDegree(80);
+	  //robot.goForwardByDegree(80);
+	  //robot.goForwardPilot(10);
 	  while (robot.isMoving()) {}
 	  //Find new line
 	  while (robot.getSensors().getColor() < 0.2) {
@@ -269,9 +270,9 @@ public class LinieFahren implements Runnable, ISection {
 			  
 			  if (stage == 0) {
 				  LCD.drawString("turn right", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(2000);
 				  //Rotate 100 degrees to right
-				  robot.turnRight(100, true);
+				  robot.turnRight(150, true);
 				  stage++;				  
 			  }
 			  
@@ -281,16 +282,16 @@ public class LinieFahren implements Runnable, ISection {
 					  robot.stopLeftMotor(true);
 					  robot.stopRightMotor(true);
 					  LCD.drawString("finished turn", 0, 5);
-					  Delay.msDelay(4000);
+					  Delay.msDelay(2000);
 				  }
 					  
 			  }
 			  
 			  else if (stage == 2) {
 				  LCD.drawString("turn left", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(2000);
 				  //rotate 200 degrees to left
-				  robot.turnLeft(200, true);
+				  robot.turnLeft(300, true);
 				  stage++;
 			  }
 			  else if(stage == 3) {
@@ -298,13 +299,13 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage++;
 					  LCD.drawString("finished", 0, 5);
-					  Delay.msDelay(4000);
+					  Delay.msDelay(2000);
 				  }
 					  
 			  }			  
 			  else if(stage == 4) {
 				  LCD.drawString("turn right", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(2000);
 				 //Rotate 100 to right 
 				  robot.turnRight(100, true);
 					  stage++;
@@ -314,13 +315,13 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage++;
 					  LCD.drawString("finished", 0, 5);
-					  Delay.msDelay(4000);
+					  Delay.msDelay(2000);
 				  }
 			  }
 			  
 			  else if(stage == 6) {
 				  LCD.drawString("forward", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(2000);
 				  //Move a bit forward
 				  /*robot.setLeftMotorSpeed(100);
 				  robot.setRightMotorSpeed(100);

@@ -60,6 +60,8 @@ public class PaketLiefern implements Runnable, ISection {
 	    	
 	    	if(distance < distanceToPackage) {
 	    		if (packageHit == false) {
+	    			robot.goForwardPilot(10);
+	    			Delay.msDelay(2000);
 	    			robot.turnRightPilot(90);
 	    			Delay.msDelay(2000);
 	    		} else {
