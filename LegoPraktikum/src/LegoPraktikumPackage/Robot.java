@@ -237,6 +237,14 @@ public class Robot {
 			leftMotor.rotate(left, true);
 		}
 		
+		public void turnRightPilot(int degree) {
+			pilot.rotate(degree * (-1));
+		}
+		
+		public void turnLeftPilot(int degree) {
+			pilot.rotate(degree);
+		}
+		
 		public void turnRight(int degree, boolean async) {
 			rightMotor.stop(true);
 			leftMotor.stop(true);
@@ -269,11 +277,11 @@ public class Robot {
 		
 		//Medium Motor Controlls
 		public void LookLeft() {
-			mediumMotor.rotateTo(90);
+			mediumMotor.rotateTo(0);
 		}
 		
 		public void LookRight() {
-			mediumMotor.rotateTo(270);
+			mediumMotor.rotateTo(180);
 		}
 		
 		//Sound

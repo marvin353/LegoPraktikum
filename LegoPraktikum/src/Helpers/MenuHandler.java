@@ -32,8 +32,9 @@ public class MenuHandler implements Runnable{
 			  new Thread(new Runnable() {
 			    public void run() {
 			      robot.run(menu.getMarked());
+			      System.out.println("start running from menu");
 			    }
-			    }).start();
+			    }).start(); 
 			  
 				break;
 			default:
