@@ -66,13 +66,13 @@ public class PaketLiefern implements Runnable, ISection {
 
 	    		robot.turnRightPilot(90);
 	    		Delay.msDelay(delayTime);
-	    		robot.goForwardPilot(50);
+	    		robot.goForwardPilot(80);
 	    		Delay.msDelay(delayTime);
 	    		robot.goForwardPilot(-10);
 	    		Delay.msDelay(delayTime);
 	    		robot.turnLeftPilot(90);
 	    		Delay.msDelay(delayTime);
-	    		robot.goForwardPilot(30);
+	    		robot.goForwardPilot(20);
 	    		Delay.msDelay(delayTime);
 	    		robot.turnRightPilot(90);
 	    		Delay.msDelay(delayTime);
