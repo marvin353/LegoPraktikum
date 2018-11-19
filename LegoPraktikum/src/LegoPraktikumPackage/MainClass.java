@@ -5,6 +5,8 @@ import Helpers.MenuHandler;
 import States.ISection;
 import States.LinieFahren;
 import States.PaketLiefern;
+import States.BrueckeFahren;
+import States.FarbfeldFinden;
 import States.Stop;
 import States.Test;
 import lejos.hardware.Button;
@@ -16,35 +18,25 @@ public class MainClass {
   static Robot robot = new Robot();
 
 	public static void main(String[] args) {
+	  
 		ISection linie = new LinieFahren(robot);
 		ISection stop = new Stop(robot);
 		ISection test = new Test(robot);
 		ISection paket = new PaketLiefern(robot);
 		ISection farbe = new FarbfeldFinden(robot);
-		menu.addSection(SECTION_ENUM.LINIE, linie);
-		menu.addSection(SECTION_ENUM.STOP, stop);
+		ISection bruecke = new BrueckeFahren(robot);
+
+    menu.addSection(SECTION_ENUM.LINIE, linie);
 		menu.addSection(SECTION_ENUM.TEST, test);
 		menu.addSection(SECTION_ENUM.PAKET, paket);
 		menu.addSection(SECTION_ENUM.SUCHE, farbe);
-		
-		MenuHandler handler = new MenuHandler(menu, robot);
-		Thread t = new Thread(handler);
-		t.start();
-		
-		
-		
-		//robot.runLinieFahren();
-		
-		
-		
-		
-		
-		//Menu anzeigen
-		
-		//Je nach Auswahl entsprechende Section starten oder Rennen starten
-		
-		//Sensor Thread starten
+    menu.addSection(SECTION_ENUM.BRUECKE, bruecke);
 
+		
+
+    MenuHandler handler = new MenuHandler(menu, robot);
+    Thread t = new Thread(handler);
+    t.start();
 	}
 
 }

@@ -3,7 +3,7 @@ package LegoPraktikumPackage;
 public enum SECTION_ENUM {
   LINIE,
   PAKET,
-  RAMPE,
+  BRUECKE,
   SUCHE,
   STOP,
   TEST

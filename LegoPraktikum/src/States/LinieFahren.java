@@ -110,7 +110,7 @@ public class LinieFahren implements Runnable, ISection {
     	//hardcoded obstacle detection
     	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
     	  //touch left or right
-    	  int initTachoCountLeft = robot.getTachoCountLeftMotor();
+    	 /* int initTachoCountLeft = robot.getTachoCountLeftMotor();
         int initTachoCountRight = robot.getTachoCountRightMotor();
         int deltaLeft = 0, deltaRight = 0;
         
@@ -123,20 +123,28 @@ public class LinieFahren implements Runnable, ISection {
           deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
           deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
           LCD.drawString("Zuruck LR: " + deltaLeft + " " + deltaRight, 0, 5);
-        }
+        }*/
+    		
+    		robot.goForwardPilot(5);
+    		robot.turnRight(90);
         LCD.clearDisplay();
         LCD.drawString("Linie suchen", 0, 5);
         
+
         robot.LookLeft();
         Delay.msDelay(1000);
+        
+        int startRightMotor = robot.getTachoCountRightMotor();
+        
 
         while (robot.getSensors().getColor() <= 0.15) {
           float distance =  robot.getSensors().getDistance();
           
           LCD.drawString("Distance: " + distance, 0, 5);
+
           
-          int speedMotorLeft =  (int) ((0.6-distance) * SPEED_FACTOR);
-            int speedMotorRight = (int) (distance * SPEED_FACTOR);
+          int speedMotorLeft =  (int) ((0.42-distance) * SPEED_FACTOR*0.8 + 200);
+            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 + 200);
               
               robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
               robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -265,6 +273,7 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.setRightMotorRotateAsync(t_count_right * (-1));
 	  
 	  
+	  
 	  int stage = 2;//encodes if we are turning right, left, or second time right
 	  while (robot.isMoving()){
 		  
@@ -288,8 +297,16 @@ public class LinieFahren implements Runnable, ISection {
 			  Delay.msDelay(2000);
 		  }*/
 		   //Search for line
+/*		  if (stage == -1) {
+				  LCD.drawString("go back", 0, 5);
+				  Delay.msDelay(delayValue);
+				  //Rotate 100 degrees to right
+				  robot.goForwardPilot(-5);
+				  stage++;				  
+			  }	  
+*/		  
 			  /*
-			  if (stage == 0) {
+             if (stage == 0) {
 				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(delayValue);
 				  //Rotate 100 degrees to right
@@ -369,6 +386,7 @@ public class LinieFahren implements Runnable, ISection {
 			  else if(stage == 8) {
 				  if(!robot.isMoving())
 				  {
+					  //stage = -1;
 					  stage = 2;
 					  LCD.drawString("Von vorne!", 0, 5);
 					  Delay.msDelay(delayValue);
