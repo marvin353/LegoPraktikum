@@ -127,12 +127,29 @@ public class LinieFahren implements Runnable, ISection {
         LCD.clearDisplay();
         LCD.drawString("Linie suchen", 0, 5);
         
-        robot.travelArc(30, 2000);
-        
-        Delay.msDelay(400);
-        
-        while(robot.getSensors().getColor() <= 0.15) {
+
+        robot.LookLeft();
+        Delay.msDelay(1000);
+
+        while (robot.getSensors().getColor() <= 0.15) {
+          float distance =  robot.getSensors().getDistance();
           
+          LCD.drawString("Distance: " + distance, 0, 5);
+
+          
+          int speedMotorLeft =  (int) ((0.6-distance) * SPEED_FACTOR);
+            int speedMotorRight = (int) (distance * SPEED_FACTOR);
+              
+              robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+              robot.setRightMotorSpeed(Math.abs(speedMotorRight));
+              
+              if(speedMotorRight < 0)
+                robot.setRightMotorGoForward();
+              else robot.setRightMotorGoBackward();
+              
+              if (speedMotorLeft < 0)
+                robot.setLeftMotorGoForward();
+              else robot.setLeftMotorGoBackward();
         }
         /*
         initTachoCountLeft = robot.getTachoCountLeftMotor();
