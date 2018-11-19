@@ -32,9 +32,9 @@ public class MenuHandler implements Runnable{
 				Delay.msDelay(100);
 				break;
 			case Button.ID_ENTER:
-			      robot.run(menu.getMarked());
-			      System.out.println("start running from menu");
-			      Delay.msDelay(200);
+			  robot.run(menu.getMarked());
+			  System.out.println("start running from menu");
+			  Delay.msDelay(200);
 				break;
 			default:
 				break;
