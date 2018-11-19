@@ -20,10 +20,12 @@ public class MainClass {
 		ISection stop = new Stop(robot);
 		ISection test = new Test(robot);
 		ISection paket = new PaketLiefern(robot);
+		ISection farbe = new FarbfeldFinden(robot);
 		menu.addSection(SECTION_ENUM.LINIE, linie);
 		menu.addSection(SECTION_ENUM.STOP, stop);
 		menu.addSection(SECTION_ENUM.TEST, test);
 		menu.addSection(SECTION_ENUM.PAKET, paket);
+		menu.addSection(SECTION_ENUM.SUCHE, farbe);
 		
 		MenuHandler handler = new MenuHandler(menu, robot);
 		Thread t = new Thread(handler);

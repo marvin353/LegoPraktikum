@@ -24,9 +24,9 @@ public class EV3Menu {
 	  int index = 0;
 	  for(ISection sec: sectionMap.values()){
 	    if(index == markedIndex) {
-	      LCD.drawString(sec.getName(), 0, index * 2, true);
+	      LCD.drawString(sec.getName(), 0, index, true);
 	    } else {
-	      LCD.drawString(sec.getName(), 0, index * 2, false);
+	      LCD.drawString(sec.getName(), 0, index, false);
 	    }
 	    index++;
 	  }
