@@ -127,6 +127,7 @@ public class LinieFahren implements Runnable, ISection {
         LCD.clearDisplay();
         LCD.drawString("Linie suchen", 0, 5);
         
+
         robot.LookLeft();
         Delay.msDelay(1000);
 
@@ -134,6 +135,7 @@ public class LinieFahren implements Runnable, ISection {
           float distance =  robot.getSensors().getDistance();
           
           LCD.drawString("Distance: " + distance, 0, 5);
+
           
           int speedMotorLeft =  (int) ((0.6-distance) * SPEED_FACTOR);
             int speedMotorRight = (int) (distance * SPEED_FACTOR);
