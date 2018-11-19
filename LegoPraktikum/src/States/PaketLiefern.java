@@ -39,7 +39,7 @@ public class PaketLiefern implements Runnable, ISection {
 	  @Override
 	  public void onStart() {
 		  //Check if other State thread is running 
-		  robot.LookRight();
+		  //robot.LookRight();
 	  }
 
 	  @Override
@@ -51,7 +51,7 @@ public class PaketLiefern implements Runnable, ISection {
 	  @Override
 	  public void run() {
 	    onStart();
-	    
+	    robot.goForwardPilot(500);
 	    while(running) {
 	    	
 	    	double distance = robot.getSensors().getDistance();
@@ -59,16 +59,16 @@ public class PaketLiefern implements Runnable, ISection {
 	    	if (distance <= 0.5) {
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
-	    		robot.goForwardPilot(5);
-	    		robot.turnLeftPilot(90);
-	    		robot.goForwardPilot(80);
-	    		robot.goForwardPilot(-10);
+	    		robot.goForwardPilot(30);
 	    		robot.turnRightPilot(90);
-	    		robot.goForwardPilot(20);
-	    		robot.turnLeft(90);
-	    		robot.goForwardPilot(10);
+	    		robot.goForwardPilot(250);
+	    		robot.goForwardPilot(-30);
 	    		robot.turnLeftPilot(90);
-	    		robot.goForwardPilot(60);
+	    		robot.goForwardPilot(100);
+	    		robot.turnRight(90);
+	    		robot.goForwardPilot(30);
+	    		robot.turnRightPilot(90);
+	    		robot.goForwardPilot(200);
 	    	}
 	    	
 	    	/*
