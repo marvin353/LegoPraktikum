@@ -72,16 +72,24 @@ public class BrueckeFahren implements Runnable, ISection {
 				  abgrundFound();
 			  }
 			  
-			  int distanceFactor = 0;
+			  float distanceFactor = 0;
+			  if (distance > distance_to_bridge) {
+				  distanceFactor = 0.5f;
+			  } else {
+				  distanceFactor = -0.5f;
+			  }
 			  
 			  
 			  LCD.drawString("Color:" + color , 0, 5);
 			  LCD.drawString("Distance: " + distance, 0, 7);
 			  
 			  
-			  int speedMotorLeft =  (int) ((0.4 - (distance + distance_to_bridge)) * SPEED_FACTOR);
-		      int speedMotorRight = (int) ((distance + distance_to_bridge) * SPEED_FACTOR);
+			  //int speedMotorLeft =  (int) ((0.4 - (distance + distance_to_bridge)) * SPEED_FACTOR);
+		      //int speedMotorRight = (int) ((distance + distance_to_bridge) * SPEED_FACTOR);
 		        
+			    int speedMotorLeft =  (int) ((1) * distanceFactor * SPEED_FACTOR);
+		        int speedMotorRight = (int) ((-1) * distanceFactor * SPEED_FACTOR);
+		        		
 		        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 		        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
 		        
