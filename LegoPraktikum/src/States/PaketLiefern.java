@@ -61,25 +61,51 @@ public class PaketLiefern implements Runnable, ISection {
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
 	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go to "middle of package
 	    		robot.goForwardPilot(10);
 	    		Delay.msDelay(delayTime);
 
+	    		//turn around
 	    		robot.turnRightPilot(90);
 	    		Delay.msDelay(delayTime);
-	    		robot.goForwardPilot(80);
+	    		
+	    		//Push package to wall
+	    		robot.goForwardPilot(120);
 	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go a bit back to have enough space for turning around
 	    		robot.goForwardPilot(-10);
 	    		Delay.msDelay(delayTime);
-	    		robot.turnLeftPilot(90);
+	    		
+	    		//turn around
+	    		robot.turnLeftPilot(95);
 	    		Delay.msDelay(delayTime);
-	    		robot.goForwardPilot(20);
+	    		
+	    		//Go a bit forward to get on other side of packages
+	    		robot.goForwardPilot(15);
 	    		Delay.msDelay(delayTime);
+	    		
+	    		//turn around
 	    		robot.turnRightPilot(90);
 	    		Delay.msDelay(delayTime);
-	    		robot.goForwardPilot(30);
+	    		
+	    		//Go forward until touch sensor gets active (wall)
+	    		robot.goForwardPilot(40);
+	    		while (robot.getSensors().getTouch1() == 0 || robot.getSensors().getTouch2() == 0) {
+	    			robot.goForwardPilot(2);
+	    		}
+	    		
 	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go Back to have space for turning around
+	    		robot.goForwardPilot(-5);
+	    		
+	    		//turn around
 	    		robot.turnRightPilot(90);
 	    		Delay.msDelay(delayTime);
+	    		
+	    		//Push package towards wall
 	    		robot.goForwardPilot(100);
 	    	}
 	    	
