@@ -67,7 +67,9 @@ public class Robot {
 			SingleValueSensorWrapper touch2 = new SingleValueSensorWrapper(touchS2, "Touch");
 			SingleValueSensorWrapper distance = new SingleValueSensorWrapper(ultraS, "Distance");
 			
-			pilot = new DifferentialPilot(6.88f, 12.0f, leftMotor, rightMotor);
+			pilot = new DifferentialPilot(6.88f, 12.0f, leftMotor, rightMotor);	
+			pilot.setRotateSpeed(30);
+			pilot.setTravelSpeed(50);
 
 			this.sensors = new SensorThread(color, touch1, touch2, distance);
 			new Thread(this.sensors).start();
@@ -301,6 +303,10 @@ public class Robot {
 		
 		public void LookRight() {
 			mediumMotor.rotateTo(180);
+		}
+		
+		public void LookDown() {
+			mediumMotor.rotateTo(260);
 		}
 		
 		//Sound

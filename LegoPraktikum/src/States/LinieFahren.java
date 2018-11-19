@@ -273,6 +273,7 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.setRightMotorRotateAsync(t_count_right * (-1));
 	  
 	  
+	  
 	  int stage = 2;//encodes if we are turning right, left, or second time right
 	  while (robot.isMoving()){
 		  
@@ -296,8 +297,16 @@ public class LinieFahren implements Runnable, ISection {
 			  Delay.msDelay(2000);
 		  }*/
 		   //Search for line
+/*		  if (stage == -1) {
+				  LCD.drawString("go back", 0, 5);
+				  Delay.msDelay(delayValue);
+				  //Rotate 100 degrees to right
+				  robot.goForwardPilot(-5);
+				  stage++;				  
+			  }	  
+*/		  
 			  /*
-			  if (stage == 0) {
+             if (stage == 0) {
 				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(delayValue);
 				  //Rotate 100 degrees to right
@@ -377,6 +386,7 @@ public class LinieFahren implements Runnable, ISection {
 			  else if(stage == 8) {
 				  if(!robot.isMoving())
 				  {
+					  //stage = -1;
 					  stage = 2;
 					  LCD.drawString("Von vorne!", 0, 5);
 					  Delay.msDelay(delayValue);
