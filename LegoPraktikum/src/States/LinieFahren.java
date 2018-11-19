@@ -127,9 +127,9 @@ public class LinieFahren implements Runnable, ISection {
         LCD.clearDisplay();
         LCD.drawString("Linie suchen", 0, 5);
         
-        robot.travelArc(20, 2000);
+        robot.travelArc(30, 2000);
         
-        Delay.msDelay(500);
+        Delay.msDelay(400);
         
         while(robot.getSensors().getColor() <= 0.15) {
           
