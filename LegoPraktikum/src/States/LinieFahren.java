@@ -375,6 +375,7 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.setColorSensorMode("ColorID");
 	  
 	  //TODO make sure this works because getColor returns float and Color.BLUE is int
+	  //I feel like it works (not sure)
 	  while (robot.getSensors().getColor() != Color.BLUE) {
 		  float distance =  robot.getSensors().getDistance();
 		  
