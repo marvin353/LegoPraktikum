@@ -55,20 +55,32 @@ public class PaketLiefern implements Runnable, ISection {
 	    while(running) {
 	    	
 	    	double distance = robot.getSensors().getDistance();
+	    	int delayTime = 2000;
 	    	
-	    	if (distance <= 0.5) {
+	    	if (distance <= 0.4) {
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
-	    		robot.goForwardPilot(30);
+	    		Delay.msDelay(delayTime);
+	    		robot.goForwardPilot(10);
+	    		Delay.msDelay(delayTime);
+
 	    		robot.turnRightPilot(90);
-	    		robot.goForwardPilot(250);
-	    		robot.goForwardPilot(-30);
+	    		Delay.msDelay(delayTime);
+	    		robot.goForwardPilot(50);
+	    		Delay.msDelay(delayTime);
+	    		robot.goForwardPilot(-10);
+	    		Delay.msDelay(delayTime);
 	    		robot.turnLeftPilot(90);
-	    		robot.goForwardPilot(100);
-	    		robot.turnRight(90);
+	    		Delay.msDelay(delayTime);
 	    		robot.goForwardPilot(30);
+	    		Delay.msDelay(delayTime);
 	    		robot.turnRightPilot(90);
-	    		robot.goForwardPilot(200);
+	    		Delay.msDelay(delayTime);
+	    		robot.goForwardPilot(30);
+	    		Delay.msDelay(delayTime);
+	    		robot.turnRightPilot(90);
+	    		Delay.msDelay(delayTime);
+	    		robot.goForwardPilot(100);
 	    	}
 	    	
 	    	/*
