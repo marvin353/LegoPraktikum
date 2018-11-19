@@ -50,6 +50,8 @@ public class Test implements Runnable, ISection{
 		Delay.msDelay(1000);
 		robot.LookRight();
 		Delay.msDelay(1000);
+		robot.LookDown();
+		Delay.msDelay(1000);
 		
 		/*robot.turnLeftPilot(90);
 		Delay.msDelay(2000);

@@ -15,7 +15,7 @@ import lejos.utility.Delay;
 public class BrueckeFahren implements Runnable, ISection {
 	
 	private final String NAME = "Bruecke fahren";
-	  static int SPEED_FACTOR = 540;
+	  static int SPEED_FACTOR = 250;
 	  private static float abgrund_color = 0;
 	  private static float distance_to_bridge = 0.13f;
 	  
@@ -39,6 +39,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  @Override
 	  public void onStart() {
 		
+		  LCD.clear();
 		  //Check if other State thread is running 
 	    
 	  }
@@ -59,23 +60,27 @@ public class BrueckeFahren implements Runnable, ISection {
 		  Delay.msDelay(1000);
 		  robot.setColorSensorMode("ColorID");
 		  robot.LookDown();
+		  int i = 0;
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (robot.getSensors().getColor() != Color.BLUE) {
+		  while (i==0) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  
-			  if(color == abgrund_color) {
+			  if(color <= abgrund_color) {
 				  LCD.drawString("Am Abgrund: " + color , 0, 5);
 				  abgrundFound();
 			  }
 			  
+			  int distanceFactor = 0;
 			  
-			  LCD.drawString("Distance: " + distance, 0, 5);
+			  
+			  LCD.drawString("Color:" + color , 0, 5);
+			  LCD.drawString("Distance: " + distance, 0, 7);
 			  
 			  
-			  int speedMotorLeft =  (int) ((0.60-distance) * SPEED_FACTOR);
-		      int speedMotorRight = (int) (distance * SPEED_FACTOR);
+			  int speedMotorLeft =  (int) ((0.4 - (distance + distance_to_bridge)) * SPEED_FACTOR);
+		      int speedMotorRight = (int) ((distance + distance_to_bridge) * SPEED_FACTOR);
 		        
 		        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 		        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -94,9 +99,12 @@ public class BrueckeFahren implements Runnable, ISection {
 		  Delay.msDelay(3000);
 	  }
 	  
-	  private void abgrundFound() {
-		  robot.goForwardPilot(10);
-		  robot.turnLeftPilot(90);
+	  private boolean abgrundFound() {
+		  robot.goForwardPilot(-5);
+		  Delay.msDelay(2000);
+		  robot.turnLeft(90,true);
+		  Delay.msDelay(1500);
+		  return true;
 	  }
 	  
 	  @Override
