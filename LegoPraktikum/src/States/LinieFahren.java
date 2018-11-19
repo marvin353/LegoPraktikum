@@ -7,8 +7,9 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
-
+import lejos.robotics.Color;
 import LegoPraktikumPackage.Robot;
+import Sensors.SingleValueSensorWrapper;
 
 public class LinieFahren implements Runnable, ISection {
   
@@ -50,6 +51,7 @@ public class LinieFahren implements Runnable, ISection {
   @Override
   public void run() {
     onStart();
+    //driveParallelToWall();//to test method uncomment this line
     
    /* while() {
       SensorMode color = colorSensor.getRedMode();
@@ -81,7 +83,7 @@ public class LinieFahren implements Runnable, ISection {
     	double brightness = robot.getSensors().getColor();
     	
     	
-    	if(brightness <= 0.1) {
+    	if(brightness <= 0.15) {
     		if (blackFound == false) {
     			startTachoCountLeft = robot.getTachoCountLeftMotor();
         		startTachoCountRight = robot.getTachoCountRightMotor();
@@ -125,11 +127,11 @@ public class LinieFahren implements Runnable, ISection {
         LCD.clearDisplay();
         LCD.drawString("Linie suchen", 0, 5);
         
-        robot.travelArc(40, 2000);
+        robot.travelArc(18, 2000);
         
         Delay.msDelay(500);
         
-        while(robot.getSensors().getColor() <= 0.1) {
+        while(robot.getSensors().getColor() <= 0.15) {
           
         }
         /*
@@ -252,12 +254,14 @@ public class LinieFahren implements Runnable, ISection {
 	  }
 	  
 	  LCD.drawString("Start Pos", 0, 5);
-	  Delay.msDelay(5000);
+	  Delay.msDelay(1000);
 	  LCD.drawString("Search Line!", 0, 5);
-	  Delay.msDelay(5000);
-	  robot.goForwardByDegree(80);
+	  Delay.msDelay(1000);
+	  //robot.goForwardByDegree(80);
+	  //robot.goForwardPilot(10);
 	  while (robot.isMoving()) {}
 	  //Find new line
+	  int delayValue = 2000;
 	  while (robot.getSensors().getColor() < 0.2) {
 		  /*
 		  double brightness = robot.getSensors().getColor();
@@ -270,9 +274,9 @@ public class LinieFahren implements Runnable, ISection {
 			  
 			  if (stage == 0) {
 				  LCD.drawString("turn right", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(delayValue);
 				  //Rotate 100 degrees to right
-				  robot.turnRight(100, true);
+				  robot.turnRight(130, true);
 				  stage++;				  
 			  }
 			  
@@ -282,16 +286,16 @@ public class LinieFahren implements Runnable, ISection {
 					  robot.stopLeftMotor(true);
 					  robot.stopRightMotor(true);
 					  LCD.drawString("finished turn", 0, 5);
-					  Delay.msDelay(4000);
+					  Delay.msDelay(delayValue);
 				  }
 					  
 			  }
 			  
 			  else if (stage == 2) {
 				  LCD.drawString("turn left", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(delayValue);
 				  //rotate 200 degrees to left
-				  robot.turnLeft(200, true);
+				  robot.turnLeft(260, true);
 				  stage++;
 			  }
 			  else if(stage == 3) {
@@ -299,15 +303,15 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage++;
 					  LCD.drawString("finished", 0, 5);
-					  Delay.msDelay(4000);
+					  Delay.msDelay(delayValue);
 				  }
 					  
 			  }			  
 			  else if(stage == 4) {
 				  LCD.drawString("turn right", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(delayValue);
 				 //Rotate 100 to right 
-				  robot.turnRight(100, true);
+				  robot.turnRight(130, true);
 					  stage++;
 			  }
 			  else if(stage == 5) {
@@ -315,13 +319,13 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage++;
 					  LCD.drawString("finished", 0, 5);
-					  Delay.msDelay(4000);
+					  Delay.msDelay(delayValue);
 				  }
 			  }
 			  
 			  else if(stage == 6) {
 				  LCD.drawString("forward", 0, 5);
-				  Delay.msDelay(4000);
+				  Delay.msDelay(delayValue);
 				  //Move a bit forward
 				  /*robot.setLeftMotorSpeed(100);
 				  robot.setRightMotorSpeed(100);
@@ -342,7 +346,7 @@ public class LinieFahren implements Runnable, ISection {
 					  robot.stopRightMotor();
 					  stage ++;
 					  LCD.drawString("Stop!", 0, 5);
-					  Delay.msDelay(2000);
+					  Delay.msDelay(delayValue);
 				  }			  
 			  }
 			  else if(stage == 8) {
@@ -350,7 +354,7 @@ public class LinieFahren implements Runnable, ISection {
 				  {
 					  stage = 0;
 					  LCD.drawString("Von vorne!", 0, 5);
-					  Delay.msDelay(2000);
+					  Delay.msDelay(delayValue);
 				  }					  
 			  }			  
 		  	  
@@ -362,6 +366,39 @@ public class LinieFahren implements Runnable, ISection {
   public void setRunningState(boolean state) {
     //running = state;
     
+  }
+  
+  //TODO Test this Method
+  private void driveParallelToWall() {
+	  robot.LookLeft();
+	  Delay.msDelay(1000);
+	  robot.setColorSensorMode("ColorID");
+	  
+	  //TODO make sure this works because getColor returns float and Color.BLUE is int
+	  while (robot.getSensors().getColor() != Color.BLUE) {
+		  float distance =  robot.getSensors().getDistance();
+		  
+		  LCD.drawString("Distance: " + distance, 0, 5);
+		  
+		  
+		  int speedMotorLeft =  (int) ((0.60-distance) * SPEED_FACTOR);
+	      int speedMotorRight = (int) (distance * SPEED_FACTOR);
+	        
+	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+	        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
+	        
+	        if(speedMotorRight < 0)
+	          robot.setRightMotorGoForward();
+	        else robot.setRightMotorGoBackward();
+	        
+	        if (speedMotorLeft < 0)
+	        	robot.setLeftMotorGoForward();
+	        else robot.setLeftMotorGoBackward();
+	  }
+	  
+	  LCD.drawString("BLUE!!!", 0, 5);
+	  robot.setColorSensorMode("Red");
+	  Delay.msDelay(3000);
   }
 
 }

@@ -81,6 +81,11 @@ public class Robot {
 			
 		}
 		
+		//Possible Modes: "Red", "Color ID", "RGB"
+		public void setColorSensorMode(String mode) {
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, mode));
+		}
+		
 		public void mainLoop() throws InterruptedException {
 			//// new Thread(this.sensors).start();
 			//Button.LEDPattern(1); // green light
@@ -101,10 +106,11 @@ public class Robot {
 			
 		}
 		
+		/*
 		public int getColorID() {
 			//return this.colorS.getColorID();
 			return 0;
-		}
+		}*/
 		
 		
 		
@@ -232,6 +238,19 @@ public class Robot {
 			leftMotor.rotate(left);
 		}
 		
+		public void turnRight(int degree, boolean async) {
+			turnRightPilot(degree);
+			/*rightMotor.stop(true);
+			leftMotor.stop(true);
+			
+			int right = (int)(degree * factor);
+			int left = (int)(degree * factor * (-1));
+			while (this.isMoving()) {} //TEST
+					
+			rightMotor.rotate(right, true);
+			leftMotor.rotate(left, true);*/
+		}
+		
 		public void turnLeft(int degree, boolean async) {
 			turnLeftPilot(degree);
 			/*rightMotor.stop(true);
@@ -255,19 +274,6 @@ public class Robot {
 		
 		public void goForwardPilot(double distance) {
 			pilot.travel(distance * distanceFactor * (-1), true);
-		}
-		
-		public void turnRight(int degree, boolean async) {
-			/*rightMotor.stop(true);
-			leftMotor.stop(true);
-			
-			int right = (int)(degree * factor);
-			int left = (int)(degree * factor * (-1));
-			while (this.isMoving()) {} //TEST
-					
-			rightMotor.rotate(right, true);
-			leftMotor.rotate(left, true);*/
-			turnLeftPilot(degree);
 		}
 		
 		public void goForwardByDegree(int degree) {
