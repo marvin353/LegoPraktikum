@@ -55,20 +55,58 @@ public class PaketLiefern implements Runnable, ISection {
 	    while(running) {
 	    	
 	    	double distance = robot.getSensors().getDistance();
+	    	int delayTime = 2000;
 	    	
-	    	if (distance <= 0.5) {
+	    	if (distance <= 0.4) {
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
-	    		robot.goForwardPilot(30);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go to "middle of package
+	    		robot.goForwardPilot(10);
+	    		Delay.msDelay(delayTime);
+
+	    		//turn around
 	    		robot.turnRightPilot(90);
-	    		robot.goForwardPilot(250);
-	    		robot.goForwardPilot(-30);
-	    		robot.turnLeftPilot(90);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Push package to wall
+	    		robot.goForwardPilot(120);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go a bit back to have enough space for turning around
+	    		robot.goForwardPilot(-10);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//turn around
+	    		robot.turnLeftPilot(95);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go a bit forward to get on other side of packages
+	    		robot.goForwardPilot(15);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//turn around
+	    		robot.turnRightPilot(90);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go forward until touch sensor gets active (wall)
+	    		robot.goForwardPilot(40);
+	    		while (robot.getSensors().getTouch1() == 0 || robot.getSensors().getTouch2() == 0) {
+	    			robot.goForwardPilot(2);
+	    		}
+	    		
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Go Back to have space for turning around
+	    		robot.goForwardPilot(-5);
+	    		
+	    		//turn around
+	    		robot.turnRightPilot(90);
+	    		Delay.msDelay(delayTime);
+	    		
+	    		//Push package towards wall
 	    		robot.goForwardPilot(100);
-	    		robot.turnRight(90);
-	    		robot.goForwardPilot(30);
-	    		robot.turnRightPilot(90);
-	    		robot.goForwardPilot(200);
 	    	}
 	    	
 	    	/*
