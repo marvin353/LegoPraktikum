@@ -391,7 +391,7 @@ public class LinieFahren implements Runnable, ISection {
 			  
 			  //Turn a bit left
 			  else if(stage == 8) {
-				  robot.turnLeft(40, true);		
+				  robot.turnLeft(45, true);		
 				  stage++;
 			  }		
 			  else if(stage == 9) {
@@ -405,7 +405,7 @@ public class LinieFahren implements Runnable, ISection {
 				  if(!robot.isMoving()) stage ++;
 			  }
 			  else if(stage == 12) {
-				  robot.turnLeft(40, true);
+				  robot.turnLeft(45, true);
 			  }
 			  
 			  //Now go back to stage 6, and travel forward again

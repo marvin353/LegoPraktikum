@@ -70,7 +70,8 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 
 	    		//turn around
-	    		robot.turnRightPilot(90);
+	    		robot.turnRightPilot(95);
+	    		while(robot.isMoving()) {}
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Push package to wall
@@ -83,7 +84,8 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//turn around
-	    		robot.turnLeftPilot(95);
+	    		robot.turnLeftPilot(100);
+	    		while(robot.isMoving()) {}
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go a bit forward to get on other side of packages
@@ -92,6 +94,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		
 	    		//turn around
 	    		robot.turnRightPilot(90);
+	    		while(robot.isMoving()) {}
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go forward until touch sensor gets active (wall)
@@ -110,7 +113,8 @@ public class PaketLiefern implements Runnable, ISection {
 	    		robot.goForwardPilot(-5);
 	    		
 	    		//turn around
-	    		robot.turnRightPilot(90);
+	    		robot.turnRightPilot(95);
+	    		while(robot.isMoving()) {}
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Push package towards wall
