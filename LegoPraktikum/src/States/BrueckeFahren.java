@@ -18,6 +18,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  static int SPEED_FACTOR = 250;
 	  private static float abgrund_color = 0;
 	  private static float distance_to_bridge = 0.13f;
+	  int abgrundCount;
 	  
 	  EV3ColorSensor colorSensor;
 	  EV3UltrasonicSensor ulSensor;
@@ -28,7 +29,7 @@ public class BrueckeFahren implements Runnable, ISection {
 
 	  public BrueckeFahren(Robot robot) {
 		  this.robot = robot;
-		  
+		  abgrundCount = 0;
 	  }
 
 	  @Override
@@ -38,8 +39,9 @@ public class BrueckeFahren implements Runnable, ISection {
 
 	  @Override
 	  public void onStart() {
-		
-		  LCD.clear();
+		abgrundCount = 0;
+		LCD.clear();
+		robot.changeSettingsForBridge();
 		  //Check if other State thread is running 
 	    
 	  }
@@ -58,7 +60,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  
 	  private void driveOnBridge() {
 		  Delay.msDelay(1000);
-		  robot.setColorSensorMode("ColorID");
+		  //robot.setColorSensorMode("ColorID");
 		  robot.LookDown();
 		  int i = 0;
 		  
@@ -69,12 +71,17 @@ public class BrueckeFahren implements Runnable, ISection {
 			  
 			  if(color <= abgrund_color) {
 				  LCD.drawString("Am Abgrund: " + color , 0, 5);
-				  abgrundFound();
+				  if(abgrundCount == 1) {
+					  abgrundFound();
+				  }
+				  
+				  abgrundCount++;
+				  LCD.drawString("AC:" + abgrundCount , 0, 3);
 			  }
 			  
 			  float distanceFactor = 0;
 			  if (distance > distance_to_bridge) {
-				  distanceFactor = 0.5f;
+				  distanceFactor = 0.7f;
 			  } else {
 				  distanceFactor = -0.5f;
 			  }

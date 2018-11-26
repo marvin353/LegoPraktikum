@@ -1,6 +1,7 @@
 package LegoPraktikumPackage;
 
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
@@ -14,6 +15,8 @@ import lejos.robotics.navigation.DifferentialPilot;
 
 import Sensors.SensorThread;
 import Sensors.SingleValueSensorWrapper;
+
+import java.io.File;
 
 import Helpers.EV3Menu;
 import States.ISection;
@@ -102,6 +105,14 @@ public class Robot {
 		
 		public void changeSettingsForLineFollower() {
 			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
+		}
+		
+		public void changeSettingsForFarbfeldFinden() {
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "ColorID"));
+		}
+		
+		public void changeSettingsForBridge() {
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "ColorID"));
 		}
 		
 		public void changeSettingsForPackageDelivery() {
@@ -311,6 +322,9 @@ public class Robot {
 		}
 		
 		//Sound
+		public void PlaySoundSample() {
+			Sound.playSample(new File("imperial_march.wav"), Sound.VOL_MAX);
+		}
 		
 		
 		
@@ -346,18 +360,6 @@ public class Robot {
 		public void setRightMotor(EV3LargeRegulatedMotor rightMotor) {
 			this.rightMotor = rightMotor;
 		}
-
-		/*public double getTRACK_WIDTH() {
-			return TRACK_WIDTH;
-		}*/
-
-		/*public Drive getDrive() {
-			return drive;
-		}*/
-
-		/*public void setDrive(Drive drive) {
-			this.drive = drive;
-		}*/
 
 		public EV3MediumRegulatedMotor getMediumMotor() {
 			return mediumMotor;

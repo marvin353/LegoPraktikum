@@ -18,7 +18,7 @@ public class FarbfeldFinden implements Runnable, ISection {
   public FarbfeldFinden(Robot robot) {
     
     this.robot = robot;
-    robot.setColorSensorMode("ColorID");
+    
     
   }
 
@@ -29,6 +29,7 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void onStart() {
+    robot.changeSettingsForFarbfeldFinden();
     Sound.setVolume(20);
     
   }
@@ -47,6 +48,7 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void run() {
+	onStart();
     while(running) {
       robot.goForwardPilot(1000);
       
