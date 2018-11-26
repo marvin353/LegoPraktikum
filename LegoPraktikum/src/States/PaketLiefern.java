@@ -1,6 +1,7 @@
 package States;
 
 import LegoPraktikumPackage.Robot;
+import lejos.hardware.Sound;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -57,7 +58,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    	double distance = robot.getSensors().getDistance();
 	    	int delayTime = 2000;
 	    	
-	    	if (distance <= 0.4) {
+	    	if (distance <= 0.45) {
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
 	    		Delay.msDelay(delayTime);
@@ -71,7 +72,8 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Push package to wall
-	    		robot.goForwardPilot(120);
+	    		robot.goForwardPilot(80);
+	    		while (robot.isMoving()){}
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go a bit back to have enough space for turning around
@@ -91,11 +93,15 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go forward until touch sensor gets active (wall)
-	    		robot.goForwardPilot(40);
+	    		robot.setLeftMotorSpeed(500);
+	    		robot.setRightMotorSpeed(500);
+	    		robot.setLeftMotorGoBackward();
+	    		robot.setRightMotorGoBackward();
 	    		while (robot.getSensors().getTouch1() == 0 || robot.getSensors().getTouch2() == 0) {
-	    			robot.goForwardPilot(2);
+	    			
 	    		}
-	    		
+	    		robot.stopLeftMotor(true);
+	    		robot.stopRightMotor();
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go Back to have space for turning around
@@ -106,7 +112,10 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Push package towards wall
-	    		robot.goForwardPilot(100);
+	    		robot.goForwardPilot(80);
+	    		while (robot.isMoving()){}
+	    		Sound.beep();
+	    		Sound.beep();
 	    	}
 	    	
 	    	/*
