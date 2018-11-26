@@ -329,7 +329,7 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn left", 0, 5);
 				  Delay.msDelay(delayValue);
 				  //rotate 200 degrees to left
-				  robot.turnLeft(120, true);
+				  robot.turnRight(120, true);
 				  stage++;
 			  }
 			  else if(stage == 3) {
@@ -345,7 +345,7 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(delayValue);
 				 //Rotate 100 to right 
-				  robot.turnRight(120, true);
+				  robot.turnLeft(120, true);
 					  stage++;
 			  }
 			  else if(stage == 5) {
@@ -365,29 +365,29 @@ public class LinieFahren implements Runnable, ISection {
 				  robot.setRightMotorSpeed(100);
 				  robot.setLeftMotorGoBackward();
 				  robot.setRightMotorGoBackward();*/
-				  robot.goForwardPilot(10);
+				  robot.goForwardPilot(20);
 				  leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
 				  rightMotorTachoCount = robot.getRightMotor().getTachoCount();
 				  stage ++;
 				  
 			  }
 			  else if (stage == 7) {
-				  
-				  int leftDelta = Math.abs(robot.getLeftMotor().getTachoCount() - leftMotorTachoCount);
+				  if(!robot.isMoving()) stage ++;
+				  /*int leftDelta = Math.abs(robot.getLeftMotor().getTachoCount() - leftMotorTachoCount);
 				  int rightDelta = Math.abs(robot.getRightMotor().getTachoCount() - rightMotorTachoCount);
-				  if(leftDelta >= 200 || rightDelta >= 200) {
+				  if(leftDelta >= 300 || rightDelta >= 300) {
 					  robot.stopLeftMotor();
 					  robot.stopRightMotor();
 					  stage ++;
 					  LCD.drawString("Stop!", 0, 5);
 					  Delay.msDelay(delayValue);
-				  }			  
+				  }	*/		  
 			  }
 			  else if(stage == 8) {
 				  if(!robot.isMoving())
 				  {
 					  //stage = -1;
-					  stage = 2;
+					  stage = 2;//TODO this does not make sense, because it will only turn to left and not to right like this
 					  LCD.drawString("Von vorne!", 0, 5);
 					  Delay.msDelay(delayValue);
 				  }					  
