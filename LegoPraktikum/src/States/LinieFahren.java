@@ -17,7 +17,7 @@ public class LinieFahren implements Runnable, ISection {
   private static double LIGHT_SENSOR_WHITE_VALUE = 0.5; //typischerweise bum die 60
   private static double LIGHT_SENSOR_BLACK_VALUE = 0.05; //typischerweise um die 20
   static int SPEED_FACTOR = 540;
-  private static int treshhold_line_lost = 700;
+  private static int treshhold_line_lost = 750;
   
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
@@ -286,6 +286,8 @@ public class LinieFahren implements Runnable, ISection {
 	  //robot.goForwardByDegree(80);
 	  //robot.goForwardPilot(10);
 	  while (robot.isMoving()) {}
+	  robot.goForwardPilot(1);
+	  while (robot.isMoving()) {}
 	  //Find new line
 	  int delayValue = 50;
 	  while (robot.getSensors().getColor() < 0.2) {
@@ -326,7 +328,7 @@ public class LinieFahren implements Runnable, ISection {
 			  }
 			  
 			  else */if (stage == 2) {
-				  LCD.drawString("turn left", 0, 5);
+				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(delayValue);
 				  //rotate 200 degrees to left
 				  robot.turnRight(120, true);
@@ -342,7 +344,7 @@ public class LinieFahren implements Runnable, ISection {
 					  
 			  }			  
 			  else if(stage == 4) {
-				  LCD.drawString("turn right", 0, 5);
+				  LCD.drawString("turn left", 0, 5);
 				  Delay.msDelay(delayValue);
 				 //Rotate 100 to right 
 				  robot.turnLeft(120, true);
@@ -357,6 +359,7 @@ public class LinieFahren implements Runnable, ISection {
 				  }
 			  }
 			  
+			  //Go Forward
 			  else if(stage == 6) {
 				  LCD.drawString("forward", 0, 5);
 				  Delay.msDelay(delayValue);
@@ -366,11 +369,13 @@ public class LinieFahren implements Runnable, ISection {
 				  robot.setLeftMotorGoBackward();
 				  robot.setRightMotorGoBackward();*/
 				  robot.goForwardPilot(20);
-				  leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
-				  rightMotorTachoCount = robot.getRightMotor().getTachoCount();
+				  //leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
+				  //rightMotorTachoCount = robot.getRightMotor().getTachoCount();
 				  stage ++;
 				  
 			  }
+			  
+			  //if finished moving go to next stage
 			  else if (stage == 7) {
 				  if(!robot.isMoving()) stage ++;
 				  /*int leftDelta = Math.abs(robot.getLeftMotor().getTachoCount() - leftMotorTachoCount);
@@ -383,15 +388,30 @@ public class LinieFahren implements Runnable, ISection {
 					  Delay.msDelay(delayValue);
 				  }	*/		  
 			  }
+			  
+			  //Turn a bit left
 			  else if(stage == 8) {
-				  if(!robot.isMoving())
-				  {
-					  //stage = -1;
-					  stage = 2;//TODO this does not make sense, because it will only turn to left and not to right like this
-					  LCD.drawString("Von vorne!", 0, 5);
-					  Delay.msDelay(delayValue);
-				  }					  
-			  }			  
+				  robot.turnLeft(40, true);		
+				  stage++;
+			  }		
+			  else if(stage == 9) {
+				  if(!robot.isMoving()) stage ++;
+			  }
+			  else if(stage == 10) {
+				  robot.turnRight(80, true);
+				  stage++;
+			  }
+			  else if(stage == 11) {
+				  if(!robot.isMoving()) stage ++;
+			  }
+			  else if(stage == 12) {
+				  robot.turnLeft(40, true);
+			  }
+			  
+			  //Now go back to stage 6, and travel forward again
+			  else if(stage == 13) {
+				  if(!robot.isMoving()) stage = 6;
+			  }
 		  	  
 	  }
 	  robot.stopLeftMotor(true);
