@@ -37,7 +37,7 @@ public class LinieFahren implements Runnable, ISection {
 
   @Override
   public void onStart() {
-	
+	robot.changeSettingsForLineFollower();
 	  //Check if other State thread is running 
     
   }

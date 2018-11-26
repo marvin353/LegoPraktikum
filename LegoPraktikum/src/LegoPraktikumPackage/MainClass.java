@@ -26,11 +26,11 @@ public class MainClass {
 		ISection farbe = new FarbfeldFinden(robot);
 		ISection bruecke = new BrueckeFahren(robot);
 
-    menu.addSection(SECTION_ENUM.LINIE, linie);
+        menu.addSection(SECTION_ENUM.LINIE, linie);
 		menu.addSection(SECTION_ENUM.TEST, test);
 		menu.addSection(SECTION_ENUM.PAKET, paket);
 		menu.addSection(SECTION_ENUM.SUCHE, farbe);
-    menu.addSection(SECTION_ENUM.BRUECKE, bruecke);
+        menu.addSection(SECTION_ENUM.BRUECKE, bruecke);
 
 		
 

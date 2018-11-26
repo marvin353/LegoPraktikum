@@ -13,7 +13,7 @@ public class FarbfeldFinden implements Runnable, ISection {
   public FarbfeldFinden(Robot robot) {
     
     this.robot = robot;
-    robot.setColorSensorMode("ColorID");
+    
     
   }
 
@@ -24,6 +24,7 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void onStart() {
+	  robot.changeSettingsForFarbfeldFinden();
     // TODO Auto-generated method stub
     
   }
@@ -42,6 +43,7 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void run() {
+	onStart();
     while(running) {
       robot.goForwardPilot(1000);
       
@@ -71,6 +73,8 @@ public class FarbfeldFinden implements Runnable, ISection {
         robot.turnRight(90,true);
         turnLeft = true;
       }
+      
+      Delay.msDelay(1000);
       
     }
   }
