@@ -271,7 +271,7 @@ public class Robot {
 		}
 		
 		public void turnLeftPilot(int degree) {
-			pilot.rotate(degree * (-1)* factorP,true);
+			pilot.rotate(degree * (-1) * factorP,true);
 		}
 		
 		public void goForwardPilot(double distance) {
