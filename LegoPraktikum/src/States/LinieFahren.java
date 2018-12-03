@@ -87,8 +87,7 @@ public class LinieFahren implements Runnable, ISection {
     	
     	//hardcoded obstacle detection
     	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
-    	  //touch left or right
-    	 
+
     		robot.goForwardPilot(5);
     		robot.turnRight(90);
     		LCD.clearDisplay();
@@ -106,7 +105,7 @@ public class LinieFahren implements Runnable, ISection {
 	          
 	            LCD.drawString("Distance: " + distance, 0, 5);
 	
-	            int speedMotorLeft =  (int) ((0.42-distance) * SPEED_FACTOR*0.8 + 200);
+	            int speedMotorLeft =  (int) ((0.65-distance) * SPEED_FACTOR*0.8 + 200);
 	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 + 200);
 	              
 	            robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
@@ -264,7 +263,7 @@ public class LinieFahren implements Runnable, ISection {
 				  robot.setRightMotorSpeed(100);
 				  robot.setLeftMotorGoBackward();
 				  robot.setRightMotorGoBackward();*/
-				  robot.goForwardPilot(20);
+				  robot.goForwardPilot(14);
 				  //leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
 				  //rightMotorTachoCount = robot.getRightMotor().getTachoCount();
 				  stage ++;
@@ -287,21 +286,22 @@ public class LinieFahren implements Runnable, ISection {
 			  
 			  //Turn a bit left
 			  else if(stage == 8) {
-				  robot.turnLeft(45, true);		
+				  robot.turnLeft(65, true);		
 				  stage++;
 			  }		
 			  else if(stage == 9) {
 				  if(!robot.isMoving()) stage ++;
 			  }
 			  else if(stage == 10) {
-				  robot.turnRight(80, true);
+				  robot.turnRight(110, true);
 				  stage++;
 			  }
 			  else if(stage == 11) {
 				  if(!robot.isMoving()) stage ++;
 			  }
 			  else if(stage == 12) {
-				  robot.turnLeft(45, true);
+				  robot.turnLeft(65, true);
+				  stage++;
 			  }
 			  
 			  //Now go back to stage 6, and travel forward again
