@@ -310,6 +310,7 @@ public class Robot {
 		//Medium Motor Controlls
 		public void LookLeft() {
 			mediumMotor.rotateTo(0);
+			mediumMotor.rotateTo(0, true);
 		}
 		
 		public void LookRight() {

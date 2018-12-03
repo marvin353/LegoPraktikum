@@ -52,8 +52,8 @@ public class FarbfeldFinden implements Runnable, ISection {
     while(running) {
       robot.setLeftMotorSpeed(200);
       robot.setRightMotorSpeed(200);
-      robot.setRightMotorGoForward();
-      robot.setLeftMotorGoForward();
+      robot.setLeftMotorGoBackward();
+      robot.setRightMotorGoBackward();
       
       while(robot.getSensors().getTouch1() != 1 && robot.getSensors().getTouch1() != 1) {
         LCD.drawString(String.valueOf(robot.getSensors().getColor()), 0, 5);
@@ -72,7 +72,7 @@ public class FarbfeldFinden implements Runnable, ISection {
       }
       
       if(turnLeft) {
-        robot.turnLeft(100, true);
+        robot.turnLeft(90, true);
       } else {
         robot.turnRight(90, true);
       }
@@ -88,7 +88,7 @@ public class FarbfeldFinden implements Runnable, ISection {
       }
       
       if(turnLeft) {
-        robot.turnLeft(100, true);
+        robot.turnLeft(90, true);
         turnLeft = false;
       } else {
         robot.turnRight(90,true);
