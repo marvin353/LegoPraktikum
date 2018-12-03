@@ -108,10 +108,10 @@ public class BrueckeFahren implements Runnable, ISection {
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
 				  distanceFactorL = 1.0f;
-				  distanceFactorR = 2.9f;
+				  distanceFactorR = 4.9f;
 			  } else {
 				  //distanceFactor = -0.5f;
-				  distanceFactorL = 2.9f;
+				  distanceFactorL = 3.9f;
 				  distanceFactorR = 1.4f;
 			  }
 			  
@@ -139,28 +139,25 @@ public class BrueckeFahren implements Runnable, ISection {
 		  Delay.msDelay(3000);
 	  }
 	  
+	  int delayValue = 1000;
 	  private boolean testForAbgrund() {
 		  robot.stopLeftMotor(true);
 		  robot.stopRightMotor(true);
-		  Delay.msDelay(1000);
+		  Delay.msDelay(delayValue);
 		  robot.turnLeft(10,true);
-		  Delay.msDelay(1000);
-		  robot.goForwardPilot(1);
-		  Delay.msDelay(1000);
+		  Delay.msDelay(delayValue);
 		  
 		  if(robot.getSensors().getDistance() > distance_to_bridge 
 				  && robot.getSensors().getColor() <= abgrund_color) {
 			  robot.turnRight(10,true);
-			  Delay.msDelay(1000);
-			  robot.goForwardPilot(-1);
-			  Delay.msDelay(1000);
+			  Delay.msDelay(delayValue);
 			  return true;
 		  }
 		  
 		  robot.turnRight(10,true);
-		  Delay.msDelay(1000);
-		  robot.goForwardPilot(-1);
-		  Delay.msDelay(1000);
+		  Delay.msDelay(delayValue);
+		  robot.goForwardPilot(7);
+		  Delay.msDelay(delayValue);
 		  return false;
 	  }
 	  

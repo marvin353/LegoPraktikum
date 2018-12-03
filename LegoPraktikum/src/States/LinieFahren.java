@@ -94,7 +94,7 @@ public class LinieFahren implements Runnable, ISection {
     		LCD.clearDisplay();
     		LCD.drawString("Linie suchen", 0, 5);
         
-    	    robot.getMediumMotor().rotateTo(180);
+    	    robot.getMediumMotor().rotateTo(185);
     	    Delay.msDelay(2000);
     		LCD.drawString("Look left", 0, 7);
     		Delay.msDelay(1000);
