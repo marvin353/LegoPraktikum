@@ -321,6 +321,11 @@ public class Robot {
 			mediumMotor.rotateTo(-80);
 		}
 		
+		public void LookDownPaket() {
+			mediumMotor.rotateTo(0);
+			mediumMotor.rotateTo(-10); //Something between 10 and 15
+		}
+		
 		//Sound
 		public void PlaySoundSample() {
 			Sound.playSample(new File("imperial_march.wav"), Sound.VOL_MAX);
