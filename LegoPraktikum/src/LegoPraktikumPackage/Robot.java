@@ -35,8 +35,8 @@ public class Robot {
 
 		//TODO Ueberall Touch Sensor 1 und 2 in Right und Left umbennenen!!!
 		private static final Port COLOR_SENSOR = SensorPort.S4;
-		private static final Port TOUCH_SENSOR_1 = SensorPort.S3;
-		private static final Port TOUCH_SENSOR_2 = SensorPort.S2;
+		private static final Port TOUCH_SENSOR_1 = SensorPort.S3; //Left
+		private static final Port TOUCH_SENSOR_2 = SensorPort.S2; //Right
 		private static final Port ULTRASONIC_SENSOR = SensorPort.S1;
 
 		private SensorThread sensors;
@@ -112,7 +112,7 @@ public class Robot {
 		}
 		
 		public void changeSettingsForBridge() {
-			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "ColorID"));
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
 		}
 		
 		public void changeSettingsForPackageDelivery() {
@@ -319,6 +319,11 @@ public class Robot {
 		public void LookDown() {
 			mediumMotor.rotateTo(0);
 			mediumMotor.rotateTo(-80);
+		}
+		
+		public void LookDownPaket() {
+			mediumMotor.rotateTo(0);
+			mediumMotor.rotateTo(-10); //Something between 10 and 15
 		}
 		
 		//Sound
