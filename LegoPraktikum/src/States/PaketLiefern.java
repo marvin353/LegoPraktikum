@@ -76,7 +76,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Push package to wall
-	    		robot.goForwardPilot(80);
+	    		robot.goForwardPilot(60);
 	    		while (robot.isMoving()){}
 	    		Delay.msDelay(delayTime);
 	    		
@@ -119,7 +119,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Push package towards wall
-	    		robot.goForwardPilot(80);
+	    		robot.goForwardPilot(60);
 	    		while (robot.isMoving()){}
 	    		Sound.beep();
 	    		Sound.beep();
