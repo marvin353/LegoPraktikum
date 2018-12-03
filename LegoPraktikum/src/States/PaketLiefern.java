@@ -43,6 +43,7 @@ public class PaketLiefern implements Runnable, ISection {
 		  //robot.LookRight();
 		  
 		  //TODO Make sure distance sensor looks right and a little bit down
+		  robot.LookDownPaket();
 	  }
 
 	  @Override
