@@ -319,7 +319,7 @@ public class Robot {
 		
 		public void LookDown() {
 			mediumMotor.rotateTo(0);
-			mediumMotor.rotateTo(-80);
+			mediumMotor.rotateTo(-89);
 		}
 		
 		public void LookDownPaket() {

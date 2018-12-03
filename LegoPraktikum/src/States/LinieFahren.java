@@ -87,14 +87,15 @@ public class LinieFahren implements Runnable, ISection {
     	
     	//hardcoded obstacle detection
     	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
-    	  //touch left or right
-    	 
+
     		robot.goForwardPilot(5);
     		robot.turnRight(90);
     		LCD.clearDisplay();
     		LCD.drawString("Linie suchen", 0, 5);
         
+
     	    robot.getMediumMotor().rotateTo(170);
+
     	    Delay.msDelay(2000);
     		LCD.drawString("Look left", 0, 7);
     		Delay.msDelay(1000);
