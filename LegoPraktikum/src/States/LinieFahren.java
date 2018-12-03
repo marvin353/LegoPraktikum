@@ -94,7 +94,7 @@ public class LinieFahren implements Runnable, ISection {
     		LCD.clearDisplay();
     		LCD.drawString("Linie suchen", 0, 5);
         
-    	    robot.getMediumMotor().rotateTo(180);
+    	    robot.getMediumMotor().rotateTo(170);
     	    Delay.msDelay(2000);
     		LCD.drawString("Look left", 0, 7);
     		Delay.msDelay(1000);
@@ -104,10 +104,11 @@ public class LinieFahren implements Runnable, ISection {
 	        while (robot.getSensors().getColor() <= 0.15) {
 	            float distance =  robot.getSensors().getDistance();
 	          
-	            LCD.drawString("Distance: " + distance, 0, 5);
+	            LCD.drawString("Distance: " + distance, 0, 2);
+	            if(distance >0.35) distance = 0.35f;
 	
-	            int speedMotorLeft =  (int) ((0.65-distance) * SPEED_FACTOR*0.8 + 200);
-	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 + 200);
+	            int speedMotorLeft =  (int) ((0.35-distance) * SPEED_FACTOR*0.8 +100);
+	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 +100);
 	              
 	            robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 	            robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -243,7 +244,7 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn left", 0, 5);
 				  Delay.msDelay(delayValue);
 				 //Rotate 100 to right 
-				  robot.turnLeft(120, true);
+				  robot.turnLeft(130, true);
 					  stage++;
 			  }
 			  else if(stage == 5) {
