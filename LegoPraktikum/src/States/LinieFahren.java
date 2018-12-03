@@ -51,6 +51,7 @@ public class LinieFahren implements Runnable, ISection {
   @Override
   public void run() {
     onStart();
+    Delay.msDelay(2000);
     //driveParallelToWall();//to test method uncomment this line
     
     boolean blackFound = false;
@@ -93,8 +94,8 @@ public class LinieFahren implements Runnable, ISection {
     		LCD.clearDisplay();
     		LCD.drawString("Linie suchen", 0, 5);
         
-
-    		robot.LookLeft();
+    	    robot.getMediumMotor().rotateTo(180);
+    	    Delay.msDelay(2000);
     		LCD.drawString("Look left", 0, 7);
     		Delay.msDelay(1000);
         
