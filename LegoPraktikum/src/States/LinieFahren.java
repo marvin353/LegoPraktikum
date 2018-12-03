@@ -109,21 +109,6 @@ public class LinieFahren implements Runnable, ISection {
     	
     	//hardcoded obstacle detection
     	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
-    	  //touch left or right
-    	 /* int initTachoCountLeft = robot.getTachoCountLeftMotor();
-        int initTachoCountRight = robot.getTachoCountRightMotor();
-        int deltaLeft = 0, deltaRight = 0;
-        
-        while(Math.abs(deltaRight) <= 300) {
-          robot.stopLeftMotor();
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoForward();
-          
-          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-          LCD.drawString("Zuruck LR: " + deltaLeft + " " + deltaRight, 0, 5);
-        }*/
     		
     		robot.goForwardPilot(5);
     		robot.turnRight(90);
