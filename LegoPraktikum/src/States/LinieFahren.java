@@ -53,29 +53,6 @@ public class LinieFahren implements Runnable, ISection {
     onStart();
     //driveParallelToWall();//to test method uncomment this line
     
-   /* while() {
-      SensorMode color = colorSensor.getRedMode();
-      float[] colorSample = new float[color.sampleSize()];
-      color.fetchSample(colorSample, 0);
-      
-      double brightness = colorSample[0];
-          
-      double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
-          
-      int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 60;
-      int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 60;
-      
-      motorRight.setSpeed(speedMotorRight);
-      motorLeft.setSpeed(speedMotorLeft);
-      
-      if(speedMotorRight < 0)
-        motorRight.forward();
-      else motorRight.backward();
-      
-      if (speedMotorLeft < 0)
-        motorLeft.forward();
-      else motorLeft.backward();
-    }*/
     boolean blackFound = false;
     int startTachoCountLeft = 0, startTachoCountRight = 0; 
     while(running) {
@@ -110,125 +87,43 @@ public class LinieFahren implements Runnable, ISection {
     	//hardcoded obstacle detection
     	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
     	  //touch left or right
-    	 /* int initTachoCountLeft = robot.getTachoCountLeftMotor();
-        int initTachoCountRight = robot.getTachoCountRightMotor();
-        int deltaLeft = 0, deltaRight = 0;
-        
-        while(Math.abs(deltaRight) <= 300) {
-          robot.stopLeftMotor();
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoForward();
-          
-          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-          LCD.drawString("Zuruck LR: " + deltaLeft + " " + deltaRight, 0, 5);
-        }*/
-    		
+    	 
     		robot.goForwardPilot(5);
     		robot.turnRight(90);
-        LCD.clearDisplay();
-        LCD.drawString("Linie suchen", 0, 5);
+    		LCD.clearDisplay();
+    		LCD.drawString("Linie suchen", 0, 5);
         
 
-        robot.LookLeft();
-        Delay.msDelay(1000);
+    		robot.LookLeft();
+    		LCD.drawString("Look left", 0, 7);
+    		Delay.msDelay(1000);
         
-        int startRightMotor = robot.getTachoCountRightMotor();
+    		int startRightMotor = robot.getTachoCountRightMotor();
+
+	        while (robot.getSensors().getColor() <= 0.15) {
+	            float distance =  robot.getSensors().getDistance();
+	          
+	            LCD.drawString("Distance: " + distance, 0, 5);
+	
+	            int speedMotorLeft =  (int) ((0.42-distance) * SPEED_FACTOR*0.8 + 200);
+	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 + 200);
+	              
+	            robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+	            robot.setRightMotorSpeed(Math.abs(speedMotorRight));
+	              
+	            if(speedMotorRight < 0)
+	                robot.setRightMotorGoForward();
+	            else robot.setRightMotorGoBackward();
+	              
+	            if (speedMotorLeft < 0)
+	                robot.setLeftMotorGoForward();
+	            else robot.setLeftMotorGoBackward();
+	        }
         
-
-        while (robot.getSensors().getColor() <= 0.15) {
-          float distance =  robot.getSensors().getDistance();
-          
-          LCD.drawString("Distance: " + distance, 0, 5);
-
-          
-          int speedMotorLeft =  (int) ((0.42-distance) * SPEED_FACTOR*0.8 + 200);
-            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 + 200);
-              
-              robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
-              robot.setRightMotorSpeed(Math.abs(speedMotorRight));
-              
-              if(speedMotorRight < 0)
-                robot.setRightMotorGoForward();
-              else robot.setRightMotorGoBackward();
-              
-              if (speedMotorLeft < 0)
-                robot.setLeftMotorGoForward();
-              else robot.setLeftMotorGoBackward();
-        }
-        /*
-        initTachoCountLeft = robot.getTachoCountLeftMotor();
-        initTachoCountRight = robot.getTachoCountRightMotor();
-        deltaLeft = 0;
-        deltaRight = 0;
-        while(Math.abs(deltaLeft) <= 500 || Math.abs(deltaRight) <= 500) {
-          robot.setLeftMotorSpeed(200);
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoBackward();
-          robot.setLeftMotorGoBackward();
-          
-          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-          LCD.drawString("Vorwärts LR: " + deltaLeft + " " + deltaRight, 0, 5);
-
-        }
-        initTachoCountLeft = robot.getTachoCountLeftMotor();
-        initTachoCountRight = robot.getTachoCountRightMotor();
-        deltaLeft = 0;
-        deltaRight = 0;
-        while(Math.abs(deltaRight) <= 800) {
-          robot.stopLeftMotor();
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoBackward();
-          
-          deltaLeft = robot.getTachoCountLeftMotor() - initTachoCountLeft;
-          deltaRight = robot.getTachoCountRightMotor() - initTachoCountRight;
-          LCD.drawString("Zurück LR: " + deltaLeft + " " + deltaRight, 0, 5);
-        }
-        LCD.drawString("Linie suchen", 0, 5);
-        while(robot.getSensors().getColor() <= 0.1) {
-          robot.setLeftMotorSpeed(200);
-          robot.setRightMotorSpeed(200);
-          
-          robot.setRightMotorGoBackward();
-          robot.setLeftMotorGoBackward();
-        }
-        */
-        LCD.clearDisplay();
+        	LCD.clearDisplay();
         
     	} 
-    	/*
-    	//int t_count_left_init = 0;
-    	//int t_count_right_init = 0;
     	
-    	if(brightness < 0.1) {
-    		//robot.getLeftMotor().resetTachoCount();
-    		//robot.getRightMotor().resetTachoCount();
-    		//count++;
-    	} else {
-    		//t_count_left_init = 0;
-    		//t_count_right_init = 0;
-    		//count = 0;
-    	}
-    	
-        if (count >= 100) {  //Keine Ahnung welcher Wert hier gut ist
-    		//hier zählen anfangen
-        	System.out.println("Count >= 100");
-        	t_count_left_init = robot.getTachoCountLeftMotor();
-        	t_count_right_init = robot.getTachoCountRightMotor();
-        	
-    	}
-    	
-    	if (count >= 1000) {  //Keine Ahnung welcher Wert hier gut ist
-    		
-    		System.out.println("Continue on Line End");
-    		int t_count_left = robot.getTachoCountLeftMotor();
-        	int t_count_right = robot.getTachoCountRightMotor();
-    		continueOnLineEnd(t_count_left - t_count_left_init, t_count_right - t_count_right_init);
-    	} */
     	brightness = robot.getSensors().getColor();
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         
