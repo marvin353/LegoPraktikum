@@ -12,15 +12,17 @@ import lejos.hardware.lcd.LCD;
 public class FarbfeldFinden implements Runnable, ISection {
   
   Robot robot;
-  boolean running = true;
+  boolean running;
   boolean turnLeft = true;
   int fieldsFound = 0;
+  boolean foundRed = false;
+  boolean foundWhite = false;
   String sound = "";
   
   public FarbfeldFinden(Robot robot) {
     
     this.robot = robot;
-    
+    running = true;
     
   }
 
@@ -44,8 +46,8 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void setRunningState(boolean state) {
+
     running = state;
-    
   }
 
   @Override
@@ -60,37 +62,51 @@ public class FarbfeldFinden implements Runnable, ISection {
       while(robot.getSensors().getTouch1() != 1 && robot.getSensors().getTouch1() != 1) {
         LCD.drawString(String.valueOf(robot.getSensors().getColor()), 0, 5);
         if(robot.getSensors().getColor() == Color.RED) {
-          fieldsFound++;
-          robot.stopLeftMotor(true);
-          robot.stopRightMotor(true);
-          //Sound.playSample(new File("kit.wav"), 20);
-          Sound.beep();
-          Delay.msDelay(1000);
-          if(fieldsFound >= 2) {
-            running = false;
+          if(!foundRed) {
+            foundRed = true;
+            robot.stopLeftMotor(true);
+            robot.stopRightMotor(true);
+            //Sound.playSample(new File("kit.wav"), 20);
+            Sound.beep();
+            Delay.msDelay(1000);
+            if(foundRed && foundWhite) {
+              running = false;
+            }
+            robot.goForwardPilot(10);
+            break;
           }
+          
         } else if (robot.getSensors().getColor() == Color.WHITE) {
-          fieldsFound++;
-          robot.stopLeftMotor(true);
-          robot.stopRightMotor(true);
-          //Sound.playSample(new File("kit.wav"), 20);
-          Sound.beep();
-          if(fieldsFound >= 2) {
-            running = false;
+          if(!foundWhite) {
+            foundWhite = true;
+            robot.stopLeftMotor(true);
+            robot.stopRightMotor(true);
+            //Sound.playSample(new File("kit.wav"), 20);
+            Sound.beep();
+            Delay.msDelay(1000);
+            if(foundRed && foundWhite) {
+              running = false;
+            }
+            robot.goForwardPilot(10);
+            break;
           }
+          
         }
       }
       
-      robot.goForwardPilot(-10);
+      robot.stopLeftMotor(true);
+      robot.stopRightMotor(true);
+      
+      robot.goForwardPilot(-5);
       
       while(robot.isMoving()) {
         
       }
       
       if(turnLeft) {
-        robot.turnLeft(90, true);
+        robot.turnLeftPilot(90);
       } else {
-        robot.turnRight(90, true);
+        robot.turnRightPilot(90);
       }
       
       while(robot.isMoving()){
@@ -104,10 +120,10 @@ public class FarbfeldFinden implements Runnable, ISection {
       }
       
       if(turnLeft) {
-        robot.turnLeft(90, true);
+        robot.turnLeftPilot(90);
         turnLeft = false;
       } else {
-        robot.turnRight(90,true);
+        robot.turnRightPilot(90);
         turnLeft = true;
       }
       
