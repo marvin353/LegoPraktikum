@@ -40,9 +40,7 @@ public class PaketLiefern implements Runnable, ISection {
 	  @Override
 	  public void onStart() {
 		  //Check if other State thread is running 
-		  //robot.LookRight();
 		  
-		  //TODO Make sure distance sensor looks right and a little bit down
 		  robot.LookDownPaket();
 	  }
 

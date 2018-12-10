@@ -55,7 +55,8 @@ public class LinieFahren implements Runnable, ISection {
     //driveParallelToWall();//to test method uncomment this line
     
     boolean blackFound = false;
-    int startTachoCountLeft = 0, startTachoCountRight = 0; 
+    int startTachoCountLeft = 0, startTachoCountRight = 0;
+    boolean obstacleFound = false;
     while(running) {
     	
     	double brightness = robot.getSensors().getColor();
@@ -78,7 +79,8 @@ public class LinieFahren implements Runnable, ISection {
     			LCD.drawString("D r:" + deltaRight, 0, 5);
     			
     			if (Math.abs(deltaLeft) >= treshhold_line_lost || Math.abs(deltaRight) >= treshhold_line_lost) {
-    				continueOnLineEnd(deltaLeft, deltaRight);
+    				if (obstacleFound) driveParallelToWall();
+    				else continueOnLineEnd(deltaLeft, deltaRight);
     			}
     		}    		
     	} else {
@@ -124,6 +126,7 @@ public class LinieFahren implements Runnable, ISection {
 	        }
         
         	LCD.clearDisplay();
+        	obstacleFound = true;
         
     	} 
     	
@@ -326,7 +329,7 @@ public class LinieFahren implements Runnable, ISection {
   
   //TODO Test this Method
   private void driveParallelToWall() {
-	  robot.LookLeft();
+	  //robot.LookLeft(); //Annahme: er guckt hir schon nach links
 	  Delay.msDelay(1000);
 	  robot.setColorSensorMode("ColorID");
 	  
@@ -355,7 +358,8 @@ public class LinieFahren implements Runnable, ISection {
 	  
 	  LCD.drawString("BLUE!!!", 0, 5);
 	  robot.setColorSensorMode("Red");
-	  Delay.msDelay(3000);
+	  //TODO Next state
+	  robot.run(new PaketLiefern(robot));
   }
 
 }

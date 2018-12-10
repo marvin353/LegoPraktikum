@@ -2,7 +2,8 @@ package States;
 
 public interface ISection {
   
-  boolean running = true;
+  public boolean running = true;
+
 
   String getName();
   
