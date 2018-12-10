@@ -17,7 +17,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	private final String NAME = "Bruecke fahren";
 	  static int SPEED_FACTOR = 100;
 	  private static float abgrund_color = 0.015f;
-	  private static float distance_to_bridge = 0.15f;
+	  private static float distance_to_bridge = 0.12f;
 	  int abgrundCount;
 	  int turnCount;
 	  
@@ -107,11 +107,11 @@ public class BrueckeFahren implements Runnable, ISection {
 
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
-				  distanceFactorL = 1.0f;
+				  distanceFactorL = -1.0f;
 				  distanceFactorR = 5.0f;
 			  } else {
 				  //distanceFactor = -0.5f;
-				  distanceFactorL = 2.5f;
+				  distanceFactorL = 2.9f;
 				  distanceFactorR = 1.8f;
 			  }
 			  
@@ -155,7 +155,7 @@ public class BrueckeFahren implements Runnable, ISection {
 			  return true;
 		  }
 		  
-		  robot.turnRight(10,true);
+		  robot.turnRight(15,true);
 		  Delay.msDelay(delayValue);
 		  robot.goForwardPilot(7);
 		  Delay.msDelay(delayValue);
@@ -163,7 +163,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean abgrundFound() {
-		  robot.goForwardPilot(-5);
+		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(90,true);
 		  Delay.msDelay(1500);
