@@ -20,6 +20,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  private static float distance_to_bridge = 0.12f;
 	  int abgrundCount;
 	  int turnCount;
+	  private boolean running;
 	  
 	  float touched1;
 	  float touched2;
@@ -35,6 +36,7 @@ public class BrueckeFahren implements Runnable, ISection {
 		  this.robot = robot;
 		  abgrundCount = 0;
 		  turnCount = 0;
+		  running = true;
 	  }
 
 	  @Override
@@ -190,7 +192,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  
 	  @Override
 	  public void setRunningState(boolean state) {
-	    //running = state;
+	    running = state;
 	    
 	  }
 	  

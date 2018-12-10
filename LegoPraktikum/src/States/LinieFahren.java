@@ -23,11 +23,15 @@ public class LinieFahren implements Runnable, ISection {
   EV3LargeRegulatedMotor motorRight;
   EV3LargeRegulatedMotor motorLeft;
   
+  boolean obstacleFound = false;
+  
   Robot robot;
+  private boolean running;
 
   public LinieFahren(Robot robot) {
 	  this.robot = robot;
 	  robot.changeSettingsForLineFollower();
+	  running = true;
   }
 
   @Override
@@ -56,7 +60,7 @@ public class LinieFahren implements Runnable, ISection {
     
     boolean blackFound = false;
     int startTachoCountLeft = 0, startTachoCountRight = 0;
-    boolean obstacleFound = false;
+    
     while(running) {
     	
     	double brightness = robot.getSensors().getColor();
@@ -79,8 +83,8 @@ public class LinieFahren implements Runnable, ISection {
     			LCD.drawString("D r:" + deltaRight, 0, 5);
     			
     			if (Math.abs(deltaLeft) >= treshhold_line_lost || Math.abs(deltaRight) >= treshhold_line_lost) {
-    				if (obstacleFound) driveParallelToWall();
-    				else continueOnLineEnd(deltaLeft, deltaRight);
+    				
+    				continueOnLineEnd(deltaLeft, deltaRight);
     			}
     		}    		
     	} else {
@@ -110,8 +114,8 @@ public class LinieFahren implements Runnable, ISection {
 	            LCD.drawString("Distance: " + distance, 0, 2);
 	            if(distance >0.35) distance = 0.35f;
 	
-	            int speedMotorLeft =  (int) ((0.35-distance) * SPEED_FACTOR*0.8 +100);
-	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8 +100);
+	            int speedMotorLeft =  (int) ((0.35-distance) * SPEED_FACTOR*0.8);
+	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8);
 	              
 	            robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 	            robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -262,6 +266,11 @@ public class LinieFahren implements Runnable, ISection {
 			  
 			  //Go Forward
 			  else if(stage == 6) {
+				  if (obstacleFound) {
+					  driveParallelToWall();
+					  return;
+				  }
+				  
 				  LCD.drawString("forward", 0, 5);
 				  Delay.msDelay(delayValue);
 				  //Move a bit forward
@@ -323,14 +332,14 @@ public class LinieFahren implements Runnable, ISection {
  
   @Override
   public void setRunningState(boolean state) {
-    //running = state;
+    running = state;
     
   }
   
   //TODO Test this Method
-  private void driveParallelToWall() {
+  private void driveParallelToWall() {	  
 	  //robot.LookLeft(); //Annahme: er guckt hir schon nach links
-	  Delay.msDelay(1000);
+	  //Delay.msDelay(1000);
 	  robot.setColorSensorMode("ColorID");
 	  
 	  //TODO make sure this works because getColor returns float and Color.BLUE is int
@@ -341,7 +350,7 @@ public class LinieFahren implements Runnable, ISection {
 		  LCD.drawString("Distance: " + distance, 0, 5);
 		  
 		  
-		  int speedMotorLeft =  (int) ((0.60-distance) * SPEED_FACTOR);
+		  int speedMotorLeft =  (int) ((0.50-distance) * SPEED_FACTOR);
 	      int speedMotorRight = (int) (distance * SPEED_FACTOR);
 	        
 	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
@@ -357,6 +366,13 @@ public class LinieFahren implements Runnable, ISection {
 	  }
 	  
 	  LCD.drawString("BLUE!!!", 0, 5);
+	  robot.stopLeftMotor(true);
+	  robot.stopRightMotor(true);
+	  robot.setLeftMotorSpeed(200);
+	  robot.setRightMotorSpeed(200);
+	  robot.setRightMotorGoBackward();
+	  robot.setLeftMotorGoBackward();
+	  Delay.msDelay(100);
 	  robot.setColorSensorMode("Red");
 	  //TODO Next state
 	  robot.run(new PaketLiefern(robot));

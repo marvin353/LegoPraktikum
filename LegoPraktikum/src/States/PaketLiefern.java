@@ -24,12 +24,14 @@ public class PaketLiefern implements Runnable, ISection {
 	  EV3LargeRegulatedMotor motorRight;
 	  EV3LargeRegulatedMotor motorLeft;
 	  EV3MediumRegulatedMotor mediumMotor;
+	  private boolean running;
 	  
 	  Robot robot;
 
 	  public PaketLiefern(Robot robot) {
 		  this.robot = robot;
 		  robot.changeSettingsForPackageDelivery();
+		  running = false;
 	  }
 
 	  @Override
@@ -163,7 +165,7 @@ public class PaketLiefern implements Runnable, ISection {
 	 @Override
 	 public void setRunningState(boolean state) {
 	 	// TODO Auto-generated method stub
-		
+		running = state;
 	 }
 
 }

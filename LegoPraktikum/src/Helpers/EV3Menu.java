@@ -32,11 +32,11 @@ public class EV3Menu {
 	  }
 	}
 	
-	public Runnable getMarked() {
+	public ISection getMarked() {
 	  int index = 0;
     for(ISection sec: sectionMap.values()){
       if(index == markedIndex) {
-        return (Runnable) sec;
+        return sec;
       }
       index++;
     }

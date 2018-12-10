@@ -12,13 +12,13 @@ import lejos.hardware.lcd.LCD;
 public class FarbfeldFinden implements Runnable, ISection {
   
   Robot robot;
-  boolean running = true;
+  boolean running;
   boolean turnLeft = true;
   
   public FarbfeldFinden(Robot robot) {
     
     this.robot = robot;
-    
+    running = true;
     
   }
 
@@ -43,7 +43,7 @@ public class FarbfeldFinden implements Runnable, ISection {
   @Override
   public void setRunningState(boolean state) {
     // TODO Auto-generated method stub
-    
+    running=state;
   }
 
   @Override

@@ -1,8 +1,8 @@
 package States;
 
-public interface ISection {
+public interface ISection extends Runnable{
   
-  public boolean running = true;
+  //public boolean running = true;
 
 
   String getName();
