@@ -24,12 +24,14 @@ public class PaketLiefern implements Runnable, ISection {
 	  EV3LargeRegulatedMotor motorRight;
 	  EV3LargeRegulatedMotor motorLeft;
 	  EV3MediumRegulatedMotor mediumMotor;
+	  private boolean running;
 	  
 	  Robot robot;
 
 	  public PaketLiefern(Robot robot) {
 		  this.robot = robot;
 		  robot.changeSettingsForPackageDelivery();
+		  running = false;
 	  }
 
 	  @Override
@@ -40,9 +42,7 @@ public class PaketLiefern implements Runnable, ISection {
 	  @Override
 	  public void onStart() {
 		  //Check if other State thread is running 
-		  //robot.LookRight();
 		  
-		  //TODO Make sure distance sensor looks right and a little bit down
 		  robot.LookDownPaket();
 	  }
 
@@ -165,7 +165,7 @@ public class PaketLiefern implements Runnable, ISection {
 	 @Override
 	 public void setRunningState(boolean state) {
 	 	// TODO Auto-generated method stub
-		
+		running = state;
 	 }
 
 }
