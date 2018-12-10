@@ -94,6 +94,9 @@ public class FarbfeldFinden implements Runnable, ISection {
         }
       }
       
+      robot.stopLeftMotor(true);
+      robot.stopRightMotor(true);
+      
       robot.goForwardPilot(-5);
       
       while(robot.isMoving()) {
@@ -101,9 +104,9 @@ public class FarbfeldFinden implements Runnable, ISection {
       }
       
       if(turnLeft) {
-        robot.turnLeft(90, true);
+        robot.turnLeftPilot(90);
       } else {
-        robot.turnRight(90, true);
+        robot.turnRightPilot(90);
       }
       
       while(robot.isMoving()){
@@ -117,10 +120,10 @@ public class FarbfeldFinden implements Runnable, ISection {
       }
       
       if(turnLeft) {
-        robot.turnLeft(100, true);
+        robot.turnLeftPilot(90);
         turnLeft = false;
       } else {
-        robot.turnRight(110,true);
+        robot.turnRightPilot(90);
         turnLeft = true;
       }
       
