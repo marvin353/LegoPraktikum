@@ -43,7 +43,7 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void setRunningState(boolean state) {
-    // TODO Auto-generated method stub
+    running = state;
     
   }
 
@@ -76,6 +76,12 @@ public class FarbfeldFinden implements Runnable, ISection {
             running = false;
           }
         }
+      }
+      
+      robot.goForwardPilot(-10);
+      
+      while(robot.isMoving()) {
+        
       }
       
       if(turnLeft) {
