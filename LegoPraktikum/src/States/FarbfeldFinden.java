@@ -72,6 +72,7 @@ public class FarbfeldFinden implements Runnable, ISection {
             if(foundRed && foundWhite) {
               running = false;
             }
+            robot.goForwardPilot(10);
           }
           
         } else if (robot.getSensors().getColor() == Color.WHITE) {
@@ -81,9 +82,11 @@ public class FarbfeldFinden implements Runnable, ISection {
             robot.stopRightMotor(true);
             //Sound.playSample(new File("kit.wav"), 20);
             Sound.beep();
+            Delay.msDelay(1000);
             if(foundRed && foundWhite) {
               running = false;
             }
+            robot.goForwardPilot(10);
           }
           
         }
