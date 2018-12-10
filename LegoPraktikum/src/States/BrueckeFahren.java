@@ -15,9 +15,12 @@ import lejos.utility.Delay;
 public class BrueckeFahren implements Runnable, ISection {
 	
 	private final String NAME = "Bruecke fahren";
-	  static int SPEED_FACTOR = 100;
-	  private static float abgrund_color = 0.015f;
-	  private static float distance_to_bridge = 0.12f;
+	  static int SPEED_FACTOR = 90;
+	  private static float abgrund_colorRED = 0.015f;
+	  private static float abgrund_color = -1f;
+	  
+	  private static float distance_to_bridge = 0.13f;
+	  private static boolean blueFound = false;
 	  int abgrundCount;
 	  int turnCount;
 	  
@@ -73,11 +76,15 @@ public class BrueckeFahren implements Runnable, ISection {
 		  int i = 0;
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (i==0) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (i==0 && blueFound == false) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
 			  float touched2 = robot.getSensors().getTouch2();
+			  
+			  if (robot.getSensors().getColor() == Color.BLUE) {
+				 robot.run(new PaketLiefern(robot));
+			  }
 			  
 			  if(color <= abgrund_color) {
 				  LCD.drawString("Am Abgrund: " + color , 0, 1);
@@ -87,6 +94,9 @@ public class BrueckeFahren implements Runnable, ISection {
 				  if(testForAbgrund()) {
 					  abgrundFound();
 					  abgrundCount++;
+				  }
+				  if (abgrundCount == 2) {
+					  robot.LookUp();
 				  }
 				  LCD.drawString("AC:" + abgrundCount , 0, 3);
 			  }
@@ -107,12 +117,12 @@ public class BrueckeFahren implements Runnable, ISection {
 
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
-				  distanceFactorL = -1.0f;
+				  distanceFactorL = 0.0f;
 				  distanceFactorR = 5.0f;
 			  } else {
 				  //distanceFactor = -0.5f;
 				  distanceFactorL = 2.9f;
-				  distanceFactorR = 1.8f;
+				  distanceFactorR = 2.0f;
 			  }
 			  
 			  int speedMotorLeft =  (int) ((1) * distanceFactorL * SPEED_FACTOR);
@@ -143,13 +153,20 @@ public class BrueckeFahren implements Runnable, ISection {
 	  private boolean testForAbgrund() {
 		  robot.stopLeftMotor(true);
 		  robot.stopRightMotor(true);
-		  robot.goForwardPilot(-1);
+		  //Delay.msDelay(delayValue);
+		  //robot.goForwardPilot(-1.5);
 		  Delay.msDelay(delayValue);
 		  robot.turnLeft(15,true);
 		  Delay.msDelay(delayValue);
 		  
-		  if(robot.getSensors().getDistance() > distance_to_bridge 
+		  /*if(robot.getSensors().getDistance() > distance_to_bridge 
 				  && robot.getSensors().getColor() <= abgrund_color) {
+			  robot.turnRight(15,true);
+			  Delay.msDelay(delayValue);
+			  return true;
+		  }*/
+		  
+		  if(robot.getSensors().getDistance() > distance_to_bridge) {
 			  robot.turnRight(15,true);
 			  Delay.msDelay(delayValue);
 			  return true;
