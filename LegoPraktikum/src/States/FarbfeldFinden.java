@@ -15,6 +15,7 @@ public class FarbfeldFinden implements Runnable, ISection {
   boolean running = true;
   boolean turnLeft = true;
   int fieldsFound = 0;
+  String sound = "";
   
   public FarbfeldFinden(Robot robot) {
     
@@ -43,7 +44,7 @@ public class FarbfeldFinden implements Runnable, ISection {
 
   @Override
   public void setRunningState(boolean state) {
-    // TODO Auto-generated method stub
+    running = state;
     
   }
 
@@ -62,7 +63,8 @@ public class FarbfeldFinden implements Runnable, ISection {
           fieldsFound++;
           robot.stopLeftMotor(true);
           robot.stopRightMotor(true);
-          Sound.playSample(new File("kit.wav"), 20);
+          //Sound.playSample(new File("kit.wav"), 20);
+          Sound.beep();
           Delay.msDelay(1000);
           if(fieldsFound >= 2) {
             running = false;
@@ -71,11 +73,18 @@ public class FarbfeldFinden implements Runnable, ISection {
           fieldsFound++;
           robot.stopLeftMotor(true);
           robot.stopRightMotor(true);
-          Sound.playSample(new File("kit.wav"), 20);
+          //Sound.playSample(new File("kit.wav"), 20);
+          Sound.beep();
           if(fieldsFound >= 2) {
             running = false;
           }
         }
+      }
+      
+      robot.goForwardPilot(-10);
+      
+      while(robot.isMoving()) {
+        
       }
       
       if(turnLeft) {
