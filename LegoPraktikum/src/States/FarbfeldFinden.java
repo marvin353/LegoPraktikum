@@ -14,6 +14,7 @@ public class FarbfeldFinden implements Runnable, ISection {
   Robot robot;
   boolean running = true;
   boolean turnLeft = true;
+  int fieldsFound = 0;
   
   public FarbfeldFinden(Robot robot) {
     
@@ -50,24 +51,30 @@ public class FarbfeldFinden implements Runnable, ISection {
   public void run() {
 	onStart();
     while(running) {
-      robot.setLeftMotorSpeed(200);
-      robot.setRightMotorSpeed(200);
+      robot.setLeftMotorSpeed(250);
+      robot.setRightMotorSpeed(250);
       robot.setLeftMotorGoBackward();
       robot.setRightMotorGoBackward();
       
       while(robot.getSensors().getTouch1() != 1 && robot.getSensors().getTouch1() != 1) {
         LCD.drawString(String.valueOf(robot.getSensors().getColor()), 0, 5);
         if(robot.getSensors().getColor() == Color.RED) {
+          fieldsFound++;
           robot.stopLeftMotor(true);
           robot.stopRightMotor(true);
           Sound.playSample(new File("kit.wav"), 20);
           Delay.msDelay(1000);
+          if(fieldsFound >= 2) {
+            running = false;
+          }
         } else if (robot.getSensors().getColor() == Color.WHITE) {
+          fieldsFound++;
           robot.stopLeftMotor(true);
           robot.stopRightMotor(true);
           Sound.playSample(new File("kit.wav"), 20);
-          running = false;
-          return;
+          if(fieldsFound >= 2) {
+            running = false;
+          }
         }
       }
       
