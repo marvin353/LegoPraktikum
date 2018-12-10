@@ -17,7 +17,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	private final String NAME = "Bruecke fahren";
 	  static int SPEED_FACTOR = 100;
 	  private static float abgrund_color = 0.015f;
-	  private static float distance_to_bridge = 0.12f;
+	  private static float distance_to_bridge = 0.15f;
 	  int abgrundCount;
 	  int turnCount;
 	  
@@ -108,11 +108,11 @@ public class BrueckeFahren implements Runnable, ISection {
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
 				  distanceFactorL = 1.0f;
-				  distanceFactorR = 4.9f;
+				  distanceFactorR = 5.0f;
 			  } else {
 				  //distanceFactor = -0.5f;
-				  distanceFactorL = 3.9f;
-				  distanceFactorR = 1.4f;
+				  distanceFactorL = 2.5f;
+				  distanceFactorR = 1.8f;
 			  }
 			  
 			  int speedMotorLeft =  (int) ((1) * distanceFactorL * SPEED_FACTOR);
@@ -143,13 +143,14 @@ public class BrueckeFahren implements Runnable, ISection {
 	  private boolean testForAbgrund() {
 		  robot.stopLeftMotor(true);
 		  robot.stopRightMotor(true);
+		  robot.goForwardPilot(-1);
 		  Delay.msDelay(delayValue);
-		  robot.turnLeft(10,true);
+		  robot.turnLeft(15,true);
 		  Delay.msDelay(delayValue);
 		  
 		  if(robot.getSensors().getDistance() > distance_to_bridge 
 				  && robot.getSensors().getColor() <= abgrund_color) {
-			  robot.turnRight(10,true);
+			  robot.turnRight(15,true);
 			  Delay.msDelay(delayValue);
 			  return true;
 		  }
@@ -171,7 +172,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnRightSide() {
-		  robot.goForwardPilot(-5);
+		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(30,true);
 		  Delay.msDelay(1500);
@@ -179,7 +180,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnLeftSide() {
-		  robot.goForwardPilot(-5);
+		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnRight(30,true);
 		  Delay.msDelay(1500);
