@@ -2,6 +2,7 @@ package States;
 
 import LegoPraktikumPackage.Robot;
 import lejos.hardware.Sound;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -31,7 +32,7 @@ public class PaketLiefern implements Runnable, ISection {
 	  public PaketLiefern(Robot robot) {
 		  this.robot = robot;
 		  robot.changeSettingsForPackageDelivery();
-		  running = false;
+		  running = true;
 	  }
 
 	  @Override
@@ -55,11 +56,13 @@ public class PaketLiefern implements Runnable, ISection {
 	  @Override
 	  public void run() {
 	    onStart();
+	    LCD.clear();
 	    robot.goForwardPilot(500);
 	    while(running) {
 	    	
 	    	double distance = robot.getSensors().getDistance();
 	    	int delayTime = 2000;
+	    	LCD.drawString("d " + distance, 1, 1);
 	    	
 	    	if (distance <= 0.45) {
 	    		robot.stopLeftMotor(true);
@@ -122,6 +125,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		robot.goForwardPilot(60);
 	    		while (robot.isMoving()){}
 	    		Sound.beep();
+	    		running = false;
 	    		Sound.beep();
 	    	}
 	    	
