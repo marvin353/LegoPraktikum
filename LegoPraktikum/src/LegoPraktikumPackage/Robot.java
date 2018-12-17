@@ -112,7 +112,8 @@ public class Robot {
 		}
 		
 		public void changeSettingsForBridge() {
-			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
+			//this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
+			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "ColorID"));
 		}
 		
 		public void changeSettingsForPackageDelivery() {
@@ -324,6 +325,11 @@ public class Robot {
 		public void LookDown() {
 			mediumMotor.rotateTo(0);
 			mediumMotor.rotateTo(-89);
+		}
+		
+		public void LookUp() {
+			mediumMotor.rotateTo(0);
+			mediumMotor.rotateTo(90);
 		}
 		
 		public void LookDownPaket() {

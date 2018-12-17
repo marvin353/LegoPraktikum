@@ -15,9 +15,12 @@ import lejos.utility.Delay;
 public class BrueckeFahren implements Runnable, ISection {
 	
 	private final String NAME = "Bruecke fahren";
-	  static int SPEED_FACTOR = 100;
-	  private static float abgrund_color = 0.015f;
-	  private static float distance_to_bridge = 0.12f;
+	  static int SPEED_FACTOR = 90;
+	  private static float abgrund_colorRED = 0.015f;
+	  private static float abgrund_color = -1f;
+	  
+	  private static float distance_to_bridge = 0.13f;
+	  private static boolean blueFound = false;
 	  int abgrundCount;
 	  int turnCount;
 	  private boolean running;
@@ -72,14 +75,18 @@ public class BrueckeFahren implements Runnable, ISection {
 		  Delay.msDelay(1000);
 		  //robot.setColorSensorMode("ColorID");
 		  robot.LookDown();
-		  int i = 0;
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (i==0) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (blueFound == false) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
 			  float touched2 = robot.getSensors().getTouch2();
+			  
+			  if (robot.getSensors().getColor() == Color.BLUE) {
+				 robot.run(new PaketLiefern(robot));
+				 running=false;
+			  }
 			  
 			  if(color <= abgrund_color) {
 				  LCD.drawString("Am Abgrund: " + color , 0, 1);
@@ -88,7 +95,10 @@ public class BrueckeFahren implements Runnable, ISection {
 				  }*/
 				  if(testForAbgrund()) {
 					  abgrundFound();
-					  abgrundCount++;
+					  ++abgrundCount;
+				  }
+				  if (abgrundCount == 2) {
+					  //robot.LookUp();
 				  }
 				  LCD.drawString("AC:" + abgrundCount , 0, 3);
 			  }
@@ -109,12 +119,12 @@ public class BrueckeFahren implements Runnable, ISection {
 
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
-				  distanceFactorL = 1.0f;
-				  distanceFactorR = 4.9f;
+				  distanceFactorL = 0.0f;
+				  distanceFactorR = 5.0f;
 			  } else {
 				  //distanceFactor = -0.5f;
-				  distanceFactorL = 3.9f;
-				  distanceFactorR = 1.4f;
+				  distanceFactorL = 2.9f;
+				  distanceFactorR = 2.0f;
 			  }
 			  
 			  int speedMotorLeft =  (int) ((1) * distanceFactorL * SPEED_FACTOR);
@@ -145,18 +155,28 @@ public class BrueckeFahren implements Runnable, ISection {
 	  private boolean testForAbgrund() {
 		  robot.stopLeftMotor(true);
 		  robot.stopRightMotor(true);
+		  //Delay.msDelay(delayValue);
+		  //robot.goForwardPilot(-1.5);
 		  Delay.msDelay(delayValue);
-		  robot.turnLeft(10,true);
+		  robot.turnLeft(15,true);
 		  Delay.msDelay(delayValue);
 		  
-		  if(robot.getSensors().getDistance() > distance_to_bridge 
+		  /*if(robot.getSensors().getDistance() > distance_to_bridge 
 				  && robot.getSensors().getColor() <= abgrund_color) {
-			  robot.turnRight(10,true);
+			  robot.turnRight(15,true);
+			  Delay.msDelay(delayValue);
+			  return true;
+		  }*/
+		  
+		  if (abgrundCount >= 2 ) return true;
+		  
+		  if(robot.getSensors().getDistance() > distance_to_bridge) {
+			  robot.turnRight(15,true);
 			  Delay.msDelay(delayValue);
 			  return true;
 		  }
 		  
-		  robot.turnRight(10,true);
+		  robot.turnRight(15,true);
 		  Delay.msDelay(delayValue);
 		  robot.goForwardPilot(7);
 		  Delay.msDelay(delayValue);
@@ -164,7 +184,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean abgrundFound() {
-		  robot.goForwardPilot(-5);
+		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(90,true);
 		  Delay.msDelay(1500);
@@ -173,7 +193,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnRightSide() {
-		  robot.goForwardPilot(-5);
+		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(30,true);
 		  Delay.msDelay(1500);
@@ -181,7 +201,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnLeftSide() {
-		  robot.goForwardPilot(-5);
+		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnRight(30,true);
 		  Delay.msDelay(1500);
