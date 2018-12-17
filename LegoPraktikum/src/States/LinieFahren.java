@@ -375,6 +375,7 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(100);
 	  robot.setColorSensorMode("Red");
 	  //TODO Next state
+	  running=false;
 	  robot.run(new PaketLiefern(robot));
   }
 
