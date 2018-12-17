@@ -1,5 +1,3 @@
-
-
 package States;
 
 import States.ISection;
@@ -7,21 +5,22 @@ import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 import LegoPraktikumPackage.Robot;
 
-public class Test implements Runnable, ISection{
+public class Test2 implements Runnable, ISection{
 	Robot robot;
 	
-	public Test(Robot robot) {
+	public Test2(Robot robot) {
 		this.robot = robot;
 	}
 
 	@Override
 	public String getName() {
-		return "Test1";
+		return "Test 2";
 	}
 
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -38,21 +37,12 @@ public class Test implements Runnable, ISection{
 
 	@Override
 	public void run() {
-		
-		drawTest();
-		
-	}
-	
-	public void drawTest() {
-		int i = 0;
-		while(i < 3) {
-			i++;
-		}
 
-		LCD.drawString("Test1", 0, 2);
-		Delay.msDelay(3000);        
+		LCD.drawString("Test 2", 0, 4);
+		Delay.msDelay(3000);
 		LCD.clear();
 		Delay.msDelay(1000);
-        robot.run(new Test2(robot));
+        robot.run(new Test(robot));
+		
 	}
 }

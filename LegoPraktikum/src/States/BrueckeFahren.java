@@ -77,23 +77,23 @@ public class BrueckeFahren implements Runnable, ISection {
 		  robot.LookDown();
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (blueFound == false) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (running == true) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
 			  float touched2 = robot.getSensors().getTouch2();
 			  
 			  if (robot.getSensors().getColor() == Color.BLUE) {
-				 robot.run(new PaketLiefern(robot));
-				 running=false;
+				 LCD.clear();
+				 LCD.drawString("Blue Found", 0, 3);
+				 
+				 running = false;;
 			  }
 			  
 			  if(color <= abgrund_color) {
 				  LCD.drawString("Am Abgrund: " + color , 0, 1);
-				  /*if(abgrundCount >= 1) {
-					  abgrundFound();
-				  }*/
-				  if(testForAbgrund()) {
+				 
+				  if(testForAbgrund2()) {
 					  abgrundFound();
 					  ++abgrundCount;
 				  }
@@ -119,7 +119,7 @@ public class BrueckeFahren implements Runnable, ISection {
 
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
-				  distanceFactorL = 0.0f;
+				  distanceFactorL = -1.0f;
 				  distanceFactorR = 5.0f;
 			  } else {
 				  //distanceFactor = -0.5f;
@@ -147,8 +147,12 @@ public class BrueckeFahren implements Runnable, ISection {
 		  }
 		  
 		  LCD.drawString("BLUE!!!", 0, 5);
-		  robot.setColorSensorMode("Red");
-		  Delay.msDelay(3000);
+		  robot.stopLeftMotor(true);
+		  robot.stopRightMotor();
+		  running = false;
+		  robot.run(new FarbfeldFinden(robot));
+		  //robot.setColorSensorMode("Red");
+		  //Delay.msDelay(3000);
 	  }
 	  
 	  int delayValue = 1000;
@@ -168,10 +172,50 @@ public class BrueckeFahren implements Runnable, ISection {
 			  return true;
 		  }*/
 		  
-		  if (abgrundCount >= 2 ) return true;
+		  //if (abgrundCount >= 2 ) return true;
 		  
 		  if(robot.getSensors().getDistance() > distance_to_bridge) {
 			  robot.turnRight(15,true);
+			  Delay.msDelay(delayValue);
+			  robot.goForwardPilot(-2);
+			  //robot.turnLeft(15,true);
+			  Delay.msDelay(delayValue);
+			  return true;
+		  }
+		  
+		  robot.turnRight(15,true);
+		  Delay.msDelay(delayValue);
+		  robot.goForwardPilot(7);
+		  Delay.msDelay(delayValue);
+		  return false;
+	  }
+	  
+	  private boolean testForAbgrund2() {
+		  robot.stopLeftMotor(true);
+		  robot.stopRightMotor(true);
+		  //Delay.msDelay(delayValue);
+		  //robot.goForwardPilot(-1.5);
+		  Delay.msDelay(delayValue);
+		  robot.turnLeft(15,true);
+		  Delay.msDelay(delayValue);
+		  
+		  /*if(robot.getSensors().getDistance() > distance_to_bridge 
+				  && robot.getSensors().getColor() <= abgrund_color) {
+			  robot.turnRight(15,true);
+			  Delay.msDelay(delayValue);
+			  return true;
+		  }*/
+		  
+		  //if (abgrundCount >= 2 ) return true;
+		  
+		  if(robot.getSensors().getDistance() > distance_to_bridge) {
+			  //robot.turnRight(15,true);
+			  robot.getRightMotor().rotate(200);
+			  //Delay.msDelay(delayValue);
+			  //robot.goForwardPilot(-1);
+			  //robot.turnLeft(15,true);
+			  Delay.msDelay(delayValue);
+			  robot.getLeftMotor().rotate(200);
 			  Delay.msDelay(delayValue);
 			  return true;
 		  }
@@ -184,7 +228,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean abgrundFound() {
-		  robot.goForwardPilot(-6);
+		  robot.goForwardPilot(-3);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(90,true);
 		  Delay.msDelay(1500);
