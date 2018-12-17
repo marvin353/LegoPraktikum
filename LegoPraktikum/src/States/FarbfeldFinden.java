@@ -100,27 +100,48 @@ public class FarbfeldFinden implements Runnable, ISection {
       robot.goForwardPilot(-5);
       
       while(robot.isMoving()) {
-        
+        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+          Sound.beep();
+          foundWhite = true;
+        }
+        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+          Sound.beep();
+          foundRed = true;
+        }
       }
       
       if(turnLeft) {
-        robot.turnLeftPilot(90);
+        robot.turnLeftPilot(95);
       } else {
         robot.turnRightPilot(90);
       }
       
       while(robot.isMoving()){
-        
+        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+          Sound.beep();
+          foundWhite = true;
+        }
+        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+          Sound.beep();
+          foundRed = true;
+        }
       }
       
-      robot.goForwardPilot(5);
+      robot.goForwardPilot(2);
       
       while(robot.isMoving()){
-        
+        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+          Sound.beep();
+          foundWhite = true;
+        }
+        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+          Sound.beep();
+          foundRed = true;
+        }
       }
       
       if(turnLeft) {
-        robot.turnLeftPilot(90);
+        robot.turnLeftPilot(95);
         turnLeft = false;
       } else {
         robot.turnRightPilot(90);
@@ -128,7 +149,18 @@ public class FarbfeldFinden implements Runnable, ISection {
       }
       
       while(robot.isMoving()){
-        
+        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+          Sound.beep();
+          foundWhite = true;
+        }
+        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+          Sound.beep();
+          foundRed = true;
+        }
+      }
+      
+      if(foundRed && foundWhite) {
+        running = false;
       }
       
     }
