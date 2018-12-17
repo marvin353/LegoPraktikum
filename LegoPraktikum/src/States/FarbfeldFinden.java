@@ -58,11 +58,13 @@ public class FarbfeldFinden implements Runnable, ISection {
       robot.setRightMotorSpeed(250);
       robot.setLeftMotorGoBackward();
       robot.setRightMotorGoBackward();
+      boolean noTurn = false;
       
       while(robot.getSensors().getTouch1() != 1 && robot.getSensors().getTouch1() != 1) {
         LCD.drawString(String.valueOf(robot.getSensors().getColor()), 0, 5);
         if(robot.getSensors().getColor() == Color.RED) {
           if(!foundRed) {
+            noTurn = true;
             foundRed = true;
             robot.stopLeftMotor(true);
             robot.stopRightMotor(true);
@@ -78,6 +80,7 @@ public class FarbfeldFinden implements Runnable, ISection {
           
         } else if (robot.getSensors().getColor() == Color.WHITE) {
           if(!foundWhite) {
+            noTurn = true;
             foundWhite = true;
             robot.stopLeftMotor(true);
             robot.stopRightMotor(true);
@@ -94,74 +97,78 @@ public class FarbfeldFinden implements Runnable, ISection {
         }
       }
       
-      robot.stopLeftMotor(true);
-      robot.stopRightMotor(true);
-      
-      robot.goForwardPilot(-5);
-      
-      while(robot.isMoving()) {
-        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
-          Sound.beep();
-          foundWhite = true;
+      if(!noTurn) {
+        robot.stopLeftMotor(true);
+        robot.stopRightMotor(true);
+        
+        robot.goForwardPilot(-5);
+        
+        while(robot.isMoving()) {
+          if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+            Sound.beep();
+            foundWhite = true;
+          }
+          if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+            Sound.beep();
+            foundRed = true;
+          }
         }
-        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
-          Sound.beep();
-          foundRed = true;
+        
+        if(turnLeft) {
+          robot.turnLeftPilot(100);
+        } else {
+          robot.turnRightPilot(90);
+        }
+        
+        while(robot.isMoving()){
+          if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+            Sound.beep();
+            foundWhite = true;
+          }
+          if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+            Sound.beep();
+            foundRed = true;
+          }
+        }
+        
+        robot.goForwardPilot(2);
+        
+        while(robot.isMoving()){
+          if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+            Sound.beep();
+            foundWhite = true;
+          }
+          if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+            Sound.beep();
+            foundRed = true;
+          }
+        }
+        
+        if(turnLeft) {
+          robot.turnLeftPilot(100);
+          turnLeft = false;
+        } else {
+          robot.turnRightPilot(90);
+          turnLeft = true;
+        }
+        
+        while(robot.isMoving()){
+          if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
+            Sound.beep();
+            foundWhite = true;
+          }
+          if (robot.getSensors().getColor() == Color.RED && !foundRed) {
+            Sound.beep();
+            foundRed = true;
+          }
+        }
+        
+        if(foundRed && foundWhite) {
+          running = false;
         }
       }
       
-      if(turnLeft) {
-        robot.turnLeftPilot(100);
-      } else {
-        robot.turnRightPilot(90);
-      }
       
-      while(robot.isMoving()){
-        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
-          Sound.beep();
-          foundWhite = true;
-        }
-        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
-          Sound.beep();
-          foundRed = true;
-        }
-      }
-      
-      robot.goForwardPilot(2);
-      
-      while(robot.isMoving()){
-        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
-          Sound.beep();
-          foundWhite = true;
-        }
-        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
-          Sound.beep();
-          foundRed = true;
-        }
-      }
-      
-      if(turnLeft) {
-        robot.turnLeftPilot(100);
-        turnLeft = false;
-      } else {
-        robot.turnRightPilot(90);
-        turnLeft = true;
-      }
-      
-      while(robot.isMoving()){
-        if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
-          Sound.beep();
-          foundWhite = true;
-        }
-        if (robot.getSensors().getColor() == Color.RED && !foundRed) {
-          Sound.beep();
-          foundRed = true;
-        }
-      }
-      
-      if(foundRed && foundWhite) {
-        running = false;
-      }
       
     }
   }
