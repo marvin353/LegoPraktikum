@@ -137,8 +137,8 @@ public class LinieFahren implements Runnable, ISection {
     	brightness = robot.getSensors().getColor();
     	double relativeBrightness = (brightness - LIGHT_SENSOR_BLACK_VALUE)/(LIGHT_SENSOR_WHITE_VALUE-LIGHT_SENSOR_BLACK_VALUE);
         
-        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) - 100;
-        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) - 100;
+        int speedMotorRight =  (int) ((1-relativeBrightness) * SPEED_FACTOR) + 100;
+        int speedMotorLeft = (int) (relativeBrightness * SPEED_FACTOR) + 100;
         
         robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
         robot.setRightMotorSpeed(Math.abs(speedMotorRight));
