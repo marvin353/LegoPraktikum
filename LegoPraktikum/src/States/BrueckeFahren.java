@@ -75,10 +75,9 @@ public class BrueckeFahren implements Runnable, ISection {
 		  Delay.msDelay(1000);
 		  //robot.setColorSensorMode("ColorID");
 		  robot.LookDown();
-		  int i = 0;
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (i==0 && blueFound == false) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (blueFound == false) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
@@ -86,6 +85,7 @@ public class BrueckeFahren implements Runnable, ISection {
 			  
 			  if (robot.getSensors().getColor() == Color.BLUE) {
 				 robot.run(new PaketLiefern(robot));
+				 running=false;
 			  }
 			  
 			  if(color <= abgrund_color) {
@@ -95,10 +95,10 @@ public class BrueckeFahren implements Runnable, ISection {
 				  }*/
 				  if(testForAbgrund()) {
 					  abgrundFound();
-					  abgrundCount++;
+					  ++abgrundCount;
 				  }
 				  if (abgrundCount == 2) {
-					  robot.LookUp();
+					  //robot.LookUp();
 				  }
 				  LCD.drawString("AC:" + abgrundCount , 0, 3);
 			  }
@@ -167,6 +167,8 @@ public class BrueckeFahren implements Runnable, ISection {
 			  Delay.msDelay(delayValue);
 			  return true;
 		  }*/
+		  
+		  if (abgrundCount >= 2 ) return true;
 		  
 		  if(robot.getSensors().getDistance() > distance_to_bridge) {
 			  robot.turnRight(15,true);
