@@ -237,6 +237,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnRightSide() {
+		  robot.LookUp();
 		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(30,true);
@@ -245,6 +246,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnLeftSide() {
+		  robot.LookUp();
 		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnRight(30,true);
