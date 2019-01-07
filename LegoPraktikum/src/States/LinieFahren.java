@@ -359,8 +359,8 @@ public class LinieFahren implements Runnable, ISection {
 		  LCD.drawString("Distance: " + distance, 0, 5);
 		  
 		  
-		  int speedMotorLeft =  (int) (1.3*(0.47-distance) * SPEED_FACTOR)-50;
-	      int speedMotorRight = (int) (1.3*distance * SPEED_FACTOR)-50;
+		  int speedMotorLeft =  (int) (2*(0.4-distance) * SPEED_FACTOR)-50;
+	      int speedMotorRight = (int) (2*distance * SPEED_FACTOR)-50;
 	        
 	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 	        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
