@@ -346,6 +346,9 @@ public class LinieFahren implements Runnable, ISection {
   private void driveParallelToWall() {	  
 	  //robot.LookLeft(); //Annahme: er guckt hir schon nach links
 	  //Delay.msDelay(1000);
+  	LCD.clearDisplay();
+  	LCD.drawString("Drive Parallel to Wall", 1, 1);
+
 	  robot.setColorSensorMode("ColorID");
 	  
 	  //TODO make sure this works because getColor returns float and Color.BLUE is int
@@ -356,8 +359,8 @@ public class LinieFahren implements Runnable, ISection {
 		  LCD.drawString("Distance: " + distance, 0, 5);
 		  
 		  
-		  int speedMotorLeft =  (int) ((0.50-distance) * SPEED_FACTOR);
-	      int speedMotorRight = (int) (distance * SPEED_FACTOR);
+		  int speedMotorLeft =  (int) (1.3*(0.47-distance) * SPEED_FACTOR)-50;
+	      int speedMotorRight = (int) (1.3*distance * SPEED_FACTOR)-50;
 	        
 	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 	        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -381,6 +384,8 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(100);
 	  robot.setColorSensorMode("Red");
 	  //TODO Next state
+	  LCD.clear();
+	  LCD.drawString("Paket Liefern!", 1, 1);
 	  running=false;
 	  robot.run(new PaketLiefern(robot));
   }
