@@ -131,14 +131,14 @@ public class Robot {
 		
 		//Set/Run State
 		public void run(ISection section)
-		{
-			currentSection = section;
+		{			
 			if(sectionThread != null) {
 				//sectionThread.stop();
 				currentSection.setRunningState(false);
 				//currentSection.running = false;
 				
 			}
+			currentSection = section;
 			sectionThread = new Thread(section);
 			sectionThread.run();
 		}

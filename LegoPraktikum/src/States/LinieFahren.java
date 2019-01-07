@@ -95,27 +95,33 @@ public class LinieFahren implements Runnable, ISection {
     	if(robot.getSensors().getTouch1() >= 1 || robot.getSensors().getTouch2() >= 1) {
 
     		robot.goForwardPilot(5);
-    		robot.turnRight(90);
+    		robot.turnRight(100);
     		LCD.clearDisplay();
     		LCD.drawString("Linie suchen", 0, 5);
         
 
     	    robot.getMediumMotor().rotateTo(170);
+    	    if (robot.getSensors().getDistance() > 40) robot.getMediumMotor().rotateTo(173);
 
     	    Delay.msDelay(2000);
     		LCD.drawString("Look left", 0, 7);
     		Delay.msDelay(1000);
         
+    		
+    		int curveFactor = 90;
+    		robot.goForwardPilot(4);
+    		while(robot.isMoving()) {}
     		int startRightMotor = robot.getTachoCountRightMotor();
-
+    		
 	        while (robot.getSensors().getColor() <= 0.15) {
 	            float distance =  robot.getSensors().getDistance();
 	          
 	            LCD.drawString("Distance: " + distance, 0, 2);
 	            if(distance >0.35) distance = 0.35f;
+	            if(robot.getTachoCountRightMotor() - startRightMotor >=20) curveFactor = 0;
 	
-	            int speedMotorLeft =  (int) ((0.35-distance) * SPEED_FACTOR*0.8);
-	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8);
+	            int speedMotorLeft =  (int) ((0.35-distance) * SPEED_FACTOR*0.8) + curveFactor;
+	            int speedMotorRight = (int) (distance * SPEED_FACTOR*0.8) + curveFactor;
 	              
 	            robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 	            robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -375,6 +381,7 @@ public class LinieFahren implements Runnable, ISection {
 	  Delay.msDelay(100);
 	  robot.setColorSensorMode("Red");
 	  //TODO Next state
+	  running=false;
 	  robot.run(new PaketLiefern(robot));
   }
 
