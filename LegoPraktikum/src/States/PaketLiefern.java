@@ -129,6 +129,8 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Sound.beep();
 	    	}
 	    	
+	    	start_transition();
+	    	
 	    	/*
 	    	boolean packageHit = false;
 	    	
@@ -166,7 +168,31 @@ public class PaketLiefern implements Runnable, ISection {
 	    
 	  }
 
-	 @Override
+	 private void start_transition() {
+      robot.goForwardPilot(-5);
+      while(robot.isMoving()) {
+        
+      }
+      robot.turnRightPilot(90);
+      while(robot.isMoving()) {
+        
+      }
+      robot.goForwardPilot(10);
+      while(robot.isMoving()) {
+        
+      }
+      robot.turnLeftPilot(90);
+      while(robot.isMoving()) {
+        
+      }
+      robot.goForwardPilot(10);
+      while(robot.isMoving()) {
+        
+      }
+      
+    }
+
+  @Override
 	 public void setRunningState(boolean state) {
 	 	// TODO Auto-generated method stub
 		running = state;
