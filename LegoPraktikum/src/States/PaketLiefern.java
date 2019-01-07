@@ -189,7 +189,7 @@ public class PaketLiefern implements Runnable, ISection {
       while(robot.isMoving()) {
         
       }
-      
+      robot.run(new BrueckeFahren(robot));
     }
 
   @Override
