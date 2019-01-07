@@ -359,8 +359,8 @@ public class LinieFahren implements Runnable, ISection {
 		  LCD.drawString("Distance: " + distance, 0, 5);
 		  
 		  
-		  int speedMotorLeft =  (int) (2*(0.4-distance) * SPEED_FACTOR)-50;
-	      int speedMotorRight = (int) (2*distance * SPEED_FACTOR)-50;
+		  int speedMotorLeft =  (int) ((0.44-distance) * SPEED_FACTOR)-20;
+	      int speedMotorRight = (int) (distance * SPEED_FACTOR)-20;
 	        
 	        robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
 	        robot.setRightMotorSpeed(Math.abs(speedMotorRight));
@@ -377,13 +377,16 @@ public class LinieFahren implements Runnable, ISection {
 	  LCD.drawString("BLUE!!!", 0, 5);
 	  robot.stopLeftMotor(true);
 	  robot.stopRightMotor(true);
+	  robot.goForwardPilot(8);
+	  while(robot.isMoving()) {}
+	  /*
 	  robot.setLeftMotorSpeed(200);
 	  robot.setRightMotorSpeed(200);
 	  robot.setRightMotorGoBackward();
 	  robot.setLeftMotorGoBackward();
-	  Delay.msDelay(100);
+	  Delay.msDelay(100);*/
 	  robot.setColorSensorMode("Red");
-	  //TODO Next state
+	  //Next state
 	  LCD.clear();
 	  LCD.drawString("Paket Liefern!", 1, 1);
 	  running=false;
