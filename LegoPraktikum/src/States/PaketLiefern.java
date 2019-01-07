@@ -173,7 +173,7 @@ public class PaketLiefern implements Runnable, ISection {
       while(robot.isMoving()) {
         
       }
-      robot.turnRightPilot(90);
+      robot.turnRightPilot(110);
       while(robot.isMoving()) {
         
       }
@@ -181,11 +181,11 @@ public class PaketLiefern implements Runnable, ISection {
       while(robot.isMoving()) {
         
       }
-      robot.turnLeftPilot(90);
+      robot.turnLeftPilot(110);
       while(robot.isMoving()) {
         
       }
-      robot.goForwardPilot(10);
+      robot.goForwardPilot(20);
       while(robot.isMoving()) {
         
       }
