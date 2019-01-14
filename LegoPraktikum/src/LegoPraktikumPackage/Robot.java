@@ -19,6 +19,7 @@ import Sensors.SingleValueSensorWrapper;
 import java.io.File;
 
 import Helpers.EV3Menu;
+import Helpers.MenuHandler;
 import States.ISection;
 import States.LinieFahren;
 
@@ -58,6 +59,7 @@ public class Robot {
 		private LinieFahren linieFahren; 
 		private ISection currentSection;
 		private Thread sectionThread;
+		
 
 		public Robot() {
 
@@ -96,11 +98,6 @@ public class Robot {
 			//Button.LEDPattern(1); // green light
 			//this.missionMenu.startGUI(this); // show menu on the brick's screen
 			System.exit(0);
-		}
-		
-		public void changeSettingsForLabyrinth() {
-			//this.sensors.setsColor(new SingleValueSensorWrapper(colorS, 2));
-//			//this.colorS.setCurrentMode("Color ID");
 		}
 		
 		public void changeSettingsForLineFollower() {

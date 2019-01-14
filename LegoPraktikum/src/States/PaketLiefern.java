@@ -129,11 +129,6 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Sound.beep();
 	    	}
 	    	
-<<<<<<< HEAD
-	    	
-=======
-	    
->>>>>>> 33c8849452b521a55adf3db92e92606b3763cca2
 	    	
 	    	/*
 	    	boolean packageHit = false;

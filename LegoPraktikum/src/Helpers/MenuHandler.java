@@ -9,7 +9,7 @@ public class MenuHandler implements Runnable{
 	
 	EV3Menu menu;
 	Robot robot;
-	
+		
 	public MenuHandler(EV3Menu menu, Robot robot) {
 		this.menu = menu;
 		this.robot = robot;
