@@ -12,7 +12,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
-
+import lejos.utility.Delay;
 import Sensors.SensorThread;
 import Sensors.SingleValueSensorWrapper;
 
@@ -125,6 +125,13 @@ public class Robot {
 			//return this.colorS.getColorID();
 			return 0;
 		}*/
+		
+		public void stopCurrentSection() {
+			currentSection.setRunningState(false);
+			Delay.msDelay(2000);
+			
+			currentSection = null;
+		}
 		
 		
 		

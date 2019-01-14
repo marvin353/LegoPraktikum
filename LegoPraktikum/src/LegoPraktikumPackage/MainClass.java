@@ -20,7 +20,7 @@ public class MainClass {
 	public static void main(String[] args) {
 	  
 		ISection linie = new LinieFahren(robot);
-		ISection stop = new Stop(robot);
+		//ISection stop = new Stop(robot);
 		ISection test = new Test(robot);
 		ISection paket = new PaketLiefern(robot);
 		ISection farbe = new FarbfeldFinden(robot);

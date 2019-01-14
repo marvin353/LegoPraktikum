@@ -77,7 +77,7 @@ public class BrueckeFahren implements Runnable, ISection {
 		  robot.LookDown();
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (running == true) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (running) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
