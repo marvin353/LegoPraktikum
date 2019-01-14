@@ -104,6 +104,7 @@ public class FarbfeldFinden implements Runnable, ISection {
         robot.goForwardPilot(-5);
         
         while(robot.isMoving()) {
+        	if(running == false) return;
           if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
             Sound.beep();
             foundWhite = true;
@@ -121,6 +122,7 @@ public class FarbfeldFinden implements Runnable, ISection {
         }
         
         while(robot.isMoving()){
+        	if(running == false) return;
           if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
             Sound.beep();
             foundWhite = true;
@@ -134,6 +136,7 @@ public class FarbfeldFinden implements Runnable, ISection {
         robot.goForwardPilot(2);
         
         while(robot.isMoving()){
+        	if(running == false) return;
           if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
             Sound.beep();
             foundWhite = true;
@@ -153,6 +156,7 @@ public class FarbfeldFinden implements Runnable, ISection {
         }
         
         while(robot.isMoving()){
+        	if(running == false) return;
           if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
             Sound.beep();
             foundWhite = true;

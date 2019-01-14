@@ -7,6 +7,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.robotics.Color;
 import lejos.utility.Delay;
 
 public class PaketLiefern implements Runnable, ISection {
@@ -107,7 +108,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		robot.setLeftMotorGoBackward();
 	    		robot.setRightMotorGoBackward();
 	    		while (robot.getSensors().getTouch1() == 0 || robot.getSensors().getTouch2() == 0) {
-	    			
+	    			if(running == false) return;
 	    		}
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
@@ -193,6 +194,7 @@ public class PaketLiefern implements Runnable, ISection {
         
       }*/
       while (robot.getSensors().getColor() != Color.BLUE) {
+    	  if(running == false) return;
         float distance =  robot.getSensors().getDistance();        
         
         int speedMotorLeft =  (int) (2*(0.4-distance) * SPEED_FACTOR)-50;

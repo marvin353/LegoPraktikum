@@ -128,10 +128,15 @@ public class Robot {
 		
 		public void stopCurrentSection() {
 			if (currentSection == null) return;
-			currentSection.setRunningState(false);
-			Delay.msDelay(2000);
 			
+			currentSection.setRunningState(false);
+			
+			Delay.msDelay(2000);
+			stopLeftMotor(true);
+			stopRightMotor();
+			LCD.clear();
 			currentSection = null;
+			sectionThread = null;
 		}
 		
 		
@@ -140,7 +145,7 @@ public class Robot {
 		//Set/Run State
 		public void run(ISection section)
 		{			
-			if(sectionThread != null) {
+			if(sectionThread != null && currentSection != null) {
 				//sectionThread.stop();
 				currentSection.setRunningState(false);
 				//currentSection.running = false;
@@ -148,7 +153,7 @@ public class Robot {
 			}
 			currentSection = section;
 			sectionThread = new Thread(section);
-			sectionThread.run();
+			sectionThread.start();
 		}
 		
 		//Drive
