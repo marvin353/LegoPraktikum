@@ -114,6 +114,7 @@ public class Robot {
 		}
 		
 		public void changeSettingsForPackageDelivery() {
+		  this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "ColorID"));
 			
 		}
 		
