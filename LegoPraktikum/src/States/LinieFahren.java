@@ -19,6 +19,8 @@ public class LinieFahren implements Runnable, ISection {
   static int SPEED_FACTOR = 540;
   private static int treshhold_line_lost = 750;
   
+  private static float abgrund_colorRED = 0.015f;
+  
   EV3ColorSensor colorSensor;
   EV3LargeRegulatedMotor motorRight;
   EV3LargeRegulatedMotor motorLeft;
@@ -56,6 +58,7 @@ public class LinieFahren implements Runnable, ISection {
   public void run() {
     onStart();
     Delay.msDelay(2000);
+    robot.LookDown();
     //driveParallelToWall();//to test method uncomment this line
     
     boolean blackFound = false;
@@ -89,6 +92,17 @@ public class LinieFahren implements Runnable, ISection {
     		}    		
     	} else {
     		blackFound = false;
+    	}
+    	
+    	if (robot.getSensors().getDistance() > 0.13f && obstacleFound == false) {
+    		robot.stopLeftMotor(true);
+    		robot.stopRightMotor();
+    		robot.goForwardPilot(-7);
+    		while(robot.isMoving()) {/*Wait*/}
+    		robot.turnRight(210);
+    		while(robot.isMoving()) {/*Wait*/}
+    		robot.goForwardPilot(3);
+    		while(robot.isMoving()) {/*Wait*/}
     	}
     	
     	//hardcoded obstacle detection
