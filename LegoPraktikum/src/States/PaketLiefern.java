@@ -174,9 +174,7 @@ public class PaketLiefern implements Runnable, ISection {
 
 	 private void start_transition() {
       robot.goForwardPilot(-5);
-      while(robot.isMoving()) {
-        
-      }
+      while(robot.isMoving()) {}
       /*robot.turnRightPilot(110);
       while(robot.isMoving()) {
         
