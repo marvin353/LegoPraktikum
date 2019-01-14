@@ -325,12 +325,13 @@ public class Robot {
 		
 		//Medium Motor Controlls
 		public void LookLeft() {
-			mediumMotor.rotateTo(0);
-			mediumMotor.rotateTo(0, true);
+			mediumMotor.rotateTo(180);
+			mediumMotor.rotateTo(180, true);
 		}
 		
 		public void LookRight() {
-			mediumMotor.rotateTo(180);
+			mediumMotor.rotateTo(0);
+			//mediumMotor.rotateTo(180);
 		}
 		
 		public void LookDown() {

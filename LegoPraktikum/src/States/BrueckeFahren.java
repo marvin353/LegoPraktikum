@@ -15,7 +15,7 @@ import lejos.utility.Delay;
 public class BrueckeFahren implements Runnable, ISection {
 	
 	private final String NAME = "Bruecke fahren";
-	  static int SPEED_FACTOR = 55;
+	  static int SPEED_FACTOR = 50;
 	  private static float abgrund_colorRED = 0.015f;
 	  private static float abgrund_color = -1f;
 	  
