@@ -1,6 +1,7 @@
 package Helpers;
 import LegoPraktikumPackage.Robot;
 import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 
 
@@ -35,6 +36,16 @@ public class MenuHandler implements Runnable{
 			  robot.run(menu.getMarked());
 			  System.out.println("start running from menu");
 			  Delay.msDelay(200);
+				break;
+			case Button.ID_LEFT:
+				LCD.drawString("LEFT Pressed", 0, 0);
+				robot.stopCurrentSection();
+				menu.drawMenu();
+				break;
+			case Button.ID_RIGHT:
+				LCD.drawString("LEFT Pressed", 0, 0);
+				robot.stopCurrentSection();
+				menu.drawMenu();
 				break;
 			default:
 				break;

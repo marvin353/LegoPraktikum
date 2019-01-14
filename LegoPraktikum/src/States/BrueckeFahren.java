@@ -15,7 +15,7 @@ import lejos.utility.Delay;
 public class BrueckeFahren implements Runnable, ISection {
 	
 	private final String NAME = "Bruecke fahren";
-	  static int SPEED_FACTOR = 90;
+	  static int SPEED_FACTOR = 50;
 	  private static float abgrund_colorRED = 0.015f;
 	  private static float abgrund_color = -1f;
 	  
@@ -77,7 +77,7 @@ public class BrueckeFahren implements Runnable, ISection {
 		  robot.LookDown();
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (running == true) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (running) {//robot.getSensors().getColor() != Color.BLUE) {
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
@@ -119,11 +119,11 @@ public class BrueckeFahren implements Runnable, ISection {
 
 			  if (distance > distance_to_bridge) {
 				  //distanceFactor = 0.5f;
-				  distanceFactorL = -1.0f;
-				  distanceFactorR = 5.0f;
+				  distanceFactorL = -4.0f;
+				  distanceFactorR = 0.0f;
 			  } else {
 				  //distanceFactor = -0.5f;
-				  distanceFactorL = 2.9f;
+				  distanceFactorL = 2.8f;
 				  distanceFactorR = 2.0f;
 			  }
 			  
@@ -146,7 +146,7 @@ public class BrueckeFahren implements Runnable, ISection {
 		        else robot.setLeftMotorGoBackward();
 		  }
 		  
-		  LCD.drawString("BLUE!!!", 0, 5);
+		  LCD.drawString("BLUE!!!", 0, 6);
 		  robot.stopLeftMotor(true);
 		  robot.stopRightMotor();
 		  running = false;
@@ -198,6 +198,8 @@ public class BrueckeFahren implements Runnable, ISection {
 		  Delay.msDelay(delayValue);
 		  robot.turnLeft(15,true);
 		  Delay.msDelay(delayValue);
+		  Delay.msDelay(delayValue);
+		  Delay.msDelay(delayValue);
 		  
 		  /*if(robot.getSensors().getDistance() > distance_to_bridge 
 				  && robot.getSensors().getColor() <= abgrund_color) {
@@ -228,7 +230,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean abgrundFound() {
-		  robot.goForwardPilot(-3);
+		  robot.goForwardPilot(-1);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(90,true);
 		  Delay.msDelay(1500);
@@ -237,7 +239,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnRightSide() {
-		  robot.LookUp();
+		  //robot.LookUp();
 		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnLeft(30,true);
@@ -246,7 +248,7 @@ public class BrueckeFahren implements Runnable, ISection {
 	  }
 	  
 	  private boolean hitWallOnLeftSide() {
-		  robot.LookUp();
+		  //robot.LookUp();
 		  robot.goForwardPilot(-6);
 		  Delay.msDelay(2000);
 		  robot.turnRight(30,true);

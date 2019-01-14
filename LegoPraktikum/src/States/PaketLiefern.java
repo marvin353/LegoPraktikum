@@ -129,7 +129,11 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Sound.beep();
 	    	}
 	    	
-	    	start_transition();
+<<<<<<< HEAD
+	    	
+=======
+	    
+>>>>>>> 33c8849452b521a55adf3db92e92606b3763cca2
 	    	
 	    	/*
 	    	boolean packageHit = false;
@@ -165,6 +169,10 @@ public class PaketLiefern implements Runnable, ISection {
 	        else robot.setLeftMotorGoBackward(); */
 	    	
 	    }
+	    
+
+	    start_transition();
+
 	    
 	  }
 
