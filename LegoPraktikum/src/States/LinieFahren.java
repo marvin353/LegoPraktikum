@@ -260,7 +260,7 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn left", 0, 5);
 				  Delay.msDelay(delayValue);
 				 //Rotate 100 to right 
-				  robot.turnLeft(130, true);
+				  robot.turnLeft(135, true);
 					  stage++;
 			  }
 			  else if(stage == 5) {
@@ -286,7 +286,7 @@ public class LinieFahren implements Runnable, ISection {
 				  robot.setRightMotorSpeed(100);
 				  robot.setLeftMotorGoBackward();
 				  robot.setRightMotorGoBackward();*/
-				  robot.goForwardPilot(14);
+				  robot.goForwardPilot(12);
 				  //leftMotorTachoCount = robot.getLeftMotor().getTachoCount();
 				  //rightMotorTachoCount = robot.getRightMotor().getTachoCount();
 				  stage ++;
