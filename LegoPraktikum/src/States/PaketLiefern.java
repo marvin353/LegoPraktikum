@@ -93,7 +93,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go a bit forward to get on other side of packages
-	    		robot.goForwardPilot(15);
+	    		robot.goForwardPilot(20);
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//turn around
@@ -172,6 +172,7 @@ public class PaketLiefern implements Runnable, ISection {
 	  }
 
 	 private void start_transition() {
+	   robot.LookLeft();
       robot.goForwardPilot(-5);
       while(robot.isMoving()) {
         
@@ -192,7 +193,7 @@ public class PaketLiefern implements Runnable, ISection {
       while(robot.isMoving()) {
         
       }*/
-      while (robot.getSensors().getColor() != Color.BLUE) {
+      while (robot.getSensors().getColor() != Color.BLUE && running) {
         float distance =  robot.getSensors().getDistance();        
         
         int speedMotorLeft =  (int) (2*(0.4-distance) * SPEED_FACTOR)-50;
