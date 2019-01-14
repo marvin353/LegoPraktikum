@@ -19,6 +19,7 @@ import Sensors.SingleValueSensorWrapper;
 import java.io.File;
 
 import Helpers.EV3Menu;
+import Helpers.MenuHandler;
 import States.ISection;
 import States.LinieFahren;
 
@@ -58,6 +59,7 @@ public class Robot {
 		private LinieFahren linieFahren; 
 		private ISection currentSection;
 		private Thread sectionThread;
+		
 
 		public Robot() {
 
@@ -98,11 +100,6 @@ public class Robot {
 			System.exit(0);
 		}
 		
-		public void changeSettingsForLabyrinth() {
-			//this.sensors.setsColor(new SingleValueSensorWrapper(colorS, 2));
-//			//this.colorS.setCurrentMode("Color ID");
-		}
-		
 		public void changeSettingsForLineFollower() {
 			this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "Red"));
 		}
@@ -117,6 +114,7 @@ public class Robot {
 		}
 		
 		public void changeSettingsForPackageDelivery() {
+		  this.sensors.setColorSensor(new SingleValueSensorWrapper(colorS, "ColorID"));
 			
 		}
 		
@@ -327,12 +325,13 @@ public class Robot {
 		
 		//Medium Motor Controlls
 		public void LookLeft() {
-			mediumMotor.rotateTo(0);
-			mediumMotor.rotateTo(0, true);
+			mediumMotor.rotateTo(180);
+			mediumMotor.rotateTo(180, true);
 		}
 		
 		public void LookRight() {
-			mediumMotor.rotateTo(180);
+			mediumMotor.rotateTo(0);
+			//mediumMotor.rotateTo(180);
 		}
 		
 		public void LookDown() {

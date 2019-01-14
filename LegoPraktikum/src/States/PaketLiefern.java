@@ -126,8 +126,9 @@ public class PaketLiefern implements Runnable, ISection {
 	    		robot.goForwardPilot(60);
 	    		while (robot.isMoving()){}
 	    		Sound.beep();
-	    		running = false;
+	    		//running = false;
 	    		Sound.beep();
+	    		start_transition();
 	    	}
 	    	
 	    	
@@ -167,13 +168,12 @@ public class PaketLiefern implements Runnable, ISection {
 	    }
 	    
 
-	    start_transition();
 
 	    
 	  }
 
 	 private void start_transition() {
-	   robot.LookLeft();
+	    robot.LookLeft();
       robot.goForwardPilot(-5);
       while(robot.isMoving()) {}
       /*robot.turnRightPilot(110);
@@ -212,6 +212,7 @@ public class PaketLiefern implements Runnable, ISection {
               robot.setLeftMotorGoForward();
             else robot.setLeftMotorGoBackward();
       }
+      running = false;
       robot.run(new BrueckeFahren(robot));
     }
 

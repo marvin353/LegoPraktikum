@@ -9,7 +9,7 @@ public class MenuHandler implements Runnable{
 	
 	EV3Menu menu;
 	Robot robot;
-	
+		
 	public MenuHandler(EV3Menu menu, Robot robot) {
 		this.menu = menu;
 		this.robot = robot;
@@ -33,7 +33,7 @@ public class MenuHandler implements Runnable{
 				Delay.msDelay(100);
 				break;
 			case Button.ID_ENTER:
-			  robot.run(menu.getMarked());
+			  robot.run(menu.getMarked(robot));
 			  //Button.waitForAnyPress();
 			  //robot.stopCurrentSection();
 			  Delay.msDelay(200);

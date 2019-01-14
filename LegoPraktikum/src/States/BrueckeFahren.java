@@ -73,11 +73,11 @@ public class BrueckeFahren implements Runnable, ISection {
 	  
 	  private void driveOnBridge() {
 		  Delay.msDelay(1000);
-		  //robot.setColorSensorMode("ColorID");
 		  robot.LookDown();
 		  
 		  //TODO make sure this works because getColor returns float and Color.BLUE is int
-		  while (running) {//robot.getSensors().getColor() != Color.BLUE) {
+		  while (running) {
+			  			  
 			  float distance =  robot.getSensors().getDistance();
 			  float color = robot.getSensors().getColor();
 			  float touched1 = robot.getSensors().getTouch1();
@@ -88,19 +88,6 @@ public class BrueckeFahren implements Runnable, ISection {
 				 LCD.drawString("Blue Found", 0, 3);
 				 
 				 running = false;;
-			  }
-			  
-			  if(color <= abgrund_color) {
-				  LCD.drawString("Am Abgrund: " + color , 0, 1);
-				 
-				  if(testForAbgrund2()) {
-					  abgrundFound();
-					  ++abgrundCount;
-				  }
-				  if (abgrundCount == 2) {
-					  //robot.LookUp();
-				  }
-				  LCD.drawString("AC:" + abgrundCount , 0, 3);
 			  }
 			  
 			  if (touched1 >= 1) {
@@ -118,11 +105,9 @@ public class BrueckeFahren implements Runnable, ISection {
 
 
 			  if (distance > distance_to_bridge) {
-				  //distanceFactor = 0.5f;
 				  distanceFactorL = -4.0f;
 				  distanceFactorR = 0.0f;
 			  } else {
-				  //distanceFactor = -0.5f;
 				  distanceFactorL = 2.8f;
 				  distanceFactorR = 2.0f;
 			  }
@@ -151,108 +136,30 @@ public class BrueckeFahren implements Runnable, ISection {
 		  robot.stopRightMotor();
 		  running = false;
 		  robot.run(new FarbfeldFinden(robot));
-		  //robot.setColorSensorMode("Red");
-		  //Delay.msDelay(3000);
 	  }
 	  
 	  int delayValue = 1000;
-	  private boolean testForAbgrund() {
-		  robot.stopLeftMotor(true);
-		  robot.stopRightMotor(true);
-		  //Delay.msDelay(delayValue);
-		  //robot.goForwardPilot(-1.5);
-		  Delay.msDelay(delayValue);
-		  robot.turnLeft(15,true);
-		  Delay.msDelay(delayValue);
-		  
-		  /*if(robot.getSensors().getDistance() > distance_to_bridge 
-				  && robot.getSensors().getColor() <= abgrund_color) {
-			  robot.turnRight(15,true);
-			  Delay.msDelay(delayValue);
-			  return true;
-		  }*/
-		  
-		  //if (abgrundCount >= 2 ) return true;
-		  
-		  if(robot.getSensors().getDistance() > distance_to_bridge) {
-			  robot.turnRight(15,true);
-			  Delay.msDelay(delayValue);
-			  robot.goForwardPilot(-2);
-			  //robot.turnLeft(15,true);
-			  Delay.msDelay(delayValue);
-			  return true;
-		  }
-		  
-		  robot.turnRight(15,true);
-		  Delay.msDelay(delayValue);
-		  robot.goForwardPilot(7);
-		  Delay.msDelay(delayValue);
-		  return false;
-	  }
-	  
-	  private boolean testForAbgrund2() {
-		  robot.stopLeftMotor(true);
-		  robot.stopRightMotor(true);
-		  //Delay.msDelay(delayValue);
-		  //robot.goForwardPilot(-1.5);
-		  Delay.msDelay(delayValue);
-		  robot.turnLeft(15,true);
-		  Delay.msDelay(delayValue);
-		  Delay.msDelay(delayValue);
-		  Delay.msDelay(delayValue);
-		  
-		  /*if(robot.getSensors().getDistance() > distance_to_bridge 
-				  && robot.getSensors().getColor() <= abgrund_color) {
-			  robot.turnRight(15,true);
-			  Delay.msDelay(delayValue);
-			  return true;
-		  }*/
-		  
-		  //if (abgrundCount >= 2 ) return true;
-		  
-		  if(robot.getSensors().getDistance() > distance_to_bridge) {
-			  //robot.turnRight(15,true);
-			  robot.getRightMotor().rotate(200);
-			  //Delay.msDelay(delayValue);
-			  //robot.goForwardPilot(-1);
-			  //robot.turnLeft(15,true);
-			  Delay.msDelay(delayValue);
-			  robot.getLeftMotor().rotate(200);
-			  Delay.msDelay(delayValue);
-			  return true;
-		  }
-		  
-		  robot.turnRight(15,true);
-		  Delay.msDelay(delayValue);
-		  robot.goForwardPilot(7);
-		  Delay.msDelay(delayValue);
-		  return false;
-	  }
-	  
-	  private boolean abgrundFound() {
-		  robot.goForwardPilot(-1);
-		  Delay.msDelay(2000);
-		  robot.turnLeft(90,true);
-		  Delay.msDelay(1500);
-		  turnCount++;
-		  return true;
-	  }
+	 
 	  
 	  private boolean hitWallOnRightSide() {
 		  //robot.LookUp();
 		  robot.goForwardPilot(-6);
-		  Delay.msDelay(2000);
-		  robot.turnLeft(30,true);
-		  Delay.msDelay(1500);
+		  while(robot.isMoving()) {/*Wait*/}
+		  //Delay.msDelay(2000);
+		  robot.turnLeft(20,true);
+		  while(robot.isMoving()) {/*Wait*/}
+		  //Delay.msDelay(1500);
 		  return true;
 	  }
 	  
 	  private boolean hitWallOnLeftSide() {
 		  //robot.LookUp();
 		  robot.goForwardPilot(-6);
-		  Delay.msDelay(2000);
-		  robot.turnRight(30,true);
-		  Delay.msDelay(1500);
+		  while(robot.isMoving()) {/*Wait*/}
+		  //Delay.msDelay(2000);
+		  robot.turnRight(20,true);
+		  while(robot.isMoving()) {/*Wait*/}
+		  //Delay.msDelay(1500);
 		  return true;
 	  }
 	  

@@ -37,6 +37,7 @@ public class MainClass {
     MenuHandler handler = new MenuHandler(menu, robot);
     Thread t = new Thread(handler);
     t.start();
+  
 	}
 
 }
