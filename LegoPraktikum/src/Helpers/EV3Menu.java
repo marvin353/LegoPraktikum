@@ -3,8 +3,13 @@ package Helpers;
 import java.util.HashMap;
 import java.util.Map;
 import lejos.hardware.lcd.LCD;
+import States.BrueckeFahren;
+import States.FarbfeldFinden;
 import States.ISection;
+import States.LinieFahren;
+import States.PaketLiefern;
 import lejos.hardware.Button;
+import LegoPraktikumPackage.Robot;
 import LegoPraktikumPackage.SECTION_ENUM;
 
 public class EV3Menu {
@@ -32,11 +37,20 @@ public class EV3Menu {
 	  }
 	}
 	
-	public ISection getMarked() {
+	public ISection getMarked(Robot robot) {
 	  int index = 0;
     for(ISection sec: sectionMap.values()){
       if(index == markedIndex) {
-        return sec;
+        
+        if(sec instanceof LinieFahren) {
+          return new LinieFahren(robot);
+        } else if (sec instanceof PaketLiefern) {
+          return new PaketLiefern(robot);
+        } else if (sec instanceof BrueckeFahren) {
+          return new BrueckeFahren(robot);
+        } else if (sec instanceof FarbfeldFinden) {
+          return new FarbfeldFinden(robot);
+        }
       }
       index++;
     }
