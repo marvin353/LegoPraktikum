@@ -38,13 +38,15 @@ public class MenuHandler implements Runnable{
 			  Delay.msDelay(200);
 				break;
 			case Button.ID_LEFT:
-				LCD.drawString("LEFT Pressed", 0, 0);
+				LCD.drawString("LEFT Pressed", 1, 1);
 				robot.stopCurrentSection();
+				Delay.msDelay(500);
 				menu.drawMenu();
 				break;
 			case Button.ID_RIGHT:
-				LCD.drawString("LEFT Pressed", 0, 0);
+				LCD.drawString("Right Pressed", 1, 1);
 				robot.stopCurrentSection();
+				Delay.msDelay(500);
 				menu.drawMenu();
 				break;
 			default:

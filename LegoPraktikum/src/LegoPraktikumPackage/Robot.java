@@ -127,6 +127,7 @@ public class Robot {
 		}*/
 		
 		public void stopCurrentSection() {
+			if (currentSection == null) return;
 			currentSection.setRunningState(false);
 			Delay.msDelay(2000);
 			
