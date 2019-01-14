@@ -27,7 +27,7 @@ public class MainClass {
 		ISection bruecke = new BrueckeFahren(robot);
 
         menu.addSection(SECTION_ENUM.LINIE, linie);
-		menu.addSection(SECTION_ENUM.TEST, test);
+		//menu.addSection(SECTION_ENUM.TEST, test);
 		menu.addSection(SECTION_ENUM.PAKET, paket);
 		menu.addSection(SECTION_ENUM.SUCHE, farbe);
         menu.addSection(SECTION_ENUM.BRUECKE, bruecke);

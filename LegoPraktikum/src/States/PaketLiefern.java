@@ -7,6 +7,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.robotics.Color;
 import lejos.utility.Delay;
 
 public class PaketLiefern implements Runnable, ISection {
@@ -93,7 +94,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//Go a bit forward to get on other side of packages
-	    		robot.goForwardPilot(15);
+	    		robot.goForwardPilot(20);
 	    		Delay.msDelay(delayTime);
 	    		
 	    		//turn around
@@ -107,7 +108,7 @@ public class PaketLiefern implements Runnable, ISection {
 	    		robot.setLeftMotorGoBackward();
 	    		robot.setRightMotorGoBackward();
 	    		while (robot.getSensors().getTouch1() == 0 || robot.getSensors().getTouch2() == 0) {
-	    			
+	    			if(running == false) return;
 	    		}
 	    		robot.stopLeftMotor(true);
 	    		robot.stopRightMotor();
@@ -172,11 +173,10 @@ public class PaketLiefern implements Runnable, ISection {
 	  }
 
 	 private void start_transition() {
+	   robot.LookLeft();
       robot.goForwardPilot(-5);
-      while(robot.isMoving()) {
-        
-      }
-      robot.turnRightPilot(110);
+      while(robot.isMoving()) {}
+      /*robot.turnRightPilot(110);
       while(robot.isMoving()) {
         
       }
@@ -191,6 +191,26 @@ public class PaketLiefern implements Runnable, ISection {
       robot.goForwardPilot(20);
       while(robot.isMoving()) {
         
+      }*/
+
+      while (robot.getSensors().getColor() != Color.BLUE) {
+    	  if(running == false) return;
+
+        float distance =  robot.getSensors().getDistance();        
+        
+        int speedMotorLeft =  (int) (2*(0.4-distance) * SPEED_FACTOR)-50;
+          int speedMotorRight = (int) (2*distance * SPEED_FACTOR)-50;
+            
+            robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
+            robot.setRightMotorSpeed(Math.abs(speedMotorRight));
+            
+            if(speedMotorRight < 0)
+              robot.setRightMotorGoForward();
+            else robot.setRightMotorGoBackward();
+            
+            if (speedMotorLeft < 0)
+              robot.setLeftMotorGoForward();
+            else robot.setLeftMotorGoBackward();
       }
       robot.run(new BrueckeFahren(robot));
     }

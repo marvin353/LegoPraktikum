@@ -114,6 +114,7 @@ public class LinieFahren implements Runnable, ISection {
     		int startRightMotor = robot.getTachoCountRightMotor();
     		
 	        while (robot.getSensors().getColor() <= 0.15) {
+	        	if(running == false) return;
 	            float distance =  robot.getSensors().getDistance();
 	          
 	            LCD.drawString("Distance: " + distance, 0, 2);
@@ -202,6 +203,7 @@ public class LinieFahren implements Runnable, ISection {
 	  //Find new line
 	  int delayValue = 50;
 	  while (robot.getSensors().getColor() < 0.2) {
+		  if(running == false) return;
 		  /*
 		  double brightness = robot.getSensors().getColor();
 		  if (brightness > 0.3) {
@@ -354,6 +356,7 @@ public class LinieFahren implements Runnable, ISection {
 	  //TODO make sure this works because getColor returns float and Color.BLUE is int
 	  //I feel like it works (not sure)
 	  while (robot.getSensors().getColor() != Color.BLUE) {
+		  if(running == false) return;
 		  float distance =  robot.getSensors().getDistance();
 		  
 		  LCD.drawString("Distance: " + distance, 0, 5);

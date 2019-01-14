@@ -34,17 +34,24 @@ public class MenuHandler implements Runnable{
 				break;
 			case Button.ID_ENTER:
 			  robot.run(menu.getMarked());
-			  System.out.println("start running from menu");
+			  //Button.waitForAnyPress();
+			  //robot.stopCurrentSection();
 			  Delay.msDelay(200);
 				break;
 			case Button.ID_LEFT:
-				LCD.drawString("LEFT Pressed", 0, 0);
+				LCD.drawString("LEFT Pressed", 1, 1);
 				robot.stopCurrentSection();
+				LCD.drawString("LEFT Pressed", 4, 1);
+				Delay.msDelay(500);
+				LCD.clear();
 				menu.drawMenu();
 				break;
 			case Button.ID_RIGHT:
-				LCD.drawString("LEFT Pressed", 0, 0);
+				LCD.drawString("Right Pressed", 1, 1);
 				robot.stopCurrentSection();
+				LCD.drawString("RIGHT Pressed", 1, 1);
+				Delay.msDelay(500);
+				LCD.clear();
 				menu.drawMenu();
 				break;
 			default:
