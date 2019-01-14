@@ -35,6 +35,8 @@ public class FarbfeldFinden implements Runnable, ISection {
   public void onStart() {
     robot.changeSettingsForFarbfeldFinden();
     Sound.setVolume(20);
+    robot.goForwardPilot(5);
+    while(robot.isMoving()) {}
     
   }
 
