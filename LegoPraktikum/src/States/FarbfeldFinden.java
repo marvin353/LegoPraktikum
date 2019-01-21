@@ -34,7 +34,7 @@ public class FarbfeldFinden implements Runnable, ISection {
   @Override
   public void onStart() {
     robot.changeSettingsForFarbfeldFinden();
-    Sound.setVolume(20);
+    Sound.setVolume(100);
     robot.goForwardPilot(5);
     while(robot.isMoving()) {}
     
@@ -169,6 +169,7 @@ public class FarbfeldFinden implements Runnable, ISection {
           }
         }
         
+
         while(robot.isMoving()) {/*Wait*/}
         robot.goForwardPilot(-10);
         while(robot.isMoving()) {/*Wait*/}
