@@ -177,10 +177,28 @@ public class PaketLiefern implements Runnable, ISection {
 	  }
 
 	 private void start_transition() {
-	  robot.LookLeft();
+	    robot.LookLeft();
       robot.goForwardPilot(-15);
       while(robot.isMoving()) {}
       robot.turnRightPilot(95);
+      while(robot.isMoving()) {}
+      robot.goForwardPilot(-20);
+      while(robot.isMoving()) {}
+      
+      float initDistance = robot.getSensors().getDistance();
+      
+      while(robot.getSensors().getDistance() <= initDistance + 10) {
+        robot.goForwardPilot(3);
+        while(robot.isMoving()) {}
+      }
+      
+      robot.goForwardPilot(5);
+      while(robot.isMoving()) {}
+      
+      robot.turnLeftPilot(85);
+      while(robot.isMoving()) {}
+
+      robot.goForwardPilot(20);
       while(robot.isMoving()) {}
       
       /*robot.turnRightPilot(110);
@@ -200,7 +218,7 @@ public class PaketLiefern implements Runnable, ISection {
         
       }*/
 
-      while (robot.getSensors().getColor() != Color.BLUE) {
+      /*while (robot.getSensors().getColor() != Color.BLUE) {
     	  if(running == false) return;
 
           float distance =  robot.getSensors().getDistance();        
@@ -219,7 +237,9 @@ public class PaketLiefern implements Runnable, ISection {
             if (speedMotorLeft < 0)
               robot.setLeftMotorGoForward();
             else robot.setLeftMotorGoBackward();
-      }
+      }*/
+      
+      
       running = false;
       robot.run(new BrueckeFahren(robot));
     }
