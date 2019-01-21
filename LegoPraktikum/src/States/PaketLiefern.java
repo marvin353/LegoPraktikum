@@ -192,10 +192,10 @@ public class PaketLiefern implements Runnable, ISection {
         while(robot.isMoving()) {}
       }
       
-      /*robot.goForwardPilot(5);
-      while(robot.isMoving()) {}*/
+      robot.goForwardPilot(-5);
+      while(robot.isMoving()) {}
       
-      robot.turnLeftPilot(90);
+      robot.turnLeftPilot(95);
       while(robot.isMoving()) {}
 
       robot.goForwardPilot(30);

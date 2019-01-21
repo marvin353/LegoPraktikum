@@ -76,7 +76,7 @@ public class FarbfeldFinden implements Runnable, ISection {
             if(foundRed && foundWhite) {
               running = false;
             }
-            robot.goForwardPilot(10);
+            robot.goForwardPilot(30);
             break;
           }
           
@@ -92,7 +92,7 @@ public class FarbfeldFinden implements Runnable, ISection {
             if(foundRed && foundWhite) {
               running = false;
             }
-            robot.goForwardPilot(10);
+            robot.goForwardPilot(30);
             break;
           }
           
@@ -118,11 +118,12 @@ public class FarbfeldFinden implements Runnable, ISection {
         }
         
         if(turnLeft) {
-          robot.turnLeftPilot(85);
+          robot.turnLeftPilot(95);
         } else {
           robot.turnRightPilot(90);
         }
-        
+
+        while(robot.isMoving()) {}
         while(robot.isMoving()){
         	if(running == false) return;
           if (robot.getSensors().getColor() == Color.WHITE && !foundWhite) {
@@ -135,7 +136,7 @@ public class FarbfeldFinden implements Runnable, ISection {
           }
         }
         
-        robot.goForwardPilot(2);
+        robot.goForwardPilot(4);
         
         while(robot.isMoving()){
         	if(running == false) return;
@@ -150,12 +151,14 @@ public class FarbfeldFinden implements Runnable, ISection {
         }
         
         if(turnLeft) {
-          robot.turnLeftPilot(85);
+          robot.turnLeftPilot(95);
           turnLeft = false;
         } else {
           robot.turnRightPilot(90);
           turnLeft = true;
         }
+
+        while(robot.isMoving()) {}
         
         while(robot.isMoving()){
         	if(running == false) return;
@@ -171,7 +174,7 @@ public class FarbfeldFinden implements Runnable, ISection {
         
 
         while(robot.isMoving()) {/*Wait*/}
-        robot.goForwardPilot(-10);
+        robot.goForwardPilot(-15);
         while(robot.isMoving()) {/*Wait*/}
         
         if(foundRed && foundWhite) {
