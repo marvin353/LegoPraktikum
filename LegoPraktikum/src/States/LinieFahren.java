@@ -393,7 +393,8 @@ public class LinieFahren implements Runnable, ISection {
 	  
 	  LCD.drawString("BLUE!!!", 0, 5);
 	  robot.stopLeftMotor(true);
-	  robot.stopRightMotor();
+	  robot.stopRightMotor(true);
+	  while(robot.isMoving()) {}
 	  robot.goForwardPilot(8);
 	  while(robot.isMoving()) {}
 	  /*
@@ -407,7 +408,11 @@ public class LinieFahren implements Runnable, ISection {
 	  LCD.clear();
 	  LCD.drawString("Paket Liefern!", 1, 1);
 	  running=false;
-	  robot.run(new PaketLiefern(robot));
+	  
+	  if (running == false) {
+		  robot.run(new PaketLiefern(robot));
+	  }
+	  
   }
 
 }
