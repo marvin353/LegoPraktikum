@@ -88,6 +88,7 @@ public class LinieFahren implements Runnable, ISection {
     			if (Math.abs(deltaLeft) >= treshhold_line_lost || Math.abs(deltaRight) >= treshhold_line_lost) {
     				
     				continueOnLineEnd(deltaLeft, deltaRight);
+    				if(running == false) return;
     			}
     		}    		
     	} else {
@@ -413,6 +414,7 @@ public class LinieFahren implements Runnable, ISection {
 	  running=false;
 	  
 	  if (running == false) {
+		  //robot.stopCurrentSectionAndStart("Paket");
 		  robot.run(new PaketLiefern(robot));
 	  }
 	  

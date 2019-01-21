@@ -22,6 +22,9 @@ import Helpers.EV3Menu;
 import Helpers.MenuHandler;
 import States.ISection;
 import States.LinieFahren;
+import States.PaketLiefern;
+import States.BrueckeFahren;
+import States.FarbfeldFinden;
 
 
 
@@ -137,7 +140,33 @@ public class Robot {
 			sectionThread = null;
 		}
 		
-		
+		public void stopCurrentSectionAndStart(String sec) {
+			if (currentSection == null) return;
+			
+			this.stopLeftMotor(true);
+			this.stopRightMotor(true);
+			while (this.isMoving()) {/*Wait*/}
+			
+			currentSection.setRunningState(false);
+			
+			Delay.msDelay(2000);
+			stopLeftMotor(true);
+			stopRightMotor();
+			LCD.clear();
+			currentSection = null;
+			sectionThread = null;
+			
+			if (sec == "Paket") {
+				this.run(new PaketLiefern(this));
+			} else if (sec == "Bruecke") {
+				this.run(new BrueckeFahren(this));
+			} else if (sec == "Farbfeld") {
+				this.run(new FarbfeldFinden(this));
+			} else {
+				//Fehler
+			}
+						
+		}
 		
 		
 		//Set/Run State

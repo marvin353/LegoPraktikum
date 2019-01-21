@@ -219,7 +219,10 @@ public class PaketLiefern implements Runnable, ISection {
             else robot.setLeftMotorGoBackward();
       }
       running = false;
-      robot.run(new BrueckeFahren(robot));
+      if (running == false) {
+		  //robot.stopCurrentSectionAndStart("Bruecke");
+		  robot.run(new BrueckeFahren(robot));
+	  }
     }
 
   @Override
