@@ -274,7 +274,7 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn left", 0, 5);
 				  Delay.msDelay(delayValue);
 				 //Rotate 100 to right 
-				  robot.turnLeft(135, true);
+				  robot.turnLeft(120, true);
 					  stage++;
 			  }
 			  else if(stage == 5) {
