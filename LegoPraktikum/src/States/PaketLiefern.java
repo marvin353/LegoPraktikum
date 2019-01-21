@@ -33,6 +33,8 @@ public class PaketLiefern implements Runnable, ISection {
 	  public PaketLiefern(Robot robot) {
 		  this.robot = robot;
 		  robot.changeSettingsForPackageDelivery();
+		  robot.stopRightMotor(true);
+		  robot.stopLeftMotor();
 		  running = true;
 	  }
 
@@ -44,7 +46,8 @@ public class PaketLiefern implements Runnable, ISection {
 	  @Override
 	  public void onStart() {
 		  //Check if other State thread is running 
-		  
+		  robot.stopRightMotor(true);
+		  robot.stopLeftMotor();
 		  robot.LookDownPaket();
 	  }
 
@@ -59,7 +62,6 @@ public class PaketLiefern implements Runnable, ISection {
 	    onStart();
 	    LCD.clear();
 	    LCD.drawString("Go Forward (paket)", 0, 0);
-	    Delay.msDelay(5000);
 	    robot.goForwardPilot(500);
 	    while(running) {
 	    	

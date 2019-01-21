@@ -141,7 +141,6 @@ public class Robot {
 		
 		
 		//Set/Run State
-		@SuppressWarnings("deprecation")
 		public void run(ISection section)
 		{
 			/*
