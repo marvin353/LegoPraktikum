@@ -58,6 +58,8 @@ public class PaketLiefern implements Runnable, ISection {
 	  public void run() {
 	    onStart();
 	    LCD.clear();
+	    LCD.drawString("Go Forward (paket)", 0, 0);
+	    Delay.msDelay(5000);
 	    robot.goForwardPilot(500);
 	    while(running) {
 	    	

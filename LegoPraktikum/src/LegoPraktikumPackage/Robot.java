@@ -141,17 +141,23 @@ public class Robot {
 		
 		
 		//Set/Run State
+		@SuppressWarnings("deprecation")
 		public void run(ISection section)
-		{			
+		{
+			/*
+			this.stopLeftMotor(true);
+			this.stopRightMotor(true);
 			if(sectionThread != null && currentSection != null) {
-				//sectionThread.stop();
-				currentSection.setRunningState(false);
-				//currentSection.running = false;
 				
-			}
+				currentSection.setRunningState(false);
+				sectionThread.stop();
+				
+			}*/
+			
+			stopCurrentSection();
 			currentSection = section;
 			sectionThread = new Thread(section);
-			sectionThread.start();
+			sectionThread.start();			
 		}
 		
 		//Drive

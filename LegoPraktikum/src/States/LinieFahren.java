@@ -127,7 +127,7 @@ public class LinieFahren implements Runnable, ISection {
     		while(robot.isMoving()) {}
     		int startRightMotor = robot.getTachoCountRightMotor();
     		
-	        while (robot.getSensors().getColor() <= 0.15) {
+	        while (robot.getSensors().getColor() <= 0.15 && running) {
 	        	if(running == false) return;
 	            float distance =  robot.getSensors().getDistance();
 	          
@@ -393,8 +393,10 @@ public class LinieFahren implements Runnable, ISection {
 	  
 	  LCD.drawString("BLUE!!!", 0, 5);
 	  robot.stopLeftMotor(true);
-	  robot.stopRightMotor();
-	  robot.goForwardPilot(8);
+	  robot.stopRightMotor(true);
+
+	  while(robot.isMoving()) {}
+	  robot.goForwardPilot(20);
 	  while(robot.isMoving()) {}
 	  /*
 	  robot.setLeftMotorSpeed(200);
@@ -403,9 +405,11 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.setLeftMotorGoBackward();
 	  Delay.msDelay(100);*/
 	  robot.setColorSensorMode("Red");
+	  Delay.msDelay(5000);
 	  //Next state
 	  LCD.clear();
 	  LCD.drawString("Paket Liefern!", 1, 1);
+	  Delay.msDelay(5000);
 	  running=false;
 	  robot.run(new PaketLiefern(robot));
   }
