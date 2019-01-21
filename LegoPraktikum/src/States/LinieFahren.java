@@ -393,7 +393,7 @@ public class LinieFahren implements Runnable, ISection {
 	  
 	  LCD.drawString("BLUE!!!", 0, 5);
 	  robot.stopLeftMotor(true);
-	  robot.stopRightMotor(true);
+	  robot.stopRightMotor();
 	  robot.goForwardPilot(8);
 	  while(robot.isMoving()) {}
 	  /*
