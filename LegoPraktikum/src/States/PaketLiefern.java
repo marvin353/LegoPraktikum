@@ -205,7 +205,7 @@ public class PaketLiefern implements Runnable, ISection {
         float distance =  robot.getSensors().getDistance();        
         
         int speedMotorLeft =  (int) (2*(0.4-distance) * SPEED_FACTOR)-50;
-          int speedMotorRight = (int) (2*distance * SPEED_FACTOR)-40;
+          int speedMotorRight = (int) (2*distance * SPEED_FACTOR)-20;
             
             robot.setLeftMotorSpeed(Math.abs(speedMotorLeft));
             robot.setRightMotorSpeed(Math.abs(speedMotorRight));
