@@ -259,7 +259,7 @@ public class LinieFahren implements Runnable, ISection {
 				  LCD.drawString("turn right", 0, 5);
 				  Delay.msDelay(delayValue);
 				  //rotate 200 degrees to left
-				  robot.turnRight(120, true);
+				  robot.turnRight(115, true);
 				  stage++;
 			  }
 			  else if(stage == 3) {
@@ -406,11 +406,11 @@ public class LinieFahren implements Runnable, ISection {
 	  robot.setLeftMotorGoBackward();
 	  Delay.msDelay(100);*/
 	  robot.setColorSensorMode("Red");
-	  Delay.msDelay(5000);
+	  Delay.msDelay(500);
 	  //Next state
 	  LCD.clear();
 	  LCD.drawString("Paket Liefern!", 1, 1);
-	  Delay.msDelay(5000);
+	  Delay.msDelay(500);
 	  running=false;
 	  
 	  if (running == false) {
